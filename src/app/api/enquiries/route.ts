@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import nodemailer from 'nodemailer';
 
 // POST /api/enquiries - Submit a new enquiry
 export async function POST(request: NextRequest) {
@@ -49,6 +50,42 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    // Send email notification
+    try {
+      // Create a transporter using environment variables
+      const transporter = nodemailer.createTransport({
+        service: 'gmail', // Use Gmail service
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
+        },
+      });
+
+      // Email content
+      const mailOptions = {
+        from: process.env.EMAIL_USER, // Sender address
+        to: process.env.EMAIL_USER, // Receiver address (send to self)
+        subject: `New Enquiry from ${name}`,
+        html: `
+          <h2>New Website Enquiry</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+          <p><strong>Message:</strong></p>
+          <p>${message.replace(/\n/g, '<br>')}</p>
+          <hr>
+          <p><em>This email was sent from your website contact form.</em></p>
+        `,
+      };
+
+      // Send email
+      await transporter.sendMail(mailOptions);
+      console.log('Email notification sent successfully');
+    } catch (emailError) {
+      console.error('Error sending email notification:', emailError);
+      // Don't fail the request if email sending fails, just log it
+    }
+
     return NextResponse.json(
       {
         success: true,
@@ -70,6 +107,7 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
 
 // GET /api/enquiries - Get all enquiries (for admin use)
 export async function GET() {

@@ -1,9 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { MessageCircle, PenTool, Hammer, Key } from 'lucide-react';
 
-const fadeInUp = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
 };
@@ -12,7 +12,7 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.2 } },
 };
 
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+const iconMap: Record<string, React.ComponentType<{ className?: string; strokeWidth?: number }>> = {
   MessageCircle,
   PenTool,
   Hammer,
@@ -69,14 +69,14 @@ export default function ProcessSteps({ steps }: ProcessStepsProps) {
               </div>
 
               {/* Center Icon/Marker */}
-              <div className="absolute left-0 md:left-1/2 -translate-x-0 md:-translate-x-1/2 flex items-center justify-center z-10 w-14 h-14 rounded-full bg-background border border-border shadow-sm">
+              <div className="absolute left-0 md:left-1/2 translate-x-0 md:-translate-x-1/2 flex items-center justify-center z-10 w-14 h-14 rounded-full bg-background border border-border shadow-sm">
                  <IconComponent className="w-6 h-6 text-accent" strokeWidth={1.5} />
               </div>
 
               {/* Empty Side (for balance) */}
               <div className="hidden md:block w-1/2 md:px-12 pt-2">
                 <div className={`flex flex-col ${!isEven ? 'items-start' : 'items-end'}`}>
-                  <span className="text-accent text-6xl font-serif opacity-20 font-light translate-y-[-1rem]">
+                  <span className="text-accent text-6xl font-serif opacity-20 font-light -translate-y-4">
                     {step.number}
                   </span>
                 </div>

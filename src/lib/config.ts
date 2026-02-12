@@ -1,0 +1,142 @@
+// Creative Layout - Brand Configuration
+// This file contains all brand-related constants and configuration
+
+// ========================================
+// Logo Configuration
+// ========================================
+export const LOGO_CONFIG = {
+  // Set to 'text' for text-based logo, 'image' for image logo
+  type: 'text' as 'text' | 'image',
+  
+  // Image logo URL
+  imageUrl: 'https://i.ibb.co/NdB4Rg9S/Removal-144.png',
+  
+  // Text logo styling
+  text: {
+    primary: 'Creative',
+    secondary: 'Layout',
+    separator: ' ', // Space between words
+  },
+};
+
+// ========================================
+// Brand Information
+// ========================================
+export const BRAND_INFO = {
+  name: 'Creative Layout',
+  tagline: 'Architecture & Construction Studio',
+  description: 'Premium architecture and construction services in Chhattisgarh, India. We design spaces that inspire and endure.',
+  
+  // Director/Head Architect
+  director: {
+    name: 'Prashant Ambilkar',
+    title: 'Head Architect & Director',
+  },
+  
+  // Contact Information
+  contact: {
+    phone: '+91 9479131777',
+    email: 'ar.prashant01@gmail.com',
+    maps: 'https://maps.app.goo.gl/xWfpYTBLc6GeerF86',
+    mapsEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2350.8010778895373!2d81.58860643171633!3d21.23177480175003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a28dff6cb8a9b21%3A0xc2ca2d0d38e60144!2sIndraprastha%20Phase%202%2C%20Raipura!5e1!3m2!1sen!2sus!4v1770836706386!5m2!1sen!2sus',
+    address: {
+      line1: 'Shop no. Gb-08, Shopping center',
+      line2: 'Indraprastha Phase-2, Raipura',
+      city: 'Raipur',
+      state: 'Chhattisgarh',
+      country: 'India',
+      full: 'Shop no. Gb-08, Shopping center, Indraprastha Phase-2, Raipura, Raipur, Chhattisgarh',
+    },
+  },
+  
+  // Social Links (add if needed)
+  social: {
+    instagram: '',
+    facebook: '',
+    linkedin: '',
+  },
+};
+
+// ========================================
+// Navigation
+// ========================================
+export const NAV_LINKS = [
+  { label: 'Home', href: '/' },
+  { label: 'Our Projects', href: '/projects' },
+  { label: 'Our Process', href: '/process' },
+  { label: 'Contact', href: '/contact' },
+];
+
+// ========================================
+// Process Steps
+// ========================================
+export const PROCESS_STEPS = [
+  {
+    number: '01',
+    title: 'Consultation',
+    description: 'We begin with an in-depth consultation to understand your vision, requirements, and budget. This initial meeting sets the foundation for the entire project.',
+    icon: 'MessageCircle',
+  },
+  {
+    number: '02',
+    title: 'Planning & Design',
+    description: 'Our team creates detailed architectural plans and 3D visualizations. We refine the design until it perfectly captures your vision while adhering to vastu principles.',
+    icon: 'PenTool',
+  },
+  {
+    number: '03',
+    title: 'Construction',
+    description: 'With meticulous attention to detail, we bring your design to life. Our experienced team ensures quality craftsmanship at every stage of construction.',
+    icon: 'Hammer',
+  },
+  {
+    number: '04',
+    title: 'Handover',
+    description: 'The final walkthrough ensures everything meets our exacting standards. We hand over the keys to your dream space, complete with all documentation.',
+    icon: 'Key',
+  },
+];
+
+// ========================================
+// Categories
+// ========================================
+export const PROJECT_CATEGORIES = [
+  'Residential',
+  'Commercial',
+  'Interior Design',
+  'Industrial',
+  'Landscape',
+];
+
+// ========================================
+// SEO Configuration
+// ========================================
+export const SEO_CONFIG = {
+  title: 'Creative Layout | Architecture & Construction Studio',
+  description: 'Premium architecture and construction services in Chhattisgarh, India. We design spaces that inspire and endure. Specializing in residential, commercial, and vastu-compliant designs.',
+  keywords: [
+    'architecture',
+    'construction',
+    'interior design',
+    'Raipur',
+    'Chhattisgarh',
+    'vastu',
+    'residential',
+    'commercial',
+    'Creative Layout',
+    'Prashant Ambilkar',
+  ],
+  url: 'https://creativelayout.in',
+  ogImage: '/og-image.jpg',
+};
+
+// ========================================
+// Theme Configuration
+// ========================================
+export const THEME_CONFIG = {
+  colors: {
+    navy: '#102a43',
+    gold: '#d4a017',
+    cream: '#faf9f7',
+  },
+};

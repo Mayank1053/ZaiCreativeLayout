@@ -1,0 +1,184 @@
+@import "tailwindcss";
+@config "../../tailwind.config.ts";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Light Theme */
+:root {
+  --radius: 0.25rem;
+  --background: 40 30% 98%;
+  --foreground: 210 50% 16%;
+  --card: 0 0% 100%;
+  --card-foreground: 210 50% 16%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 210 50% 16%;
+  --primary: 210 50% 16%;
+  --primary-foreground: 40 30% 98%;
+  --secondary: 42 70% 46%;
+  --secondary-foreground: 210 50% 16%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 210 30% 45%;
+  --accent: 42 70% 46%;
+  --accent-foreground: 210 50% 16%;
+  --destructive: 0 70% 50%;
+  --border: 210 20% 90%;
+  --input: 210 20% 90%;
+  --ring: 42 70% 46%;
+}
+
+/* Dark Theme */
+.dark {
+  --background: 210 60% 10%;
+  --foreground: 210 40% 96%;
+  --card: 210 50% 16%;
+  --card-foreground: 210 40% 96%;
+  --popover: 210 50% 16%;
+  --popover-foreground: 210 40% 96%;
+  --primary: 210 40% 96%;
+  --primary-foreground: 210 50% 16%;
+  --secondary: 42 70% 46%;
+  --secondary-foreground: 210 50% 16%;
+  --muted: 210 45% 23%;
+  --muted-foreground: 210 30% 67%;
+  --accent: 42 70% 46%;
+  --accent-foreground: 210 50% 16%;
+  --destructive: 0 70% 65%;
+  --border: 210 45% 23%;
+  --input: 210 40% 30%;
+  --ring: 42 70% 46%;
+}
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), Georgia, serif;
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Brand Colors from config (manually mapping for v4 if needed, though @config should handle it) */
+  --color-navy-50: hsl(var(--navy-50));
+  --color-navy-100: hsl(var(--navy-100));
+  --color-navy-200: hsl(var(--navy-200));
+  --color-navy-300: hsl(var(--navy-300));
+  --color-navy-400: hsl(var(--navy-400));
+  --color-navy-500: hsl(var(--navy-500));
+  --color-navy-600: hsl(var(--navy-600));
+  --color-navy-700: hsl(var(--navy-700));
+  --color-navy-800: hsl(var(--navy-800));
+  --color-navy-900: hsl(var(--navy-900));
+  --color-navy-950: hsl(var(--navy-950));
+
+  --color-gold-50: hsl(var(--gold-50));
+  --color-gold-100: hsl(var(--gold-100));
+  --color-gold-200: hsl(var(--gold-200));
+  --color-gold-300: hsl(var(--gold-300));
+  --color-gold-400: hsl(var(--gold-400));
+  --color-gold-500: hsl(var(--gold-500));
+  --color-gold-600: hsl(var(--gold-600));
+  --color-gold-700: hsl(var(--gold-700));
+  --color-gold-800: hsl(var(--gold-800));
+  --color-gold-900: hsl(var(--gold-900));
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+}
+
+/* Utility Classes */
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: hsl(var(--accent));
+  transition: width 0.4s ease-out;
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+.btn-luxury {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid hsl(var(--accent));
+  background: transparent;
+  color: hsl(var(--accent));
+  transition: all 0.5s ease-out;
+}
+
+.btn-luxury:hover {
+  background-color: hsl(var(--accent));
+  color: hsl(var(--primary));
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

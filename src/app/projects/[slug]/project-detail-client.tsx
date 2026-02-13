@@ -10,7 +10,7 @@ import { useRef } from 'react';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' as any } },
 };
 
 const stagger = {
@@ -48,7 +48,8 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
   return (
     <>
       {/* Immersive Hero Section */}
-      <section ref={containerRef} className="relative h-[80vh] w-full overflow-hidden bg-zinc-900">
+      <section ref={containerRef} className="relative h-[80vh] w-full overflow-hidden bg-[#0F172A]">
+        <div className="absolute inset-0 bg-blueprint opacity-20 pointer-events-none" />
         <motion.div 
           style={{ y }}
           className="absolute inset-0 z-0"
@@ -57,14 +58,14 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
             src={project.images[0] || '/placeholder.jpg'}
             alt={project.title}
             fill
-            className="object-cover opacity-70"
+            className="object-cover opacity-60"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-[#0F172A] via-[#0F172A]/40 to-transparent" />
         </motion.div>
 
-        <div className="absolute inset-0 z-10 flex flex-col justify-end pb-20">
-          <PageContainer>
+        <div className="absolute inset-0 z-10 flex flex-col justify-end pb-12 md:pb-20">
+          <div className="max-w-[1800px] mx-auto px-6 sm:px-12 lg:px-24 w-full">
             <motion.div
               style={{ opacity }}
               initial="hidden"
@@ -72,10 +73,10 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
               variants={stagger}
               className="max-w-4xl"
             >
-              <motion.div variants={fadeInUp} className="mb-6">
+              <motion.div variants={fadeInUp} className="mb-8 md:mb-10">
                  <Link
                   href="/projects"
-                  className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors uppercase tracking-[0.2em] text-xs font-medium"
+                  className="inline-flex items-center gap-2 text-white hover:text-blue-400 transition-all uppercase tracking-[0.2em] text-[10px] sm:text-xs font-medium bg-white/5 hover:bg-white/10 backdrop-blur-md px-6 py-3 rounded-full border border-white/10 hover:border-blue-500/50"
                 >
                   <ArrowLeft size={14} />
                   Back to Projects
@@ -84,42 +85,54 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
               
               <motion.p
                 variants={fadeInUp}
-                className="text-accent text-sm tracking-[0.2em] uppercase font-medium mb-4"
+                className="text-blue-400 text-[10px] sm:text-sm tracking-[0.2em] uppercase font-medium mb-4"
               >
                 {project.category.name}
               </motion.p>
               
               <motion.h1
                 variants={fadeInUp}
-                className="font-serif text-5xl md:text-7xl lg:text-8xl text-white mb-6 leading-none"
+                className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-white mb-6 leading-[1.1] sm:leading-none"
               >
                 {project.title}
               </motion.h1>
 
               <motion.div
                 variants={fadeInUp}
-                className="flex flex-wrap gap-8 text-white/80 font-light text-lg"
+                className="flex flex-wrap gap-6 sm:gap-8 text-white/80 font-light text-base sm:text-lg"
               >
                 <div className="flex items-center gap-2">
-                  <MapPin size={18} className="text-accent" />
+                  <MapPin size={18} className="text-blue-500" />
                   <span>{project.location}</span>
                 </div>
                 {project.direction && (
                   <div className="flex items-center gap-2">
-                    <Compass size={18} className="text-accent" />
+                    <Compass size={18} className="text-blue-500" />
                     <span>{project.direction}</span>
                   </div>
                 )}
               </motion.div>
             </motion.div>
-          </PageContainer>
+          </div>
         </div>
       </section>
 
       {/* Project Details Content */}
-      <section className="py-20 bg-background">
+      <section className="relative py-20 bg-[#0F172A] text-slate-300">
+         {/* Blueprint Grid Background Pattern */}
+         <div className="absolute inset-0 pointer-events-none select-none overflow-hidden opacity-10">
+          <svg className="w-full h-full">
+            <defs>
+              <pattern id="grid-content" width="100" height="100" patternUnits="userSpaceOnUse">
+                <path d="M 100 0 L 0 0 0 100" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-blue-500/30" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid-content)" />
+          </svg>
+        </div>
+
         <PageContainer>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 relative z-10">
             
             {/* Main Description - 7 Columns */}
             <motion.div
@@ -129,10 +142,10 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
               transition={{ duration: 0.6 }}
               className="lg:col-span-7"
             >
-              <h2 className="font-serif text-3xl mb-8 border-b border-border pb-4">
+              <h2 className="font-serif text-3xl mb-8 border-b border-slate-800 pb-4 text-white">
                 The Narrative
               </h2>
-              <div className="prose prose-lg max-w-none text-muted-foreground font-light leading-relaxed">
+              <div className="prose prose-lg max-w-none text-slate-400 font-light leading-relaxed prose-invert">
                 {project.description.split('\n').map((paragraph, index) => (
                   <p key={index} className="mb-6">
                     {paragraph}
@@ -151,41 +164,29 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
             >
               {/* Project Info Table */}
                <div>
-                <h3 className="font-serif text-xl mb-6">Specifications</h3>
+                <h3 className="font-serif text-xl mb-6 text-white">Specifications</h3>
                 <dl className="space-y-4 text-sm">
-                   <div className="flex justify-between py-3 border-b border-border">
-                    <dt className="text-muted-foreground uppercase tracking-widest">Type</dt>
-                    <dd className="font-medium text-foreground">{project.category.name}</dd>
+                   <div className="flex justify-between py-3 border-b border-slate-800">
+                    <dt className="text-slate-500 uppercase tracking-widest">Type</dt>
+                    <dd className="font-medium text-slate-200">{project.category.name}</dd>
                   </div>
-                  <div className="flex justify-between py-3 border-b border-border">
-                    <dt className="text-muted-foreground uppercase tracking-widest">Location</dt>
-                    <dd className="font-medium text-foreground">{project.location}</dd>
+                  <div className="flex justify-between py-3 border-b border-slate-800">
+                    <dt className="text-slate-500 uppercase tracking-widest">Location</dt>
+                    <dd className="font-medium text-slate-200">{project.location}</dd>
                   </div>
                    {project.direction && (
-                    <div className="flex justify-between py-3 border-b border-border">
-                      <dt className="text-muted-foreground uppercase tracking-widest">Orientation</dt>
-                      <dd className="font-medium text-foreground">{project.direction}</dd>
+                    <div className="flex justify-between py-3 border-b border-slate-800">
+                      <dt className="text-slate-500 uppercase tracking-widest">Orientation</dt>
+                      <dd className="font-medium text-slate-200">{project.direction}</dd>
                     </div>
                   )}
                   {project.vastuNotes && (
-                      <div className="py-3 border-b border-border">
-                        <dt className="text-muted-foreground uppercase tracking-widest mb-2">Vastu Notes</dt>
-                        <dd className="text-foreground leading-relaxed">{project.vastuNotes}</dd>
+                      <div className="py-3 border-b border-slate-800">
+                        <dt className="text-slate-500 uppercase tracking-widest mb-2">Vastu Notes</dt>
+                        <dd className="text-slate-300 leading-relaxed font-light italic opacity-80">{project.vastuNotes}</dd>
                       </div>
                   )}
                 </dl>
-              </div>
-
-              {/* Contact CTA */}
-              <div className="bg-muted/30 p-8 border border-border">
-                <h3 className="font-serif text-2xl mb-4">Inspired by this project?</h3>
-                <p className="text-muted-foreground mb-6 font-light">
-                  Let&apos;s discuss how we can bring similar elegance and functionality to your space.
-                </p>
-                <Link href="/contact" className="btn-luxury inline-flex items-center justify-center w-full gap-2">
-                  Start Your Project
-                  <ArrowRight size={18} />
-                </Link>
               </div>
             </motion.div>
 
@@ -194,13 +195,18 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
       </section>
 
       {/* Project Gallery */}
-      <section className="py-20 border-t border-border">
+      <section className="py-20 bg-[#0F172A] border-t border-slate-800 text-white relative">
+         <div className="absolute inset-0 bg-linear-to-b from-[#0F172A] to-slate-950 pointer-events-none" />
         <PageContainer>
-          <div className="mb-16">
-            <h2 className="font-serif text-4xl mb-4">Visual Journey</h2>
-            <p className="text-muted-foreground font-light">Explore the detailed aesthetics of {project.title}.</p>
+          <div className="mb-12 relative z-10 flex items-end justify-between">
+            <div>
+              <h2 className="font-serif text-4xl mb-4">Visual Journey</h2>
+              <p className="text-slate-400 font-light">Explore the detailed aesthetics of {project.title}.</p>
+            </div>
           </div>
-          <ProjectGallery images={project.images} title={project.title} />
+          <div className="relative z-10">
+            <ProjectGallery images={project.images} title={project.title} />
+          </div>
         </PageContainer>
       </section>
     </>

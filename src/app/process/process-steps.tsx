@@ -41,7 +41,7 @@ export default function ProcessSteps({ steps }: ProcessStepsProps) {
         className="relative"
       >
         {/* Vertical Line */}
-        <div className="absolute left-[27px] md:left-1/2 top-4 bottom-4 w-px bg-border md:-translate-x-1/2" />
+        <div className="absolute left-[28px] md:left-1/2 top-4 bottom-4 w-px bg-border md:-translate-x-1/2" />
 
         {steps.map((step, index) => {
           const IconComponent = iconMap[step.icon] || MessageCircle;
@@ -56,7 +56,7 @@ export default function ProcessSteps({ steps }: ProcessStepsProps) {
               }`}
             >
               {/* Content Side */}
-              <div className="w-full md:w-1/2 md:px-12 pt-2">
+              <div className="w-full md:w-1/2 pl-20 md:px-12 pt-2">
                 <div className={`flex flex-col ${isEven ? 'md:items-start' : 'md:items-end md:text-right'}`}>
                    <span className="text-accent text-sm tracking-widest font-bold mb-2 block md:hidden">
                     STEP {step.number}

@@ -57,7 +57,7 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 h-full max-w-[1800px] mx-auto px-6 sm:px-12 lg:px-24 flex flex-col justify-end pt-32">
+      <div className="relative z-10 min-h-screen max-w-[1800px] mx-auto px-6 sm:px-12 lg:px-24 flex flex-col pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-20">
         <motion.div 
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -65,12 +65,12 @@ export function HeroSection() {
           className="max-w-5xl"
         >
           {/* Taglines */}
-          <div className="flex flex-wrap items-center gap-4 mb-8">
+          <div className="flex flex-wrap items-center gap-2 mb-4">
              <motion.span 
                initial={{ opacity: 0, x: -20 }}
                animate={{ opacity: 1, x: 0 }}
                transition={{ delay: 0.2 }}
-               className="px-3 py-1 border border-blue-500/30 text-blue-300 font-mono text-xs uppercase tracking-widest bg-blue-900/10 backdrop-blur-sm"
+               className="px-3 py-1 border border-blue-500/30 text-blue-300 font-mono text-[10px] sm:text-xs uppercase tracking-widest bg-blue-900/10 backdrop-blur-sm"
              >
               Vastu Compliant
             </motion.span>
@@ -78,7 +78,7 @@ export function HeroSection() {
                initial={{ opacity: 0, x: -20 }}
                animate={{ opacity: 1, x: 0 }}
                transition={{ delay: 0.3 }}
-               className="px-3 py-1 border border-blue-500/30 text-blue-300 font-mono text-xs uppercase tracking-widest bg-blue-900/10 backdrop-blur-sm"
+               className="px-3 py-1 border border-blue-500/30 text-blue-300 font-mono text-[10px] sm:text-xs uppercase tracking-widest bg-blue-900/10 backdrop-blur-sm"
              >
               Structural Layouts
             </motion.span>
@@ -86,23 +86,28 @@ export function HeroSection() {
                initial={{ opacity: 0, x: -20 }}
                animate={{ opacity: 1, x: 0 }}
                transition={{ delay: 0.4 }}
-               className="px-3 py-1 border border-blue-500/30 text-blue-300 font-mono text-xs uppercase tracking-widest bg-blue-900/10 backdrop-blur-sm"
+               className="px-3 py-1 border border-blue-500/30 text-blue-300 font-mono text-[10px] sm:text-xs uppercase tracking-widest bg-blue-900/10 backdrop-blur-sm"
              >
               Construction Phase
             </motion.span>
           </div>
 
-          <h1 className="font-sans font-light text-5xl sm:text-7xl md:text-8xl lg:text-8xl xl:text-9xl tracking-tight leading-[0.95] mb-8 text-white">
+          {/* Heading */}
+          <h1 className="font-sans font-light text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl tracking-tight leading-[0.95] mb-8 sm:mb-6 mt-8 text-white">
             <span className="block">Precision in</span>
             <span className="block font-serif italic text-blue-200/90 ml-[5vw]">Planning.</span>
             <span className="block">Perfection in</span>
             <span className="block font-serif italic text-blue-200/90 ml-[10vw]">Construction.</span>
           </h1>
 
-          <p className="max-w-xl text-base sm:text-lg text-slate-400 font-mono mb-12 border-l-2 border-blue-500 pl-6 leading-relaxed">
+          {/* Description */}
+          <p className="max-w-xl text-sm sm:text-lg text-slate-400 font-mono mb-12 border-l-2 border-blue-500 pl-6 leading-relaxed">
             We don't just design; we engineer your dream. From Vastu-compliant floor analysis to the final concrete pour, we master the entire construction lifecycle.
           </p>
 
+        </motion.div>
+
+        <div className="mt-auto flex justify-end w-full">
           <div className="flex flex-col sm:flex-row gap-6">
             <Link 
               href="/projects" 
@@ -119,7 +124,7 @@ export function HeroSection() {
               <PenTool className="w-4 h-4 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
-        </motion.div>
+        </div>
       </div>
       
        {/* Technical Stats / Footer of Hero */}

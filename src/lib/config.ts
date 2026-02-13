@@ -25,7 +25,7 @@ export const LOGO_CONFIG = {
 export const BRAND_INFO = {
   name: 'Creative Layout',
   tagline: 'Architecture & Construction Studio',
-  description: 'Premium architecture and construction services in Chhattisgarh, India. We design spaces that inspire and endure.',
+  description: 'Premium architecture and construction services in Chhattisgarh, India.',
   
   // Director/Head Architect
   director: {

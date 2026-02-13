@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
@@ -25,6 +26,23 @@ interface ProjectGalleryProps {
 export function ProjectGallery({ images, title }: ProjectGalleryProps) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Lock body scroll when lightbox is open
+  useEffect(() => {
+    if (selectedIndex !== null) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedIndex]);
 
   // Open lightbox
   const openLightbox = (index: number) => {
@@ -56,11 +74,88 @@ export function ProjectGallery({ images, title }: ProjectGalleryProps) {
 
   if (images.length === 0) {
     return (
-      <div className="aspect-[4/3] bg-muted flex items-center justify-center">
+      <div className="aspect-4/3 bg-muted flex items-center justify-center">
         <p className="text-muted-foreground">No images available</p>
       </div>
     );
   }
+
+  const lightbox = (
+    <AnimatePresence>
+      {selectedIndex !== null && (
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          variants={fadeIn}
+          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+          onClick={closeLightbox}
+          onKeyDown={handleKeyDown}
+          tabIndex={0}
+        >
+          {/* Close button */}
+          <button
+            onClick={closeLightbox}
+            className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-60"
+            aria-label="Close gallery"
+          >
+            <X size={32} />
+          </button>
+
+          {/* Navigation buttons */}
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  prevImage();
+                }}
+                className="absolute left-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors z-60"
+                aria-label="Previous image"
+              >
+                <ChevronLeft size={48} />
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  nextImage();
+                }}
+                className="absolute right-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors z-60"
+                aria-label="Next image"
+              >
+                <ChevronRight size={48} />
+              </button>
+            </>
+          )}
+
+          {/* Main image */}
+          <motion.div
+            key={currentIndex}
+            variants={slideIn}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="relative w-full max-w-6xl h-[80vh] mx-4 z-55"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              src={images[currentIndex]}
+              alt={`${title} - Image ${currentIndex + 1}`}
+              fill
+              className="object-contain"
+              sizes="100vw"
+              priority
+            />
+          </motion.div>
+
+          {/* Image counter */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 text-sm z-60">
+            {currentIndex + 1} / {images.length}
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 
   return (
     <>
@@ -78,7 +173,7 @@ export function ProjectGallery({ images, title }: ProjectGalleryProps) {
             }`}
             onClick={() => openLightbox(index)}
           >
-            <div className={`${index === 0 ? 'aspect-[4/3]' : 'aspect-square'} bg-muted`}>
+            <div className={`${index === 0 ? 'aspect-4/3' : 'aspect-square'} bg-muted`}>
               <Image
                 src={image}
                 alt={`${title} - Image ${index + 1}`}
@@ -91,81 +186,8 @@ export function ProjectGallery({ images, title }: ProjectGalleryProps) {
         ))}
       </div>
 
-      {/* Lightbox */}
-      <AnimatePresence>
-        {selectedIndex !== null && (
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            variants={fadeIn}
-            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
-            onClick={closeLightbox}
-            onKeyDown={handleKeyDown}
-            tabIndex={0}
-          >
-            {/* Close button */}
-            <button
-              onClick={closeLightbox}
-              className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-10"
-              aria-label="Close gallery"
-            >
-              <X size={32} />
-            </button>
-
-            {/* Navigation buttons */}
-            {images.length > 1 && (
-              <>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    prevImage();
-                  }}
-                  className="absolute left-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors z-10"
-                  aria-label="Previous image"
-                >
-                  <ChevronLeft size={48} />
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    nextImage();
-                  }}
-                  className="absolute right-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors z-10"
-                  aria-label="Next image"
-                >
-                  <ChevronRight size={48} />
-                </button>
-              </>
-            )}
-
-            {/* Main image */}
-            <motion.div
-              key={currentIndex}
-              variants={slideIn}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              className="relative w-full max-w-6xl h-[80vh] mx-4"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Image
-                src={images[currentIndex]}
-                alt={`${title} - Image ${currentIndex + 1}`}
-                fill
-                className="object-contain"
-                sizes="100vw"
-                priority
-              />
-            </motion.div>
-
-            {/* Image counter */}
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 text-sm">
-              {currentIndex + 1} / {images.length}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Lightbox Portal */}
+      {mounted ? createPortal(lightbox, document.body) : null}
     </>
   );
 }

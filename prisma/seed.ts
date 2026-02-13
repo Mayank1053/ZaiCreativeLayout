@@ -11,14 +11,20 @@ async function main() {
   });
 
   if (!existingAdmin) {
-    const passwordHash = await bcrypt.hash("admin123", 12);
+    const password = process.env.ADMIN_PASSWORD || "admin123";
+    const passwordHash = await bcrypt.hash(password, 12);
     await prisma.admin.create({
       data: {
         username: "admin",
         passwordHash: passwordHash,
       },
     });
-    console.log("Admin user created with username: admin, password: admin123");
+    console.log(`Admin user created with username: admin`);
+    if (process.env.ADMIN_PASSWORD) {
+      console.log("Password set from ADMIN_PASSWORD env var");
+    } else {
+      console.log("Password set to default: admin123 (Set ADMIN_PASSWORD in .env to change)");
+    }
   } else {
     console.log("Admin user already exists");
   }

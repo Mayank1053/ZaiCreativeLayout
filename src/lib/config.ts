@@ -5,17 +5,16 @@
 // Logo Configuration
 // ========================================
 export const LOGO_CONFIG = {
-  // Set to 'text' for text-based logo, 'image' for image logo
-  type: 'text' as 'text' | 'image',
+  // Can be 'image' or 'text' or 'composite'
+  type: 'composite' as const,
   
   // Image logo URL
-  imageUrl: 'https://i.ibb.co/NdB4Rg9S/Removal-144.png',
+  imageUrl: 'https://i.ibb.co/Q71BrsXq/Creative-Logo1.png',
   
-  // Text logo styling
+  // Text details
   text: {
-    primary: 'Creative',
-    secondary: 'Layout',
-    separator: ' ', // Space between words
+    primary: 'Creative Layout',
+    secondary: 'Planning, Designing And Construction',
   },
 };
 

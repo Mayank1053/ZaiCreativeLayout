@@ -3,53 +3,77 @@
 import { LOGO_CONFIG } from '@/lib/config';
 import Image from 'next/image';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 interface LogoProps {
   className?: string;
-  showText?: boolean;
   size?: 'sm' | 'md' | 'lg';
+  color?: 'default' | 'white' | 'black';
+  showText?: boolean; // Kept for backward compatibility but always true for this design
 }
 
-export function Logo({ className = '', showText = true, size = 'md', color = 'default' }: LogoProps & { color?: 'default' | 'white' | 'black' }) {
+export function Logo({ className = '', size = 'md', color = 'default' }: LogoProps) {
   const sizeClasses = {
-    sm: 'h-8',
-    md: 'h-10',
-    lg: 'h-12',
+    sm: 'h-10',
+    md: 'h-12',
+    lg: 'h-16',
   };
 
   const textSizeClasses = {
-    sm: 'text-lg',
-    md: 'text-xl',
-    lg: 'text-2xl',
+    sm: 'text-base',
+    md: 'text-lg',
+    lg: 'text-xl',
   };
 
-  const textColor = color === 'default' ? 'text-foreground' : color === 'white' ? 'text-white' : 'text-black';
+  const subTextSizeClasses = {
+    sm: 'text-[0.45rem]',
+    md: 'text-[0.55rem]',
+    lg: 'text-[0.65rem]',
+  };
 
-  // Image Logo
-  if (LOGO_CONFIG.type === 'image') {
-    return (
-      <Link href="/" className={`flex items-center ${className}`}>
-        <div className={`relative ${sizeClasses[size]} w-auto`}>
-          <Image
-            src={LOGO_CONFIG.imageUrl}
-            alt="Creative Layout"
-            width={200}
-            height={60}
-            className="h-full w-auto object-contain"
-            priority
-          />
-        </div>
-      </Link>
-    );
-  }
+  const textColor = {
+    default: 'text-foreground',
+    white: 'text-white',
+    black: 'text-black',
+  };
 
-  // Text Logo
+  const subTextColor = {
+    default: 'text-muted-foreground',
+    white: 'text-white/80',
+    black: 'text-black/80',
+  };
+
   return (
-    <Link href="/" className={`flex items-center ${className} group`}>
-      <span className={`font-serif flex items-baseline gap-1.5 ${textSizeClasses[size]}`}>
-        <span className={`${textColor} font-bold tracking-tight uppercase leading-none`}>{LOGO_CONFIG.text.primary}</span>
-        <span className={`${textColor} font-light tracking-[0.2em] uppercase leading-none`}>{LOGO_CONFIG.text.secondary}</span>
-      </span>
+    <Link href="/" className={cn("flex items-center gap-2.5 sm:gap-3 group select-none", className)}>
+      {/* Icon/Image Part */}
+      <div className={cn("relative w-auto aspect-square shrink-0", sizeClasses[size])}>
+        <Image
+          src={LOGO_CONFIG.imageUrl}
+          alt="Creative Layout Logo"
+          fill
+          className="object-contain"
+          sizes="(max-width: 768px) 40px, (max-width: 1200px) 48px, 64px"
+          priority
+        />
+      </div>
+
+      {/* Text Part */}
+      <div className="flex flex-col justify-center">
+        <span className={cn(
+          "font-serif font-bold leading-none tracking-tight whitespace-nowrap",
+          textColor[color],
+          textSizeClasses[size]
+        )}>
+          {LOGO_CONFIG.text.primary}
+        </span>
+        <span className={cn(
+          "font-sans uppercase tracking-[0.15em] leading-tight mt-0.5 hidden sm:block",
+          subTextColor[color],
+          subTextSizeClasses[size]
+        )}>
+          {LOGO_CONFIG.text.secondary}
+        </span>
+      </div>
     </Link>
   );
 }

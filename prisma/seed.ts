@@ -36,11 +36,6 @@ async function main() {
       description: "Office buildings, retail spaces, and commercial properties",
     },
     {
-      name: "Interior Design",
-      slug: "interior-design",
-      description: "Interior design and renovation projects",
-    },
-    {
       name: "Industrial",
       slug: "industrial",
       description: "Factories, warehouses, and industrial facilities",

@@ -118,12 +118,12 @@ export function AboutSection() {
             {/* Floating Element - Technical Detail */}
             <motion.div 
               style={{ y: y2 }}
-              className="absolute -bottom-[-40px] -left-[-40px] sm:left-[-40px] w-[260px] aspect-square z-20 shadow-xl bg-blue-600 p-6 flex flex-col justify-between text-white"
+              className="absolute -bottom-4 -left-4 sm:-bottom-10 sm:-left-10 w-36 sm:w-56 md:w-[260px] aspect-square z-20 shadow-xl bg-blue-600 p-4 sm:p-6 flex flex-col justify-between text-white"
             >
-              <Ruler className="w-8 h-8 opacity-50" />
+              <Ruler className="w-5 h-5 sm:w-8 sm:h-8 opacity-50" />
               <div>
-                  <div className="text-4xl font-mono font-bold mb-1">100%</div>
-                  <div className="text-sm font-mono opacity-80 uppercase tracking-wider">Precision in<br/>Measurement</div>
+                  <div className="text-2xl sm:text-4xl font-mono font-bold mb-1">100%</div>
+                  <div className="text-[10px] sm:text-sm font-mono opacity-80 uppercase tracking-wider leading-tight">Precision in<br/>Measurement</div>
               </div>
             </motion.div>
           </div>

@@ -58,7 +58,7 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative text-xs tracking-[0.15em] uppercase transition-colors duration-300 font-mono ${
+                className={`relative text-xs tracking-[0.15em] uppercase transition-colors duration-300 font-medium ${
                   isActive(link.href)
                     ? 'text-blue-400'
                     : isTransparent 
@@ -66,7 +66,6 @@ export function Header() {
                       : 'text-slate-400 hover:text-white'
                 }`}
               >
-                <span className="mr-1 opacity-50 text-blue-500">//</span>
                 {link.label}
               </Link>
             ))}
@@ -109,7 +108,7 @@ export function Header() {
                   <Link
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`block py-3 px-4 text-sm tracking-widest uppercase font-mono border-l-2 transition-all duration-300 ${
+                    className={`block py-3 px-4 text-sm tracking-widest uppercase font-medium border-l-2 transition-all duration-300 ${
                       isActive(link.href)
                         ? 'text-white border-blue-500 bg-blue-500/10'
                         : 'text-slate-400 border-transparent hover:text-white hover:border-slate-600 hover:bg-white/5'

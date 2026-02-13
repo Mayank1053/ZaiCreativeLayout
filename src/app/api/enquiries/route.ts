@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
   try {
     // Parse request body
     const body = await request.json();
-    const { name, email, phone, message } = body;
+    const { name, email, phone, message, services } = body;
 
     // Validate required fields
     if (!name || typeof name !== 'string' || name.trim().length === 0) {
@@ -47,6 +47,7 @@ export async function POST(request: NextRequest) {
         email: email.trim().toLowerCase(),
         phone: phone?.trim() || null,
         message: message.trim(),
+        services: Array.isArray(services) ? (services as string[]) : [],
       },
     });
 
@@ -71,6 +72,7 @@ export async function POST(request: NextRequest) {
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
           <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+          <p><strong>Services:</strong> ${Array.isArray(services) && services.length > 0 ? services.join(', ') : 'None selected'}</p>
           <p><strong>Message:</strong></p>
           <p>${message.replace(/\n/g, '<br>')}</p>
           <hr>

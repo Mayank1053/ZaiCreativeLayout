@@ -51,3 +51,21 @@ export async function POST(request: Request) {
     );
   }
 }
+
+export async function DELETE() {
+  try {
+    const cookieStore = await cookies();
+    cookieStore.delete('auth_token');
+    
+    return NextResponse.json(
+      { success: true, message: 'Logged out successfully' },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error('Logout error:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}

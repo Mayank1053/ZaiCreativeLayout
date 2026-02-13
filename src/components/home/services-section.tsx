@@ -108,11 +108,11 @@ export function ServicesSection() {
                 </div>
 
                 {/* Arrow */}
-                <div className="col-span-1 flex justify-end">
+                {/* <div className="col-span-1 flex justify-end">
                   <div className="w-10 h-10 rounded-none border border-slate-700 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-600 transition-all duration-300">
                     <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-white transform group-hover:rotate-45 transition-transform duration-300" />
                   </div>
-                </div>
+                </div> */}
               </div>
             </motion.div>
           ))}

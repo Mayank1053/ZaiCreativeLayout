@@ -4,7 +4,7 @@ import { db } from './db';
 
 // JWT secret from environment
 const JWT_SECRET = process.env.JWT_SECRET || 'default-secret-change-in-production';
-console.log('JWT_SECRET configured:', JWT_SECRET !== 'default-secret-change-in-production');
+
 const JWT_EXPIRES_IN = '7d'; // Token expires in 7 days
 
 /**
@@ -40,7 +40,7 @@ export function generateToken(payload: { username: string }): string {
 export function verifyToken(token: string): { username: string } | null {
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as { username: string };
-    console.log('Token verified for:', decoded.username);
+
     return decoded;
   } catch (error) {
     console.error('Token verification failed:', error);
@@ -55,23 +55,23 @@ export function extractToken(request: Request): string | null {
   // Try Authorization header first (Bearer token)
   const authHeader = request.headers.get('authorization');
   if (authHeader?.startsWith('Bearer ')) {
-    console.log('Token found in Authorization header');
+
     return authHeader.slice(7);
   }
   
   // Try cookie
   const cookieHeader = request.headers.get('cookie');
-  console.log('Cookie header:', cookieHeader ? 'Present' : 'Missing');
+
   if (cookieHeader) {
     const cookies = cookieHeader.split(';').map(c => c.trim());
     const authCookie = cookies.find(c => c.startsWith('auth_token='));
     if (authCookie) {
-      console.log('auth_token found in cookies');
+
       return authCookie.slice(11);
     }
   }
   
-  console.log('No token found in request');
+
   return null;
 }
 

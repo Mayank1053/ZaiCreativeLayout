@@ -6,7 +6,7 @@ import ProjectsGrid from './projects-grid';
 // Metadata for SEO
 export const metadata: Metadata = {
   title: 'Our Projects | Creative Layout',
-  description: 'Explore our portfolio of architectural masterpieces. Residential, commercial, and interior design projects in Chhattisgarh, India.',
+  description: 'Explore our portfolio of architectural masterpieces. Residential, commercial projects in Chhattisgarh, India.',
 };
 
 // Page component - Server Component
@@ -49,7 +49,7 @@ export default async function ProjectsPage() {
             Selected Works
           </h1>
           <p className="text-muted-foreground font-light text-lg max-w-2xl leading-relaxed">
-            A curation of our finest architectural and interior design projects, 
+            A curation of our finest architectural projects, 
             where vision meets precision.
           </p>
         </div>

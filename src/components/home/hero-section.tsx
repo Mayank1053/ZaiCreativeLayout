@@ -17,7 +17,7 @@ export function HeroSection() {
   return (
     <section 
       ref={containerRef} 
-      className="relative h-screen w-full overflow-hidden bg-[#0F172A] text-white"
+      className="relative min-h-dvh w-full overflow-hidden bg-[#0F172A] text-white flex flex-col"
     >
       {/* Blueprint Grid Background */}
       <div className="absolute inset-0 bg-blueprint opacity-20 pointer-events-none" />
@@ -57,7 +57,7 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 min-h-screen max-w-[1800px] mx-auto px-6 sm:px-12 lg:px-24 flex flex-col pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-20">
+      <div className="relative z-10 flex-1 max-w-[1800px] mx-auto px-6 sm:px-12 lg:px-24 flex flex-col justify-center pt-24 pb-32 sm:pb-20">
         <motion.div 
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -65,7 +65,7 @@ export function HeroSection() {
           className="max-w-5xl"
         >
           {/* Taglines */}
-          <div className="flex flex-wrap items-center gap-2 mb-4">
+          <div className="flex flex-wrap items-center gap-2 mb-6 sm:mb-4">
              <motion.span 
                initial={{ opacity: 0, x: -20 }}
                animate={{ opacity: 1, x: 0 }}
@@ -93,7 +93,7 @@ export function HeroSection() {
           </div>
 
           {/* Heading */}
-          <h1 className="font-sans font-light text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl tracking-tight leading-[0.95] mb-8 sm:mb-6 mt-8 text-white">
+          <h1 className="font-sans font-light text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl tracking-tight leading-[1.1] sm:leading-[0.95] mb-6 sm:mb-6 mt-4 sm:mt-8 text-white">
             <span className="block">Precision in</span>
             <span className="block font-serif italic text-blue-200/90 ml-[5vw]">Planning.</span>
             <span className="block">Perfection in</span>
@@ -101,36 +101,40 @@ export function HeroSection() {
           </h1>
 
           {/* Description */}
-          <p className="max-w-xl text-sm sm:text-lg text-slate-400 font-mono mb-12 border-l-2 border-blue-500 pl-6 leading-relaxed">
+          <p className="max-w-xl text-sm sm:text-lg text-slate-400 mb-8 sm:mb-12 border-l-2 border-blue-500 pl-4 sm:pl-6 leading-relaxed">
             We don't just design; we engineer your dream. From Vastu-compliant floor analysis to the final concrete pour, we master the entire construction lifecycle.
           </p>
 
         </motion.div>
 
-        <div className="mt-auto flex justify-end w-full">
-          <div className="flex flex-col sm:flex-row gap-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: "circOut" }}
+          className="mt-8 md:mt-auto flex justify-start md:justify-end w-full"
+        >
+          <div className="flex flex-col w-full sm:w-auto sm:flex-row gap-4 sm:gap-6">
             <Link 
               href="/projects" 
-              className="group relative overflow-hidden flex items-center justify-between px-8 py-4 bg-blue-600 text-white transition-all hover:bg-blue-500"
+              className="group relative overflow-hidden flex items-center justify-center sm:justify-between px-8 py-4 bg-blue-600 text-white transition-all hover:bg-blue-500 w-full sm:w-auto"
             >
-              <span className="font-mono uppercase tracking-widest text-sm mr-8 relative z-10">View Master Plans</span>
-              <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
+              <span className="uppercase tracking-widest text-sm mr-0 sm:mr-8 relative z-10 font-medium">View Our Projects</span>
+              <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform ml-4 sm:ml-0" />
             </Link>
             <Link 
               href="/contact" 
-              className="group flex items-center justify-between px-8 py-4 border border-slate-700 hover:border-blue-500 text-slate-300 hover:text-white transition-colors backdrop-blur-sm"
+              className="group flex items-center justify-center sm:justify-between px-8 py-4 border border-slate-700 hover:border-blue-500 text-slate-300 hover:text-white transition-colors backdrop-blur-sm w-full sm:w-auto"
             >
-              <span className="font-mono uppercase tracking-widest text-sm mr-8">Start Your Project</span>
-              <PenTool className="w-4 h-4 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+              <span className="uppercase tracking-widest text-sm mr-0 sm:mr-8 font-medium">Start Your Project</span>
+              <PenTool className="w-4 h-4 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform ml-4 sm:ml-0" />
             </Link>
           </div>
-        </div>
+        </motion.div>
       </div>
       
        {/* Technical Stats / Footer of Hero */}
        <div className="absolute bottom-0 left-0 w-full border-t border-slate-800 bg-slate-950/80 backdrop-blur-md py-4 z-20">
          <div className="max-w-[1800px] mx-auto px-6 sm:px-12 lg:px-24 flex justify-between items-center text-[10px] sm:text-xs font-mono text-slate-500 uppercase tracking-widest">
-           <div>Ref: ZCL-CONST-2024</div>
            <div className="hidden md:flex items-center gap-12">
              <div className="flex items-center gap-2 text-slate-400"><Ruler className="w-3 h-3 text-blue-500" /> Area Analysis</div>
              <div className="flex items-center gap-2 text-slate-400"><Compass className="w-3 h-3 text-blue-500" /> Orientation Check</div>

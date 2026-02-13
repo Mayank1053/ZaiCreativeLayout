@@ -58,6 +58,7 @@ model Enquiry {
   email     String
   phone     String?
   message   String
+  services  String[] @default([])
   handled   Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -16,11 +16,19 @@ const fadeInUp = {
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
+const SERVICES = [
+  'Architecture',
+  'Engineering',
+  'Construction',
+  'Consultation',
+];
+
 interface FormData {
   name: string;
   email: string;
   phone: string;
   message: string;
+  services: string[];
 }
 
 export function ContactForm() {
@@ -30,6 +38,7 @@ export function ContactForm() {
     email: '',
     phone: '',
     message: '',
+    services: [],
   });
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -39,6 +48,16 @@ export function ContactForm() {
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Handle service toggle
+  const toggleService = (service: string) => {
+    setFormData((prev) => {
+      const services = prev.services.includes(service)
+        ? prev.services.filter((s) => s !== service)
+        : [...prev.services, service];
+      return { ...prev, services };
+    });
   };
 
   // Handle form submission
@@ -66,6 +85,7 @@ export function ContactForm() {
           email: '',
           phone: '',
           message: '',
+          services: [],
         });
       } else {
         setStatus('error');
@@ -96,7 +116,7 @@ export function ContactForm() {
           id="name"
           name="name"
           type="text"
-          placeholder="John Doe"
+          placeholder="Praveen ...."
           value={formData.name}
           onChange={handleChange}
           required
@@ -114,7 +134,7 @@ export function ContactForm() {
           id="email"
           name="email"
           type="email"
-          placeholder="john@example.com"
+          placeholder="praveen@example.com"
           value={formData.email}
           onChange={handleChange}
           required
@@ -132,12 +152,36 @@ export function ContactForm() {
           id="phone"
           name="phone"
           type="tel"
-          placeholder="+91 98765 43210"
+          placeholder="+91 ......."
           value={formData.phone}
           onChange={handleChange}
           disabled={status === 'submitting'}
           className="bg-card"
         />
+      </motion.div>
+
+      {/* Services Selection */}
+      <motion.div variants={fadeInUp} className="space-y-3">
+        <Label className="text-sm font-medium">
+          Interested Services
+        </Label>
+        <div className="flex flex-wrap gap-2">
+          {SERVICES.map((service) => (
+            <button
+              key={service}
+              type="button"
+              onClick={() => toggleService(service)}
+              disabled={status === 'submitting'}
+              className={`px-4 py-2 text-sm rounded-full border transition-all duration-200 ${
+                formData.services.includes(service)
+                  ? 'bg-accent text-white border-accent'
+                  : 'bg-card text-muted-foreground border-input hover:border-accent hover:text-foreground'
+              }`}
+            >
+              {service}
+            </button>
+          ))}
+        </div>
       </motion.div>
 
       {/* Message Field */}

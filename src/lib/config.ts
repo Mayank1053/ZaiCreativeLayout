@@ -103,7 +103,6 @@ export const PROCESS_STEPS = [
 export const PROJECT_CATEGORIES = [
   'Residential',
   'Commercial',
-  'Interior Design',
   'Industrial',
   'Landscape',
 ];
@@ -117,7 +116,6 @@ export const SEO_CONFIG = {
   keywords: [
     'architecture',
     'construction',
-    'interior design',
     'Raipur',
     'Chhattisgarh',
     'vastu',

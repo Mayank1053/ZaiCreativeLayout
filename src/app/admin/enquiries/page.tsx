@@ -48,6 +48,7 @@ interface Enquiry {
   email: string;
   phone?: string | null;
   message: string;
+  services: string[];
   handled: boolean;
   createdAt: string;
 }
@@ -62,7 +63,11 @@ export default function EnquiriesPage() {
       const response = await fetch('/api/enquiries');
       if (!response.ok) throw new Error('Failed to fetch enquiries');
       const data = await response.json();
-      return Array.isArray(data.enquiries) ? data.enquiries : [];
+      const loadedEnquiries = Array.isArray(data.enquiries) ? data.enquiries : [];
+      return loadedEnquiries.map((e: any) => ({
+        ...e,
+        services: Array.isArray(e.services) ? e.services : []
+      }));
     },
     staleTime: 60 * 1000,
   });
@@ -145,6 +150,7 @@ export default function EnquiriesPage() {
                     <TableRow>
                       <TableHead>Name</TableHead>
                       <TableHead>Contact</TableHead>
+                      <TableHead>Services</TableHead>
                       <TableHead>Message</TableHead>
                       <TableHead>Status</TableHead>
                       <TableHead>Date</TableHead>
@@ -176,7 +182,25 @@ export default function EnquiriesPage() {
                           </div>
                         </TableCell>
                         <TableCell>
-                          <p className="text-sm line-clamp-2 max-w-xs">{enquiry.message}</p>
+                          <div className="flex flex-wrap gap-1 max-w-[200px]">
+                            {enquiry.services && enquiry.services.length > 0 ? (
+                              enquiry.services.slice(0, 2).map((service, i) => (
+                                <Badge key={i} variant="secondary" className="text-xs bg-muted">
+                                  {service}
+                                </Badge>
+                              ))
+                            ) : (
+                              <span className="text-muted-foreground text-xs italic">None</span>
+                            )}
+                            {enquiry.services && enquiry.services.length > 2 && (
+                              <Badge variant="secondary" className="text-xs bg-muted">
+                                +{enquiry.services.length - 2}
+                              </Badge>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <p className="text-sm line-clamp-2 max-w-xs text-muted-foreground">{enquiry.message}</p>
                         </TableCell>
                         <TableCell>
                           {enquiry.handled ? (
@@ -191,7 +215,7 @@ export default function EnquiriesPage() {
                             </Badge>
                           )}
                         </TableCell>
-                        <TableCell>
+                        <TableCell className="text-xs text-muted-foreground">
                           {new Date(enquiry.createdAt).toLocaleDateString()}
                         </TableCell>
                         <TableCell className="text-right">
@@ -308,7 +332,17 @@ export default function EnquiriesPage() {
                       )}
                     </div>
 
-                    <div className="bg-muted/50 p-2 rounded text-sm line-clamp-3">
+                    {enquiry.services && enquiry.services.length > 0 && (
+                      <div className="flex flex-wrap gap-1">
+                        {enquiry.services.map((service, i) => (
+                          <Badge key={i} variant="secondary" className="text-xs bg-muted">
+                            {service}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+
+                    <div className="bg-muted/50 p-2 rounded text-sm line-clamp-3 text-muted-foreground">
                       {enquiry.message}
                     </div>
 
@@ -389,13 +423,14 @@ export default function EnquiriesPage() {
             <DialogTitle>Enquiry Details</DialogTitle>
             <DialogDescription>
               Submitted on {selectedEnquiry && new Date(selectedEnquiry.createdAt).toLocaleDateString()}
+              {' '}- {selectedEnquiry && new Date(selectedEnquiry.createdAt).toLocaleTimeString()}
             </DialogDescription>
           </DialogHeader>
           
           {selectedEnquiry && (
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="font-medium">{selectedEnquiry.name}</span>
+                <span className="font-medium text-lg">{selectedEnquiry.name}</span>
                 {selectedEnquiry.handled ? (
                   <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
                     <CheckCircle className="h-3 w-3 mr-1" />
@@ -431,21 +466,35 @@ export default function EnquiriesPage() {
                   </div>
                 )}
               </div>
+
+              {selectedEnquiry.services && selectedEnquiry.services.length > 0 && (
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-muted-foreground">Interested Services:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedEnquiry.services.map((service, i) => (
+                      <Badge key={i} variant="outline" className="border-accent/50 bg-accent/5 text-accent-foreground">
+                        {service}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
               
-              <div className="bg-muted p-4 rounded-lg">
+              <div className="bg-muted p-4 rounded-lg mt-2">
+                <p className="text-sm font-medium text-muted-foreground mb-1">Message:</p>
                 <p className="text-sm whitespace-pre-wrap">{selectedEnquiry.message}</p>
               </div>
               
-              <div className="flex justify-between pt-4">
+              <div className="flex justify-between pt-4 border-t">
                 <div className="flex gap-2">
-                  <Button variant="outline" asChild>
+                  <Button variant="outline" asChild size="sm">
                     <a href={`mailto:${selectedEnquiry.email}`}>
                       <Mail className="h-4 w-4 mr-2" />
                       Reply
                     </a>
                   </Button>
                   {selectedEnquiry.phone && (
-                    <Button variant="outline" asChild>
+                    <Button variant="outline" asChild size="sm">
                       <a href={`tel:${selectedEnquiry.phone}`}>
                         <Phone className="h-4 w-4 mr-2" />
                         Call
@@ -454,6 +503,7 @@ export default function EnquiriesPage() {
                   )}
                 </div>
                 <Button
+                  size="sm"
                   variant={selectedEnquiry.handled ? "outline" : "default"}
                   onClick={() => {
                     updateMutation.mutate({ id: selectedEnquiry.id, handled: !selectedEnquiry.handled });
@@ -480,3 +530,4 @@ export default function EnquiriesPage() {
     </div>
   );
 }
+

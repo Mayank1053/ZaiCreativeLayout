@@ -10,10 +10,8 @@ const publicRoutes = ['/admin/login'];
 const protectedRoutes = ['/admin'];
 
 export function proxy(request: NextRequest) {
-  console.log('--- PROXY START ---');
+
   const { pathname } = request.nextUrl;
-  console.log('Proxy running for:', pathname);
-  
   // Check if this is an admin route
   const isAdminRoute = pathname.startsWith('/admin');
   
@@ -26,11 +24,11 @@ export function proxy(request: NextRequest) {
   
   // Get token from cookie
   const token = request.cookies.get('auth_token')?.value;
-  console.log('Token found in cookie:', !!token);
+
   
   // Verify token
   const isValidToken = token ? verifyToken(token) : null;
-  console.log('Is token valid:', !!isValidToken);
+
   
   // If trying to access protected route without valid token
   if (!isPublicRoute && !isValidToken) {

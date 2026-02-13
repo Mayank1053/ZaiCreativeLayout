@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Building2, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 
-export default function AdminLoginPage() {
+function AdminLoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
@@ -53,73 +53,81 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <div className="flex justify-center mb-4">
-            <Building2 className="h-12 w-12 text-accent" />
-          </div>
-          <CardTitle className="text-2xl font-serif">Admin Login</CardTitle>
-          <CardDescription>
-            Sign in to access the admin panel
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {error && (
-              <div className="p-3 text-sm text-destructive bg-destructive/10 rounded-lg">
-                {error}
-              </div>
-            )}
-            
-            <div className="space-y-2">
-              <Label htmlFor="username">Username</Label>
-              <Input
-                id="username"
-                type="text"
-                value={formData.username}
-                onChange={(e) => setFormData(prev => ({ ...prev, username: e.target.value }))}
-                placeholder="Enter username"
-                required
-                disabled={loading}
-              />
+    <Card className="w-full max-w-md">
+      <CardHeader className="text-center">
+        <div className="flex justify-center mb-4">
+          <Building2 className="h-12 w-12 text-accent" />
+        </div>
+        <CardTitle className="text-2xl font-serif">Admin Login</CardTitle>
+        <CardDescription>
+          Sign in to access the admin panel
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {error && (
+            <div className="p-3 text-sm text-destructive bg-destructive/10 rounded-lg">
+              {error}
             </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                value={formData.password}
-                onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
-                placeholder="Enter password"
-                required
-                disabled={loading}
-              />
-            </div>
-            
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? (
-                <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Signing in...
-                </>
-              ) : (
-                'Sign In'
-              )}
-            </Button>
-          </form>
+          )}
           
-          <div className="mt-6 text-center">
-            <Link 
-              href="/" 
-              className="text-sm text-muted-foreground hover:text-accent transition-colors"
-            >
-              ← Back to website
-            </Link>
+          <div className="space-y-2">
+            <Label htmlFor="username">Username</Label>
+            <Input
+              id="username"
+              type="text"
+              value={formData.username}
+              onChange={(e) => setFormData(prev => ({ ...prev, username: e.target.value }))}
+              placeholder="Enter username"
+              required
+              disabled={loading}
+            />
           </div>
-        </CardContent>
-      </Card>
+          
+          <div className="space-y-2">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              type="password"
+              value={formData.password}
+              onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
+              placeholder="Enter password"
+              required
+              disabled={loading}
+            />
+          </div>
+          
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading ? (
+              <>
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                Signing in...
+              </>
+            ) : (
+              'Sign In'
+            )}
+          </Button>
+        </form>
+        
+        <div className="mt-6 text-center">
+          <Link 
+            href="/" 
+            className="text-sm text-muted-foreground hover:text-accent transition-colors"
+          >
+            ← Back to website
+          </Link>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+export default function AdminLoginPage() {
+  return (
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <Suspense fallback={<Loader2 className="h-8 w-8 animate-spin text-accent" />}>
+        <AdminLoginForm />
+      </Suspense>
     </div>
   );
 }

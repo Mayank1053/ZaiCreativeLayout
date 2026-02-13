@@ -16,7 +16,10 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Plus, Trash2, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
+import ImageUpload from '@/components/ui/image-upload';
+import { uploadToCloudinary } from '@/lib/cloudinary-upload';
+import { toast } from 'sonner';
 
 // Project interface
 interface Project {
@@ -62,6 +65,7 @@ const DIRECTIONS = [
 export function ProjectForm({ project, isEdit = false }: ProjectFormProps) {
   const router = useRouter();
   const queryClient = useQueryClient();
+  
   const [formData, setFormData] = useState<Project>({
     title: project?.title || '',
     slug: project?.slug || '',
@@ -73,7 +77,9 @@ export function ProjectForm({ project, isEdit = false }: ProjectFormProps) {
     featured: project?.featured || false,
     categoryId: project?.categoryId || '',
   });
-  const [newImageUrl, setNewImageUrl] = useState('');
+
+  const [pendingImages, setPendingImages] = useState<File[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
 
   // Fetch categories using React Query
   const { data: categories = [] } = useQuery<Category[]>({
@@ -113,6 +119,7 @@ export function ProjectForm({ project, isEdit = false }: ProjectFormProps) {
       if (isEdit) {
         queryClient.invalidateQueries({ queryKey: ['admin-project', project?.id] });
       }
+      toast.success(isEdit ? 'Project updated successfully' : 'Project created successfully');
       router.push('/admin/projects');
     },
     onError: (error) => {
@@ -130,30 +137,51 @@ export function ProjectForm({ project, isEdit = false }: ProjectFormProps) {
     setFormData(prev => ({ ...prev, title, slug }));
   };
 
-  // Add image URL
-  const handleAddImage = () => {
-    if (newImageUrl.trim()) {
-      setFormData(prev => ({
-        ...prev,
-        images: [...prev.images, newImageUrl.trim()],
-      }));
-      setNewImageUrl('');
-    }
+  // Handle files added (locally)
+  const handleFilesAdded = (files: File[]) => {
+    setPendingImages(prev => [...prev, ...files]);
   };
 
-  // Remove image
-  const handleRemoveImage = (index: number) => {
-    setFormData(prev => ({
-      ...prev,
-      images: prev.images.filter((_, i) => i !== index),
-    }));
+  // Remove pending file
+  const handleRemovePending = (index: number) => {
+    setPendingImages(prev => prev.filter((_, i) => i !== index));
+  };
+  
+  // Update existing images (remove)
+  const handleImagesChange = (newImages: string[]) => {
+    setFormData(prev => ({ ...prev, images: newImages }));
   };
 
   // Handle form submission
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    submitMutation.mutate(formData);
+    
+    let finalImages = [...formData.images];
+
+    // Upload pending images if any
+    if (pendingImages.length > 0) {
+      setIsUploading(true);
+      try {
+        const uploadPromises = pendingImages.map(file => uploadToCloudinary(file));
+        const uploadedUrls = await Promise.all(uploadPromises);
+        finalImages = [...finalImages, ...uploadedUrls];
+      } catch (error) {
+        console.error("Failed to upload images", error);
+        toast.error("Failed to upload images. Please try again.");
+        setIsUploading(false);
+        return; // Stop submission
+      }
+      setIsUploading(false);
+    }
+
+    // Submit with all image URLs
+    submitMutation.mutate({
+      ...formData,
+      images: finalImages
+    });
   };
+
+  const isSubmitting = submitMutation.isPending || isUploading;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -275,51 +303,18 @@ export function ProjectForm({ project, isEdit = false }: ProjectFormProps) {
           <CardTitle className="text-lg">Project Images</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          {/* Add new image */}
-          <div className="flex gap-2">
-            <Input
-              value={newImageUrl}
-              onChange={(e) => setNewImageUrl(e.target.value)}
-              placeholder="Enter image URL"
-              className="flex-1"
-            />
-            <Button type="button" onClick={handleAddImage} variant="outline">
-              <Plus className="h-4 w-4 mr-2" />
-              Add
-            </Button>
-          </div>
-          
-          {/* Image list */}
-          {formData.images.length > 0 && (
-            <div className="space-y-2">
-              {formData.images.map((url, index) => (
-                <div key={index} className="flex items-center gap-2 p-2 bg-muted rounded-lg">
-                  <img 
-                    src={url} 
-                    alt={`Project image ${index + 1}`}
-                    className="w-16 h-16 object-cover rounded"
-                  />
-                  <Input
-                    value={url}
-                    onChange={(e) => {
-                      const newImages = [...formData.images];
-                      newImages[index] = e.target.value;
-                      setFormData(prev => ({ ...prev, images: newImages }));
-                    }}
-                    className="flex-1"
-                  />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => handleRemoveImage(index)}
-                    className="text-destructive hover:text-destructive"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              ))}
-            </div>
+          <ImageUpload 
+            value={formData.images}
+            onChange={handleImagesChange}
+            pendingFiles={pendingImages}
+            onFilesAdded={handleFilesAdded}
+            onRemovePending={handleRemovePending}
+            disabled={isSubmitting}
+          />
+          {pendingImages.length > 0 && (
+            <p className="text-sm text-muted-foreground">
+              {pendingImages.length} image(s) waiting to be uploaded.
+            </p>
           )}
         </CardContent>
       </Card>
@@ -342,12 +337,16 @@ export function ProjectForm({ project, isEdit = false }: ProjectFormProps) {
           type="button"
           variant="outline"
           onClick={() => router.push('/admin/projects')}
+          disabled={isSubmitting}
         >
           Cancel
         </Button>
-        <Button type="submit" disabled={submitMutation.isPending}>
-          {submitMutation.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-          {isEdit ? 'Update Project' : 'Create Project'}
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+          {isUploading 
+            ? `Uploading ${pendingImages.length} images...` 
+            : (isEdit ? 'Update Project' : 'Create Project')
+          }
         </Button>
       </div>
     </form>

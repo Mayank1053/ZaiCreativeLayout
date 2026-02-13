@@ -2,9 +2,8 @@
 
 import { useRef } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Ruler, Compass, PenTool } from 'lucide-react';
 
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -14,94 +13,130 @@ export function HeroSection() {
   });
 
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
     <section 
       ref={containerRef} 
-      className="relative h-screen w-full overflow-hidden bg-zinc-900"
+      className="relative h-screen w-full overflow-hidden bg-[#0F172A] text-white"
     >
-      {/* Parallax Background */}
-      <motion.div 
-        style={{ y }}
-        className="absolute inset-0 z-0"
-      >
-        <Image
-          src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=2400&q=80"
-          alt="Luxury Architectural Design"
-          fill
-          className="object-cover opacity-60"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-      </motion.div>
+      {/* Blueprint Grid Background */}
+      <div className="absolute inset-0 bg-blueprint opacity-20 pointer-events-none" />
+      
+      {/* Animated Construction Lines Background */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+        <svg className="w-full h-full opacity-20">
+          <defs>
+            <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
+              <path d="M 100 0 L 0 0 0 100" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-blue-500/30" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+          
+          {/* Animated Paths */}
+          <motion.path
+            d="M 100,500 L 900,500"
+            fill="none"
+            stroke="#60A5FA"
+            strokeWidth="1"
+            strokeDasharray="10 10"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 0.5 }}
+            transition={{ duration: 3, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+          />
+          <motion.path
+            d="M 500,100 L 500,900"
+            fill="none"
+            stroke="#60A5FA"
+            strokeWidth="1"
+            strokeDasharray="10 10"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 0.5 }}
+            transition={{ duration: 4, delay: 0.5, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+          />
+        </svg>
+      </div>
 
       {/* Content */}
-      <div className="relative z-10 h-full max-w-[1800px] mx-auto px-6 sm:px-12 lg:px-24 flex flex-col justify-end pb-32">
+      <div className="relative z-10 h-full max-w-[1800px] mx-auto px-6 sm:px-12 lg:px-24 flex flex-col justify-end pt-32">
         <motion.div 
-          style={{ opacity }}
-          initial={{ opacity: 0, y: 100 }}
+          initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8, ease: "circOut" }}
           className="max-w-5xl"
         >
-          <div className="overflow-hidden mb-4">
-            <motion.p 
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-              className="text-accent tracking-[0.3em] uppercase text-sm font-medium pl-1"
-            >
-              Architecture & Construction Studio
-            </motion.p>
+          {/* Taglines */}
+          <div className="flex flex-wrap items-center gap-4 mb-8">
+             <motion.span 
+               initial={{ opacity: 0, x: -20 }}
+               animate={{ opacity: 1, x: 0 }}
+               transition={{ delay: 0.2 }}
+               className="px-3 py-1 border border-blue-500/30 text-blue-300 font-mono text-xs uppercase tracking-widest bg-blue-900/10 backdrop-blur-sm"
+             >
+              Vastu Compliant
+            </motion.span>
+             <motion.span 
+               initial={{ opacity: 0, x: -20 }}
+               animate={{ opacity: 1, x: 0 }}
+               transition={{ delay: 0.3 }}
+               className="px-3 py-1 border border-blue-500/30 text-blue-300 font-mono text-xs uppercase tracking-widest bg-blue-900/10 backdrop-blur-sm"
+             >
+              Structural Layouts
+            </motion.span>
+             <motion.span 
+               initial={{ opacity: 0, x: -20 }}
+               animate={{ opacity: 1, x: 0 }}
+               transition={{ delay: 0.4 }}
+               className="px-3 py-1 border border-blue-500/30 text-blue-300 font-mono text-xs uppercase tracking-widest bg-blue-900/10 backdrop-blur-sm"
+             >
+              Construction Phase
+            </motion.span>
           </div>
 
-          <h1 className="text-white font-sans font-light leading-[0.9] tracking-tight mb-8">
-            <span className="block text-[clamp(3.5rem,8vw,9rem)]">
-              Designing
-            </span>
-            <span className="block text-[clamp(3.5rem,8vw,9rem)] font-serif italic text-white/90 ml-[10vw] sm:ml-[15vw]">
-              Spaces That
-            </span>
-            <span className="block text-[clamp(3.5rem,8vw,9rem)] text-accent">
-              Inspire.
-            </span>
+          <h1 className="font-sans font-light text-5xl sm:text-7xl md:text-8xl lg:text-8xl xl:text-9xl tracking-tight leading-[0.95] mb-8 text-white">
+            <span className="block">Precision in</span>
+            <span className="block font-serif italic text-blue-200/90 ml-[5vw]">Planning.</span>
+            <span className="block">Perfection in</span>
+            <span className="block font-serif italic text-blue-200/90 ml-[10vw]">Construction.</span>
           </h1>
 
-          <div className="flex flex-col sm:flex-row gap-8 items-start sm:items-center mt-12 pl-1">
+          <p className="max-w-xl text-base sm:text-lg text-slate-400 font-mono mb-12 border-l-2 border-blue-500 pl-6 leading-relaxed">
+            We don't just design; we engineer your dream. From Vastu-compliant floor analysis to the final concrete pour, we master the entire construction lifecycle.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-6">
             <Link 
               href="/projects" 
-              className="group flex items-center gap-4 text-white hover:text-accent transition-colors duration-300"
+              className="group relative overflow-hidden flex items-center justify-between px-8 py-4 bg-blue-600 text-white transition-all hover:bg-blue-500"
             >
-              <span className="text-lg tracking-wide border-b border-white/30 pb-1 group-hover:border-accent">
-                View Projects
-              </span>
-              <ArrowRight className="w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-300" />
+              <span className="font-mono uppercase tracking-widest text-sm mr-8 relative z-10">View Master Plans</span>
+              <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
             </Link>
-            
             <Link 
               href="/contact" 
-              className="group flex items-center gap-4 text-white/70 hover:text-white transition-colors duration-300"
+              className="group flex items-center justify-between px-8 py-4 border border-slate-700 hover:border-blue-500 text-slate-300 hover:text-white transition-colors backdrop-blur-sm"
             >
-              <span className="text-lg tracking-wide border-b border-transparent pb-1 group-hover:border-white">
-                Get in Touch
-              </span>
+              <span className="font-mono uppercase tracking-widest text-sm mr-8">Start Your Project</span>
+              <PenTool className="w-4 h-4 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </motion.div>
       </div>
+      
+       {/* Technical Stats / Footer of Hero */}
+       <div className="absolute bottom-0 left-0 w-full border-t border-slate-800 bg-slate-950/80 backdrop-blur-md py-4 z-20">
+         <div className="max-w-[1800px] mx-auto px-6 sm:px-12 lg:px-24 flex justify-between items-center text-[10px] sm:text-xs font-mono text-slate-500 uppercase tracking-widest">
+           <div>Ref: ZCL-CONST-2024</div>
+           <div className="hidden md:flex items-center gap-12">
+             <div className="flex items-center gap-2 text-slate-400"><Ruler className="w-3 h-3 text-blue-500" /> Area Analysis</div>
+             <div className="flex items-center gap-2 text-slate-400"><Compass className="w-3 h-3 text-blue-500" /> Orientation Check</div>
+           </div>
+           <div className="flex items-center gap-2">
+            Scroll to Explore
+            <div className="w-8 h-px bg-slate-600" />
+           </div>
+         </div>
+       </div>
 
-      {/* Scroll Indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-12 right-12 z-10 hidden sm:flex items-center gap-4 text-white/50 text-xs tracking-widest uppercase rotate-90 origin-right translate-x-8"
-      >
-        <span>Scroll to Explore</span>
-        <div className="w-12 h-[1px] bg-white/30" />
-      </motion.div>
     </section>
   );
 }

@@ -14,8 +14,9 @@ export function Header() {
   const pathname = usePathname();
   const isHome = pathname === '/';
   
-  // Header is transparent and text is white ONLY when on Home page and NOT scrolled
-  const isTransparent = isHome && !isScrolled;
+  // Header is transparent and text is white on Home page OR Project Details pages when NOT scrolled
+  const isProjectDetail = pathname.startsWith('/projects/') && pathname !== '/projects';
+  const isTransparent = (isHome || isProjectDetail) && !isScrolled;
 
   // Handle scroll effect
   useEffect(() => {
@@ -40,16 +41,16 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
         !isTransparent
-          ? 'bg-background/95 backdrop-blur-sm shadow-sm'
-          : 'bg-transparent'
+          ? 'bg-[#0F172A]/90 backdrop-blur-md border-blue-500/20 shadow-lg shadow-blue-900/5'
+          : 'bg-transparent border-transparent'
       }`}
     >
       <div className="max-w-[1800px] mx-auto px-6 sm:px-12 lg:px-24">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Logo color={isTransparent ? 'white' : 'default'} />
+          <Logo color={isTransparent ? 'white' : 'white'} />
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
@@ -57,14 +58,15 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative text-sm tracking-wider uppercase transition-colors duration-300 link-underline ${
+                className={`relative text-xs tracking-[0.15em] uppercase transition-colors duration-300 font-mono ${
                   isActive(link.href)
-                    ? 'text-accent'
+                    ? 'text-blue-400'
                     : isTransparent 
-                      ? 'text-white hover:text-accent' 
-                      : 'text-foreground hover:text-accent'
+                      ? 'text-slate-300 hover:text-white' 
+                      : 'text-slate-400 hover:text-white'
                 }`}
               >
+                <span className="mr-1 opacity-50 text-blue-500">//</span>
                 {link.label}
               </Link>
             ))}
@@ -74,7 +76,7 @@ export function Header() {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className={`md:hidden p-2 transition-colors ${
-              isTransparent ? 'text-white hover:text-accent' : 'text-foreground hover:text-accent'
+              isTransparent ? 'text-white hover:text-blue-400' : 'text-slate-200 hover:text-blue-400'
             }`}
             aria-label="Toggle menu"
           >
@@ -91,24 +93,29 @@ export function Header() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="md:hidden bg-background/98 backdrop-blur-sm border-t border-border"
+            className="md:hidden bg-[#0F172A] border-b border-blue-500/20 overflow-hidden"
           >
-            <nav className="flex flex-col py-4 px-6 space-y-4">
+             {/* Blueprint Grid Background for Mobile Menu */}
+             <div className="absolute inset-0 bg-blueprint opacity-10 pointer-events-none" />
+             
+            <nav className="relative z-10 flex flex-col py-6 px-6 space-y-2">
               {NAV_LINKS.map((link, index) => (
                 <motion.div
                   key={link.href}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ delay: index * 0.05 }}
                 >
                   <Link
                     href={link.href}
-                    className={`block py-2 text-sm tracking-wider uppercase transition-colors duration-300 ${
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`block py-3 px-4 text-sm tracking-widest uppercase font-mono border-l-2 transition-all duration-300 ${
                       isActive(link.href)
-                        ? 'text-accent'
-                        : 'text-foreground hover:text-accent'
+                        ? 'text-white border-blue-500 bg-blue-500/10'
+                        : 'text-slate-400 border-transparent hover:text-white hover:border-slate-600 hover:bg-white/5'
                     }`}
                   >
+                     <span className="mr-2 text-blue-500 opacity-70">0{index + 1}.</span>
                     {link.label}
                   </Link>
                 </motion.div>

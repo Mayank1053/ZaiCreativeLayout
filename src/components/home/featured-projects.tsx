@@ -30,16 +30,18 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
         
         <div className="flex flex-col md:flex-row justify-between items-end mb-24">
           <div>
-            <p className="text-accent text-xs tracking-[0.2em] uppercase font-medium mb-4 flex items-center gap-4">
-              <span className="w-8 h-[1px] bg-accent"></span>
-              Selected Works
-            </p>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground">
-              Featured Projects
+            <div className="flex items-center gap-4 mb-4">
+               <span className="w-8 h-px bg-blue-500"></span>
+               <p className="text-blue-600 text-xs tracking-[0.2em] uppercase font-mono font-medium">
+                Project Portfolio
+              </p>
+            </div>
+            <h2 className="font-sans font-light text-4xl md:text-5xl lg:text-6xl text-slate-900">
+              Completed Works
             </h2>
           </div>
-          <Link href="/projects" className="hidden md:flex items-center gap-2 group text-muted-foreground hover:text-accent transition-colors">
-            View All Projects
+          <Link href="/projects" className="hidden md:flex items-center gap-2 group text-slate-500 hover:text-blue-600 transition-colors font-mono text-sm uppercase tracking-wide">
+            View Project Archive
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
@@ -85,7 +87,7 @@ function ProjectCard({ project, image, isEven }: { project: Project; image: stri
     <div ref={containerRef} className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 lg:gap-24 items-center`}>
       
       {/* Image */}
-      <div className="w-full lg:w-3/5 relative aspect-[4/3] overflow-hidden group">
+      <div className="w-full lg:w-3/5 relative aspect-4/3 overflow-hidden group">
         <motion.div style={{ y }} className="relative w-full h-[120%] -top-[10%]">
            <Image
             src={image || '/placeholder.jpg'}

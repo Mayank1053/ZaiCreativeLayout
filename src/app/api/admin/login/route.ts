@@ -17,9 +17,7 @@ export async function POST(request: Request) {
     }
     
     // Verify credentials
-    console.log('Login attempt for:', username);
     const isValid = await verifyCredentials(username, password);
-    console.log('Credentials valid:', isValid);
     
     if (!isValid) {
       return NextResponse.json(

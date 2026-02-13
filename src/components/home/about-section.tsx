@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Ruler, CheckCircle2 } from 'lucide-react';
 
 export function AboutSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -13,24 +13,29 @@ export function AboutSection() {
     offset: ['start end', 'end start'],
   });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   return (
-    <section ref={containerRef} className="py-32 bg-background relative overflow-hidden">
+    <section ref={containerRef} className="py-32 bg-slate-50 relative overflow-hidden">
+        {/* Subtle Grid Background */}
+        <div className="absolute inset-0 bg-blueprint-grid-sm opacity-[0.03] pointer-events-none" />
+
       <div className="max-w-[1800px] mx-auto px-6 sm:px-12 lg:px-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           
-          {/* Text Content - Spans 5 columns */}
-          <div className="lg:col-span-5 order-2 lg:order-1 relative z-10">
+          {/* Text Content - Spans 6 columns */}
+          <div className="lg:col-span-6 order-2 lg:order-1 relative z-10">
             <motion.p
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-accent text-xs tracking-[0.2em] uppercase font-medium mb-8 flex items-center gap-4"
+              className="flex items-center gap-4 mb-6"
             >
-              <span className="w-8 h-[1px] bg-accent"></span>
-              The Studio
+              <span className="w-12 h-px bg-slate-400"></span>
+              <span className="text-slate-500 text-xs tracking-[0.2em] uppercase font-mono font-medium">
+                The Firm
+              </span>
             </motion.p>
             
             <motion.h2 
@@ -38,9 +43,9 @@ export function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground mb-10 leading-[1.1]"
+              className="font-sans font-light text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-10 leading-[1.1]"
             >
-              We craft narratives in <span className="italic text-muted-foreground">space</span> and <span className="italic text-muted-foreground">materiality</span>.
+              We bridge the gap between <span className="font-serif italic text-blue-700">structural logic</span> and <span className="font-serif italic text-blue-700">livable art</span>.
             </motion.h2>
 
             <motion.div
@@ -48,63 +53,78 @@ export function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="space-y-6 text-lg text-muted-foreground/80 font-light leading-relaxed"
+              className="space-y-6 text-lg text-slate-600 font-light leading-relaxed mb-8"
             >
               <p>
-                At Creative Layout, we believe architecture is an intellectual and artistic pursuit. 
-                Led by Architect Prashant Ambilkar, our studio operates at the intersection of 
-                tradition and avant-garde design.
+                At Creative Layout, our focus is grounded in the reality of construction. We specialize in 
+                <strong className="text-slate-900 font-medium"> comprehensive floor planning</strong> and 
+                <strong className="text-slate-900 font-medium"> layout optimization</strong> that respects both modern engineering and ancient Vastu principles.
               </p>
               <p>
-                We do not just build structures; we sculpt environments that elevate the human experience. 
-                Our approach blends the timeless wisdom of Vastu with contemporary aesthetics, ensuring 
-                every project resonates with balance and purpose.
+                Led by Architect Prashant Ambilkar, we ensure that every line drawn on paper translates 
+                flawlessly to the construction site. No ambiguity, just precise execution.
               </p>
             </motion.div>
+
+             <motion.ul
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10"
+            >
+                {["Vastu Shastra Compliant", "Structural Stability", "Cost-Effective Planning", "Site Supervision"].map((item, i) => (
+                    <li key={i} className="flex items-center gap-3 text-slate-700 font-mono text-sm">
+                        <CheckCircle2 className="w-4 h-4 text-blue-600" />
+                        {item}
+                    </li>
+                ))}
+            </motion.ul>
 
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="mt-12"
+              transition={{ delay: 0.5 }}
             >
-              <Link href="/process" className="group inline-flex items-center gap-2 text-foreground font-medium hover:text-accent transition-colors">
-                Our Process
+              <Link href="/process" className="group inline-flex items-center gap-2 text-slate-900 font-mono text-sm uppercase tracking-wide border-b border-slate-300 pb-1 hover:border-blue-600 transition-colors">
+                Our Workflow
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </motion.div>
           </div>
 
-          {/* Image Composition - Spans 7 columns */}
-          <div className="lg:col-span-7 order-1 lg:order-2 relative min-h-[600px] flex items-center justify-center lg:justify-end">
-            {/* Background Decorative Element */}
-            <div className="absolute top-0 right-0 w-3/4 h-full bg-muted/30 -z-10" />
-
-            {/* Main Image */}
+          {/* Image Composition - Spans 6 columns */}
+          <div className="lg:col-span-6 order-1 lg:order-2 relative min-h-[600px] flex items-center justify-center lg:justify-end">
+            
+            {/* Main Image - Blueprint / Plan */}
             <motion.div 
               style={{ y: y1 }}
-              className="relative w-[300px] sm:w-[400px] aspect-[3/4] z-10 shadow-2xl"
+              className="relative w-full max-w-[500px] aspect-4/5 z-10 shadow-2xl border-4 border-white bg-white"
             >
               <Image
-                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800"
-                alt="Interior Design Detail"
+                src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80"
+                alt="Architectural Blueprint"
                 fill
-                className="object-cover"
+                className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
               />
+              {/* Overlay lines */}
+                <div className="absolute inset-0 border border-slate-900/10 m-4 pointer-events-none" />
+                <div className="absolute bottom-6 right-6 font-mono text-xs text-white bg-slate-900 px-2 py-1">
+                    PROJECT: RES-44
+                </div>
             </motion.div>
 
-            {/* Overlapping Image */}
+            {/* Floating Element - Technical Detail */}
             <motion.div 
               style={{ y: y2 }}
-              className="absolute -bottom-12 left-0 sm:left-12 lg:-left-12 w-[240px] sm:w-[300px] aspect-square z-20 shadow-xl border-8 border-background"
+              className="absolute -bottom-[-40px] -left-[-40px] sm:left-[-40px] w-[260px] aspect-square z-20 shadow-xl bg-blue-600 p-6 flex flex-col justify-between text-white"
             >
-              <Image
-                src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600"
-                alt="Architectural Detail"
-                fill
-                className="object-cover"
-              />
+              <Ruler className="w-8 h-8 opacity-50" />
+              <div>
+                  <div className="text-4xl font-mono font-bold mb-1">100%</div>
+                  <div className="text-sm font-mono opacity-80 uppercase tracking-wider">Precision in<br/>Measurement</div>
+              </div>
             </motion.div>
           </div>
         </div>

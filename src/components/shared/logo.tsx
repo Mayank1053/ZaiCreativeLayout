@@ -45,10 +45,13 @@ export function Logo({ className = '', showText = true, size = 'md', color = 'de
 
   // Text Logo
   return (
-    <Link href="/" className={`flex items-center ${className}`}>
-      <span className={`font-serif font-medium tracking-wide ${textSizeClasses[size]}`}>
+    <Link href="/" className={`flex items-center ${className} group`}>
+      <span className={`font-mono font-medium tracking-tighter ${textSizeClasses[size]}`}>
+        <span className={`${textColor} group-hover:text-blue-500 transition-colors`}>&lt;</span>
         <span className={textColor}>{LOGO_CONFIG.text.primary}</span>
-        <span style={{ color: '#d4a017' }} className="ml-1">{LOGO_CONFIG.text.secondary}</span>
+        <span className="text-blue-500 mx-1">_</span>
+        <span className={textColor}>{LOGO_CONFIG.text.secondary}</span>
+        <span className={`${textColor} group-hover:text-blue-500 transition-colors`}>/&gt;</span>
       </span>
     </Link>
   );

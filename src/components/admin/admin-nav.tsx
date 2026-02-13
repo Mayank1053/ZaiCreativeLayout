@@ -34,7 +34,7 @@ interface AdminNavProps {
   onLogout?: () => void;
 }
 
-export function AdminNav({ onLogout }: AdminNavProps) {
+export function AdminNav({ onLogout, className, onLinkClick }: { onLogout?: () => void; className?: string; onLinkClick?: () => void }) {
   const pathname = usePathname();
   
   const isActive = (href: string) => {
@@ -58,10 +58,10 @@ export function AdminNav({ onLogout }: AdminNavProps) {
   };
 
   return (
-    <nav className="w-64 min-h-screen bg-card border-r border-border flex flex-col">
+    <nav className={cn("w-64 min-h-screen bg-card border-r border-border flex flex-col", className)}>
       {/* Logo */}
       <div className="p-6 border-b border-border">
-        <Link href="/admin" className="flex items-center gap-3">
+        <Link href="/admin" className="flex items-center gap-3" onClick={onLinkClick}>
           <Building2 className="h-8 w-8 text-accent" />
           <div>
             <h1 className="font-serif text-lg font-semibold">Creative Layout</h1>
@@ -81,6 +81,7 @@ export function AdminNav({ onLogout }: AdminNavProps) {
               <li key={item.href}>
                 <Link
                   href={item.href}
+                  onClick={onLinkClick}
                   className={cn(
                     'flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors',
                     active

@@ -154,20 +154,6 @@ export default function AdminDashboard() {
             </a>
           </CardContent>
         </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Recent Activity</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground">
-              View and manage your architecture portfolio projects and client enquiries.
-            </p>
-            <p className="text-sm text-muted-foreground mt-2">
-              Use the navigation sidebar to access different sections of the admin panel.
-            </p>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );

@@ -3,7 +3,9 @@
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { AdminNav } from '@/components/admin';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Menu } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
 
 export default function AdminLayout({
   children,
@@ -14,6 +16,7 @@ export default function AdminLayout({
   const pathname = usePathname();
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     // Skip auth check for login page
@@ -64,8 +67,31 @@ export default function AdminLayout({
   }
 
   return (
-    <div className="min-h-screen bg-background flex">
-      <AdminNav />
+    <div className="min-h-screen bg-background flex flex-col md:flex-row">
+      {/* Desktop Sidebar */}
+      <div className="hidden md:flex">
+        <AdminNav />
+      </div>
+
+      {/* Mobile Header */}
+      <div className="md:hidden flex items-center p-4 border-b border-border bg-card">
+        <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+          <SheetTrigger asChild>
+            <Button variant="outline" size="icon">
+              <Menu className="h-5 w-5" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="p-0 w-72">
+            <SheetTitle className="sr-only">Admin Navigation</SheetTitle>
+            <AdminNav 
+              className="w-full h-full border-none" 
+              onLinkClick={() => setMobileMenuOpen(false)} 
+            />
+          </SheetContent>
+        </Sheet>
+        <h1 className="ml-4 font-serif text-lg font-semibold">Admin Panel</h1>
+      </div>
+
       <main className="flex-1 p-6 overflow-auto">
         {children}
       </main>

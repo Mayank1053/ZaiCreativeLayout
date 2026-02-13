@@ -109,7 +109,7 @@ export default function EnquiriesPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-serif font-semibold">Enquiries</h1>
           <p className="text-muted-foreground">Manage client enquiries and contact submissions</p>
@@ -137,45 +137,145 @@ export default function EnquiriesPage() {
               <p>No enquiries yet.</p>
             </div>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Contact</TableHead>
-                  <TableHead>Message</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Date</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
+            <>
+              {/* Desktop Table View */}
+              <div className="hidden md:block">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Name</TableHead>
+                      <TableHead>Contact</TableHead>
+                      <TableHead>Message</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Date</TableHead>
+                      <TableHead className="text-right">Actions</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {enquiries.map((enquiry) => (
+                      <TableRow key={enquiry.id} className={enquiry.handled ? 'opacity-60' : ''}>
+                        <TableCell className="font-medium">{enquiry.name}</TableCell>
+                        <TableCell>
+                          <div className="space-y-1">
+                            <a 
+                              href={`mailto:${enquiry.email}`}
+                              className="flex items-center gap-1 text-sm text-accent hover:underline"
+                            >
+                              <Mail className="h-3 w-3" />
+                              {enquiry.email}
+                            </a>
+                            {enquiry.phone && (
+                              <a 
+                                href={`tel:${enquiry.phone}`}
+                                className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+                              >
+                                <Phone className="h-3 w-3" />
+                                {enquiry.phone}
+                              </a>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <p className="text-sm line-clamp-2 max-w-xs">{enquiry.message}</p>
+                        </TableCell>
+                        <TableCell>
+                          {enquiry.handled ? (
+                            <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                              <CheckCircle className="h-3 w-3 mr-1" />
+                              Handled
+                            </Badge>
+                          ) : (
+                            <Badge variant="secondary" className="bg-orange-50 text-orange-700 border-orange-200">
+                              <Clock className="h-3 w-3 mr-1" />
+                              Pending
+                            </Badge>
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          {new Date(enquiry.createdAt).toLocaleDateString()}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <div className="flex items-center justify-end gap-2">
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              title="View details"
+                              onClick={() => setSelectedEnquiry(enquiry)}
+                            >
+                              <Eye className="h-4 w-4" />
+                            </Button>
+                            {!enquiry.handled ? (
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                title="Mark as handled"
+                                onClick={() => updateMutation.mutate({ id: enquiry.id, handled: true })}
+                                className="text-green-600 hover:text-green-700"
+                              >
+                                <CheckCircle className="h-4 w-4" />
+                              </Button>
+                            ) : (
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                title="Mark as pending"
+                                onClick={() => updateMutation.mutate({ id: enquiry.id, handled: false })}
+                                className="text-orange-600 hover:text-orange-700"
+                              >
+                                <Clock className="h-4 w-4" />
+                              </Button>
+                            )}
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button 
+                                  variant="ghost" 
+                                  size="icon" 
+                                  className="text-destructive hover:text-destructive"
+                                  title="Delete"
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Delete Enquiry</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    Are you sure you want to delete this enquiry from {enquiry.name}? This action cannot be undone.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={() => deleteMutation.mutate(enquiry.id)}
+                                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                                    disabled={deleteMutation.isPending}
+                                  >
+                                    {deleteMutation.isPending ? (
+                                      <Loader2 className="h-4 w-4 animate-spin" />
+                                    ) : (
+                                      'Delete'
+                                    )}
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+
+              {/* Mobile Card View */}
+              <div className="md:hidden space-y-4">
                 {enquiries.map((enquiry) => (
-                  <TableRow key={enquiry.id} className={enquiry.handled ? 'opacity-60' : ''}>
-                    <TableCell className="font-medium">{enquiry.name}</TableCell>
-                    <TableCell>
-                      <div className="space-y-1">
-                        <a 
-                          href={`mailto:${enquiry.email}`}
-                          className="flex items-center gap-1 text-sm text-accent hover:underline"
-                        >
-                          <Mail className="h-3 w-3" />
-                          {enquiry.email}
-                        </a>
-                        {enquiry.phone && (
-                          <a 
-                            href={`tel:${enquiry.phone}`}
-                            className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
-                          >
-                            <Phone className="h-3 w-3" />
-                            {enquiry.phone}
-                          </a>
-                        )}
+                  <div key={enquiry.id} className={`p-4 rounded-lg border bg-card text-card-foreground shadow-sm space-y-3 ${enquiry.handled ? 'opacity-60' : ''}`}>
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <h3 className="font-medium">{enquiry.name}</h3>
+                        <p className="text-xs text-muted-foreground">{new Date(enquiry.createdAt).toLocaleDateString()}</p>
                       </div>
-                    </TableCell>
-                    <TableCell>
-                      <p className="text-sm line-clamp-2 max-w-xs">{enquiry.message}</p>
-                    </TableCell>
-                    <TableCell>
                       {enquiry.handled ? (
                         <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
                           <CheckCircle className="h-3 w-3 mr-1" />
@@ -187,81 +287,97 @@ export default function EnquiriesPage() {
                           Pending
                         </Badge>
                       )}
-                    </TableCell>
-                    <TableCell>
-                      {new Date(enquiry.createdAt).toLocaleDateString()}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <div className="flex items-center justify-end gap-2">
+                    </div>
+                    
+                    <div className="space-y-1">
+                      <a 
+                        href={`mailto:${enquiry.email}`}
+                        className="flex items-center gap-2 text-sm text-accent hover:underline"
+                      >
+                        <Mail className="h-3 w-3" />
+                        {enquiry.email}
+                      </a>
+                      {enquiry.phone && (
+                        <a 
+                          href={`tel:${enquiry.phone}`}
+                          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+                        >
+                          <Phone className="h-3 w-3" />
+                          {enquiry.phone}
+                        </a>
+                      )}
+                    </div>
+
+                    <div className="bg-muted/50 p-2 rounded text-sm line-clamp-3">
+                      {enquiry.message}
+                    </div>
+
+                    <div className="flex items-center justify-end gap-2 pt-2 border-t">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 w-8 p-0"
+                        onClick={() => setSelectedEnquiry(enquiry)}
+                      >
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                      {!enquiry.handled ? (
                         <Button
                           variant="ghost"
-                          size="icon"
-                          title="View details"
-                          onClick={() => setSelectedEnquiry(enquiry)}
+                          size="sm"
+                          className="h-8 w-8 p-0 text-green-600 hover:text-green-700"
+                          onClick={() => updateMutation.mutate({ id: enquiry.id, handled: true })}
                         >
-                          <Eye className="h-4 w-4" />
+                          <CheckCircle className="h-4 w-4" />
                         </Button>
-                        {!enquiry.handled ? (
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            title="Mark as handled"
-                            onClick={() => updateMutation.mutate({ id: enquiry.id, handled: true })}
-                            className="text-green-600 hover:text-green-700"
+                      ) : (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 w-8 p-0 text-orange-600 hover:text-orange-700"
+                          onClick={() => updateMutation.mutate({ id: enquiry.id, handled: false })}
+                        >
+                          <Clock className="h-4 w-4" />
+                        </Button>
+                      )}
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            className="h-8 w-8 p-0 text-destructive hover:text-destructive"
                           >
-                            <CheckCircle className="h-4 w-4" />
+                            <Trash2 className="h-4 w-4" />
                           </Button>
-                        ) : (
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            title="Mark as pending"
-                            onClick={() => updateMutation.mutate({ id: enquiry.id, handled: false })}
-                            className="text-orange-600 hover:text-orange-700"
-                          >
-                            <Clock className="h-4 w-4" />
-                          </Button>
-                        )}
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <Button 
-                              variant="ghost" 
-                              size="icon" 
-                              className="text-destructive hover:text-destructive"
-                              title="Delete"
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Delete Enquiry</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Are you sure you want to delete this enquiry from {enquiry.name}? This action cannot be undone.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={() => deleteMutation.mutate(enquiry.id)}
+                              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                              disabled={deleteMutation.isPending}
                             >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>Delete Enquiry</AlertDialogTitle>
-                              <AlertDialogDescription>
-                                Are you sure you want to delete this enquiry from {enquiry.name}? This action cannot be undone.
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
-                              <AlertDialogAction
-                                onClick={() => deleteMutation.mutate(enquiry.id)}
-                                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                                disabled={deleteMutation.isPending}
-                              >
-                                {deleteMutation.isPending ? (
-                                  <Loader2 className="h-4 w-4 animate-spin" />
-                                ) : (
-                                  'Delete'
-                                )}
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
-                      </div>
-                    </TableCell>
-                  </TableRow>
+                              {deleteMutation.isPending ? (
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                              ) : (
+                                'Delete'
+                              )}
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </div>
+                  </div>
                 ))}
-              </TableBody>
-            </Table>
+              </div>
+            </>
           )}
         </CardContent>
       </Card>

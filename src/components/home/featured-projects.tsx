@@ -25,22 +25,33 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
   if (projects.length === 0) return null;
 
   return (
-    <section className="py-32 bg-background">
+    <section className="py-32 bg-[#0F172A] relative">
+      {/* Blueprint Grid Background Pattern */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden opacity-10">
+        <svg className="w-full h-full">
+          <defs>
+            <pattern id="grid-featured" width="100" height="100" patternUnits="userSpaceOnUse">
+              <path d="M 100 0 L 0 0 0 100" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-blue-500/30" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid-featured)" />
+        </svg>
+      </div>
       <div className="max-w-[1800px] mx-auto px-6 sm:px-12 lg:px-24">
         
         <div className="flex flex-col md:flex-row justify-between items-end mb-24">
           <div>
             <div className="flex items-center gap-4 mb-4">
                <span className="w-8 h-px bg-blue-500"></span>
-               <p className="text-blue-600 text-xs tracking-[0.2em] uppercase font-mono font-medium">
+               <p className="text-blue-400 text-xs tracking-[0.2em] uppercase font-mono font-medium">
                 Project Portfolio
               </p>
             </div>
-            <h2 className="font-sans font-light text-4xl md:text-5xl lg:text-6xl text-slate-900">
+            <h2 className="font-sans font-light text-4xl md:text-5xl lg:text-6xl text-white">
               Completed Works
             </h2>
           </div>
-          <Link href="/projects" className="hidden md:flex items-center gap-2 group text-slate-500 hover:text-blue-600 transition-colors font-mono text-sm uppercase tracking-wide">
+          <Link href="/projects" className="hidden md:flex items-center gap-2 group text-slate-400 hover:text-blue-400 transition-colors font-mono text-sm uppercase tracking-wide">
             View Project Archive
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Link>
@@ -96,22 +107,24 @@ function ProjectCard({ project, image, isEven }: { project: Project; image: stri
             className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
         </motion.div>
-        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+
+        <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors duration-500" />
+        <div className="absolute inset-0 border border-white/5 group-hover:border-blue-500/30 transition-colors duration-500 pointer-events-none" />
       </div>
 
       {/* Content */}
       <div className="w-full lg:w-2/5 flex flex-col justify-center">
-        <span className="text-accent text-xs tracking-[0.2em] uppercase font-medium mb-4 block">
+        <span className="text-blue-400 text-xs tracking-[0.2em] uppercase font-medium mb-4 block">
           {project.category.name}
         </span>
-        <h3 className="font-serif text-3xl md:text-4xl text-foreground mb-6">
+        <h3 className="font-serif text-3xl md:text-4xl text-white mb-6">
           {project.title}
         </h3>
-        <p className="text-muted-foreground font-light mb-8 text-lg">
+        <p className="text-slate-400 font-light mb-8 text-lg">
           {project.location}
         </p>
         <div className="flex items-center gap-4">
-           <Link href={`/projects/${project.slug}`} className="group inline-flex items-center gap-2 text-foreground border-b border-foreground/30 hover:border-accent pb-1 transition-colors">
+           <Link href={`/projects/${project.slug}`} className="group inline-flex items-center gap-2 text-white border-b border-white/30 hover:border-blue-500 hover:text-blue-400 pb-1 transition-colors">
             Explore Project
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Link>

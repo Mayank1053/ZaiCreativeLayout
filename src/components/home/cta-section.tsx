@@ -6,26 +6,49 @@ import { ArrowRight } from 'lucide-react';
 
 export function CTASection() {
   return (
-    <section className="py-32 bg-zinc-950 text-white flex items-center justify-center min-h-[50vh]">
-      <div className="max-w-4xl mx-auto px-6 text-center">
+    <section className="py-40 bg-[#0F172A] text-white flex items-center justify-center min-h-[60vh] relative overflow-hidden">
+      {/* Blueprint Grid Background Pattern */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden opacity-10">
+        <svg className="w-full h-full">
+          <defs>
+            <pattern id="grid-cta" width="100" height="100" patternUnits="userSpaceOnUse">
+              <path d="M 100 0 L 0 0 0 100" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-blue-500/30" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid-cta)" />
+        </svg>
+      </div>
+
+      <div className="max-w-[1800px] mx-auto px-6 text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
+          className="relative"
         >
-          <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl mb-12 leading-none">
+          {/* Decorative lines */}
+          <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-px h-24 bg-linear-to-b from-transparent to-blue-500/50" />
+          
+          <h2 className="font-serif text-5xl md:text-7xl lg:text-9xl mb-16 leading-none tracking-tight">
             Let&apos;s build the <br /> 
-            <span className="italic text-accent">extraordinary.</span>
+            <span className="italic text-blue-400">extraordinary.</span>
           </h2>
           
           <Link 
             href="/contact" 
-            className="group inline-flex items-center gap-4 text-xl tracking-wide border-b border-white/30 pb-2 hover:border-accent hover:text-accent transition-all duration-300"
+            className="group relative inline-flex items-center gap-6 text-xl sm:text-2xl tracking-widest uppercase font-light border border-white/10 px-10 py-5 hover:bg-white/5 hover:border-blue-500/50 transition-all duration-500 overflow-hidden"
           >
-            Start a Conversation
-            <ArrowRight className="w-6 h-6 transform group-hover:translate-x-2 transition-transform duration-300" />
+            <span className="relative z-10">Start a Conversation</span>
+            <ArrowRight className="w-6 h-6 relative z-10 transform group-hover:translate-x-2 transition-transform duration-500 text-blue-500" />
+            
+            {/* Hover fill effect */}
+            <div className="absolute inset-0 bg-linear-to-r from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </Link>
+          
+          <div className="mt-16 text-slate-500 font-mono text-xs uppercase tracking-[0.5em] opacity-50">
+            Available for collaborations
+          </div>
         </motion.div>
       </div>
     </section>

@@ -51,22 +51,22 @@ export default function ContactInfoClient() {
           <motion.div
             key={item.label}
             variants={fadeInUp}
-            className="flex gap-4"
+            className="flex gap-4 group"
           >
-            <div className="w-12 h-12 bg-muted flex items-center justify-center shrink-0">
-              <IconComponent className="w-5 h-5 text-accent" />
+            <div className="w-12 h-12 bg-slate-800/50 border border-white/5 flex items-center justify-center shrink-0 group-hover:border-blue-500/50 transition-colors">
+              <IconComponent className="w-5 h-5 text-blue-500" />
             </div>
             <div>
-              <p className="text-sm text-muted-foreground mb-1">{item.label}</p>
+              <p className="text-sm text-slate-500 mb-1 tracking-wider uppercase font-mono">{item.label}</p>
               {item.href ? (
                 <a
                   href={item.href}
-                  className="font-medium hover:text-accent transition-colors"
+                  className="text-white font-medium hover:text-blue-400 transition-colors"
                 >
                   {item.value}
                 </a>
               ) : (
-                <p className="font-medium">{item.value}</p>
+                <p className="text-white font-medium">{item.value}</p>
               )}
             </div>
           </motion.div>
@@ -74,25 +74,25 @@ export default function ContactInfoClient() {
       })}
 
       {/* Business Hours */}
-      <motion.div variants={fadeInUp} className="flex gap-4">
-        <div className="w-12 h-12 bg-muted flex items-center justify-center shrink-0">
-          <Clock className="w-5 h-5 text-accent" />
+      <motion.div variants={fadeInUp} className="flex gap-4 group">
+        <div className="w-12 h-12 bg-slate-800/50 border border-white/5 flex items-center justify-center shrink-0 group-hover:border-blue-500/50 transition-colors">
+          <Clock className="w-5 h-5 text-blue-500" />
         </div>
         <div>
-          <p className="text-sm text-muted-foreground mb-1">Business Hours</p>
-          <p className="font-medium">Mon - Sat: 10:00 AM - 7:00 PM</p>
-          <p className="text-sm text-muted-foreground mt-1">Sunday: Closed</p>
+          <p className="text-sm text-slate-500 mb-1 tracking-wider uppercase font-mono">Business Hours</p>
+          <p className="text-white font-medium">Mon - Sat: 10:00 AM - 7:00 PM</p>
+          <p className="text-sm text-slate-500 mt-1">Sunday: Closed</p>
         </div>
       </motion.div>
 
       {/* Director Info */}
       <motion.div
         variants={fadeInUp}
-        className="mt-8 pt-8 border-t border-border"
+        className="mt-8 pt-8 border-t border-white/10"
       >
-        <p className="text-sm text-muted-foreground mb-2">Led by</p>
-        <p className="font-serif text-xl">{BRAND_INFO.director.name}</p>
-        <p className="text-accent text-sm">{BRAND_INFO.director.title}</p>
+        <p className="text-sm text-slate-500 mb-2 uppercase tracking-widest font-mono">Led by</p>
+        <p className="font-serif text-2xl text-white">{BRAND_INFO.director.name}</p>
+        <p className="text-blue-400 text-sm tracking-wide">{BRAND_INFO.director.title}</p>
       </motion.div>
     </motion.div>
   );

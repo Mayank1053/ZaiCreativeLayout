@@ -46,15 +46,15 @@ export default function ProjectsGrid({ projects, categories }: ProjectsGridProps
           onClick={() => setSelectedCategory(null)}
           className={`relative text-sm tracking-[0.2em] uppercase transition-colors duration-300 ${
             selectedCategory === null
-              ? 'text-foreground font-medium'
-              : 'text-muted-foreground hover:text-foreground'
+              ? 'text-white font-medium'
+              : 'text-slate-500 hover:text-white'
           }`}
         >
           All
           {selectedCategory === null && (
             <motion.div
               layoutId="activeTab"
-              className="absolute -bottom-2 left-0 right-0 h-[1px] bg-accent"
+              className="absolute -bottom-2 left-0 right-0 h-px bg-blue-500"
             />
           )}
         </button>
@@ -64,15 +64,15 @@ export default function ProjectsGrid({ projects, categories }: ProjectsGridProps
             onClick={() => setSelectedCategory(category.name)}
             className={`relative text-sm tracking-[0.2em] uppercase transition-colors duration-300 ${
               selectedCategory === category.name
-                ? 'text-foreground font-medium'
-                : 'text-muted-foreground hover:text-foreground'
+                ? 'text-white font-medium'
+                : 'text-slate-500 hover:text-white'
             }`}
           >
             {category.name}
             {selectedCategory === category.name && (
               <motion.div
                 layoutId="activeTab"
-                className="absolute -bottom-2 left-0 right-0 h-[1px] bg-accent"
+                className="absolute -bottom-2 left-0 right-0 h-px bg-blue-500"
               />
             )}
           </button>

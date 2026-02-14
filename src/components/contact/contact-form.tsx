@@ -109,8 +109,8 @@ export function ContactForm() {
     >
       {/* Name Field */}
       <motion.div variants={fadeInUp} className="space-y-2">
-        <Label htmlFor="name" className="text-sm font-medium">
-          Your Name <span className="text-destructive">*</span>
+        <Label htmlFor="name" className="text-sm font-medium text-slate-300">
+          Your Name <span className="text-blue-500">*</span>
         </Label>
         <Input
           id="name"
@@ -127,8 +127,8 @@ export function ContactForm() {
 
       {/* Email Field */}
       <motion.div variants={fadeInUp} className="space-y-2">
-        <Label htmlFor="email" className="text-sm font-medium">
-          Email Address <span className="text-destructive">*</span>
+        <Label htmlFor="email" className="text-sm font-medium text-slate-300">
+          Email Address <span className="text-blue-500">*</span>
         </Label>
         <Input
           id="email"
@@ -145,7 +145,7 @@ export function ContactForm() {
 
       {/* Phone Field */}
       <motion.div variants={fadeInUp} className="space-y-2">
-        <Label htmlFor="phone" className="text-sm font-medium">
+        <Label htmlFor="phone" className="text-sm font-medium text-slate-300">
           Phone Number
         </Label>
         <Input
@@ -162,7 +162,7 @@ export function ContactForm() {
 
       {/* Services Selection */}
       <motion.div variants={fadeInUp} className="space-y-3">
-        <Label className="text-sm font-medium">
+        <Label className="text-sm font-medium text-slate-300">
           Interested Services
         </Label>
         <div className="flex flex-wrap gap-2">
@@ -174,8 +174,8 @@ export function ContactForm() {
               disabled={status === 'submitting'}
               className={`px-4 py-2 text-sm rounded-full border transition-all duration-200 ${
                 formData.services.includes(service)
-                  ? 'bg-accent text-white border-accent'
-                  : 'bg-card text-muted-foreground border-input hover:border-accent hover:text-foreground'
+                  ? 'bg-blue-600 text-white border-blue-600'
+                  : 'bg-slate-800/50 text-slate-400 border-white/10 hover:border-blue-500/50 hover:text-white'
               }`}
             >
               {service}
@@ -186,8 +186,8 @@ export function ContactForm() {
 
       {/* Message Field */}
       <motion.div variants={fadeInUp} className="space-y-2">
-        <Label htmlFor="message" className="text-sm font-medium">
-          Your Message <span className="text-destructive">*</span>
+        <Label htmlFor="message" className="text-sm font-medium text-slate-300">
+          Your Message <span className="text-blue-500">*</span>
         </Label>
         <Textarea
           id="message"
@@ -198,7 +198,8 @@ export function ContactForm() {
           required
           disabled={status === 'submitting'}
           rows={5}
-          className="bg-card resize-none"
+
+          className="bg-slate-800/50 border-white/10 text-white placeholder:text-slate-500 focus:border-blue-500 resize-none"
         />
       </motion.div>
 

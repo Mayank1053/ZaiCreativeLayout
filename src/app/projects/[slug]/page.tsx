@@ -1,11 +1,10 @@
-import { getProjectBySlug, getAllProjectSlugs } from '@/lib/data/projects';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import Link from 'next/link';
-import { ArrowLeft, MapPin, Compass } from 'lucide-react';
-import { PageContainer } from '@/components/shared';
-import { ProjectGallery } from '@/components/projects/project-gallery';
 import ProjectDetailClient from './project-detail-client';
+import { getProjectBySlug, getAllProjectSlugs } from '@/lib/data/projects';
+
+export const revalidate = 3600;
+export const dynamicParams = true;
 
 // Generate static params for all projects
 export async function generateStaticParams() {

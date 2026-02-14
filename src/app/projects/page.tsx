@@ -1,7 +1,9 @@
-import { getProjects, getCategories } from '@/lib/data/projects';
 import { PageContainer } from '@/components/shared';
 import { Metadata } from 'next';
 import ProjectsGrid from './projects-grid';
+import { getProjects, getCategories } from '@/lib/data/projects';
+
+export const revalidate = 3600; // Revalidate every hour
 
 // Metadata for SEO
 export const metadata: Metadata = {
@@ -9,13 +11,12 @@ export const metadata: Metadata = {
   description: 'Explore our portfolio of architectural masterpieces. Residential, commercial projects in Chhattisgarh, India.',
 };
 
-// Revalidate every hour
-export const revalidate = 3600;
-
 // Page component - Server Component
 export default async function ProjectsPage() {
-  const projects = await getProjects();
-  const categories = await getCategories();
+  const [projects, categories] = await Promise.all([
+    getProjects(),
+    getCategories(),
+  ]);
 
   const serializedProjects = projects.map((project) => ({
     id: project.id,

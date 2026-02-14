@@ -1,4 +1,4 @@
-import { db } from '@/lib/db';
+import { getProjects, getCategories } from '@/lib/data/projects';
 import { PageContainer } from '@/components/shared';
 import { Metadata } from 'next';
 import ProjectsGrid from './projects-grid';
@@ -9,16 +9,13 @@ export const metadata: Metadata = {
   description: 'Explore our portfolio of architectural masterpieces. Residential, commercial projects in Chhattisgarh, India.',
 };
 
+// Revalidate every hour
+export const revalidate = 3600;
+
 // Page component - Server Component
 export default async function ProjectsPage() {
-  const projects = await db.project.findMany({
-    include: { category: true },
-    orderBy: { createdAt: 'desc' },
-  });
-
-  const categories = await db.category.findMany({
-    orderBy: { name: 'asc' },
-  });
+  const projects = await getProjects();
+  const categories = await getCategories();
 
   const serializedProjects = projects.map((project) => ({
     id: project.id,

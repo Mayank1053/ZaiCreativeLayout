@@ -1,4 +1,4 @@
-import { db } from '@/lib/db';
+import { getProjectBySlug, getAllProjectSlugs } from '@/lib/data/projects';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -9,9 +9,7 @@ import ProjectDetailClient from './project-detail-client';
 
 // Generate static params for all projects
 export async function generateStaticParams() {
-  const projects = await db.project.findMany({
-    select: { slug: true },
-  });
+  const projects = await getAllProjectSlugs();
   
   return projects.map((project) => ({
     slug: project.slug,
@@ -25,10 +23,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }> 
 }): Promise<Metadata> {
   const { slug } = await params;
-  const project = await db.project.findUnique({
-    where: { slug },
-    include: { category: true },
-  });
+  const project = await getProjectBySlug(slug);
 
   if (!project) {
     return {
@@ -56,10 +51,7 @@ export default async function ProjectDetailPage({
   const { slug } = await params;
   
   // Fetch project with category
-  const project = await db.project.findUnique({
-    where: { slug },
-    include: { category: true },
-  });
+  const project = await getProjectBySlug(slug);
 
   // Handle project not found
   if (!project) {

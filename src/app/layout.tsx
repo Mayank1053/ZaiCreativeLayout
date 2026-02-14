@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
 import { ConditionalLayout } from "@/components/shared";
 import { SEO_CONFIG, BRAND_INFO } from "@/lib/config";
 import Providers from "./providers";
@@ -33,7 +32,7 @@ export const metadata: Metadata = {
   keywords: SEO_CONFIG.keywords,
   authors: [{ name: BRAND_INFO.director.name }],
   icons: {
-    icon: "/favicon.ico",
+    icon: "https://i.ibb.co/gFcwGMMS/Logo-Favicon.png",
   },
   openGraph: {
     title: SEO_CONFIG.title,
@@ -76,8 +75,8 @@ const jsonLd = {
     jobTitle: BRAND_INFO.director.title,
   },
   areaServed: {
-    "@type": "State",
-    name: "Chhattisgarh",
+    "@type": "City and State",
+    name: "Raipur, Chhattisgarh",
   },
 };
 

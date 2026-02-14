@@ -1,4 +1,4 @@
-import { db } from '@/lib/db';
+import { getFeaturedProjects } from '@/lib/data/projects';
 import {
   HeroSection,
   AboutSection,
@@ -9,12 +9,8 @@ import {
 
 // Main Page Component
 export default async function HomePage() {
-  // Fetch featured projects on the server
-  const projects = await db.project.findMany({
-    where: { featured: true },
-    include: { category: true },
-    take: 3,
-  });
+  // Fetch featured projects using cached data function
+  const projects = await getFeaturedProjects();
 
   // Serialize projects for client component
   const serializedProjects = projects.map((project) => ({

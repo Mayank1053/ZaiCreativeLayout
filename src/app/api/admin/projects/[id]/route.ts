@@ -1,5 +1,6 @@
 // Admin project by ID API - get, update, delete single project
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { verifyAuth } from '@/lib/auth';
 import { db } from '@/lib/db';
 
@@ -121,6 +122,16 @@ export async function PUT(
         category: true,
       },
     });
+
+    // Revalidate projects page and specific project page
+    revalidatePath('/projects');
+    if (project.slug) {
+      revalidatePath(`/projects/${project.slug}`);
+    }
+    // Also revalidate the old slug if it changed
+    if (existingProject.slug && existingProject.slug !== project.slug) {
+      revalidatePath(`/projects/${existingProject.slug}`);
+    }
     
     return NextResponse.json({
       ...project,
@@ -168,6 +179,12 @@ export async function DELETE(
     await db.project.delete({
       where: { id },
     });
+
+    // Revalidate projects page and specific project page
+    revalidatePath('/projects');
+    if (existingProject.slug) {
+        revalidatePath(`/projects/${existingProject.slug}`);
+    }
     
     return NextResponse.json(
       { success: true, message: 'Project deleted successfully' }

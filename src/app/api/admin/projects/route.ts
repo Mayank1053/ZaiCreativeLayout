@@ -1,5 +1,6 @@
 // Admin projects API - list all projects and create new project
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { verifyAuth } from '@/lib/auth';
 import { db } from '@/lib/db';
 
@@ -103,6 +104,9 @@ export async function POST(request: Request) {
         category: true,
       },
     });
+
+    // Revalidate projects page
+    revalidatePath('/projects');
     
     return NextResponse.json({
       ...project,

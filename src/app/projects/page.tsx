@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import ProjectsGrid from './projects-grid';
 import { getProjects, getCategories } from '@/lib/data/projects';
 
-export const revalidate = 3600; // Revalidate every hour
+export const dynamic = 'force-dynamic';
 
 // Metadata for SEO
 export const metadata: Metadata = {

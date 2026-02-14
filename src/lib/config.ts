@@ -36,8 +36,8 @@ export const BRAND_INFO = {
   contact: {
     phone: '+91 9479131777',
     email: 'ar.prashant01@gmail.com',
-    maps: 'https://maps.app.goo.gl/xWfpYTBLc6GeerF86',
-    mapsEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2350.8010778895373!2d81.58860643171633!3d21.23177480175003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a28dff6cb8a9b21%3A0xc2ca2d0d38e60144!2sIndraprastha%20Phase%202%2C%20Raipura!5e1!3m2!1sen!2sus!4v1770836706386!5m2!1sen!2sus',
+    maps: 'https://maps.app.goo.gl/4aFd7bfWPWyfhhgb9',
+    mapsEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1896.4280099399514!2d81.58554130315328!3d21.23201109168969!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a28df688eca04c9%3A0x2baca434d6208100!2sCREATIVE%20LAYOUT!5e1!3m2!1sen!2sus!4v1771081142335!5m2!1sen!2sus',
     address: {
       line1: 'Shop no. Gb-08, Shopping center',
       line2: 'Indraprastha Phase-2, Raipura',

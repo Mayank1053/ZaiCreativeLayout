@@ -41,16 +41,6 @@ async function main() {
       slug: "commercial",
       description: "Office buildings, retail spaces, and commercial properties",
     },
-    {
-      name: "Industrial",
-      slug: "industrial",
-      description: "Factories, warehouses, and industrial facilities",
-    },
-    {
-      name: "Landscape",
-      slug: "landscape",
-      description: "Gardens, parks, and outdoor spaces",
-    },
   ];
 
   for (const category of categories) {

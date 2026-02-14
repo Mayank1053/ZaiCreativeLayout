@@ -7,7 +7,14 @@ import ContactInfoClient from './contact-info-client';
 // Metadata for SEO
 export const metadata: Metadata = {
   title: 'Contact Us | Creative Layout',
-  description: 'Get in touch with Creative Layout for architecture and construction services in Chhattisgarh, India.',
+  description: 'Get in touch with Creative Layout for architecture and construction services in Raipur, Chhattisgarh, India.',
+  keywords: [
+    'architecture',
+    'construction',
+    'Raipur',
+    'Chhattisgarh',
+    'Creative Layout',
+  ],
 };
 
 // Contact page - Server Component

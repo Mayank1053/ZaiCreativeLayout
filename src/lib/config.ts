@@ -84,12 +84,18 @@ export const PROCESS_STEPS = [
   },
   {
     number: '03',
+    title: 'Municipal Approval',
+    description: 'Ensuring your project is approved by the municipal authorities with all the necessary documentation.',
+    icon: 'FileText',
+  },
+  {
+    number: '04',
     title: 'Construction',
     description: 'With meticulous attention to detail, we bring your design to life. Our experienced team ensures quality craftsmanship at every stage of construction.',
     icon: 'Hammer',
   },
   {
-    number: '04',
+    number: '05',
     title: 'Handover',
     description: 'The final walkthrough ensures everything meets our exacting standards. We hand over the keys to your dream space, complete with all documentation.',
     icon: 'Key',
@@ -109,7 +115,7 @@ export const PROJECT_CATEGORIES = [
 // SEO Configuration
 // ========================================
 export const SEO_CONFIG = {
-  title: 'Creative Layout | Architecture & Construction Studio',
+  title: 'Creative Layout | Architecture & Construction',
   description: 'Premium architecture and construction services in Chhattisgarh, India. We design spaces that inspire and endure. Specializing in residential, commercial, and vastu-compliant designs.',
   keywords: [
     'architecture',

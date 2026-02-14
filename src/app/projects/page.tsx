@@ -60,7 +60,7 @@ export default async function ProjectsPage() {
             Selected Works
           </h1>
           <p className="text-slate-400 font-light text-lg max-w-2xl leading-relaxed">
-            A curation of our finest architectural and interior design projects, 
+            A curation of our finest architectural projects, 
             where vision meets precision.
           </p>
         </div>

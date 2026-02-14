@@ -32,8 +32,8 @@ export default async function HomePage() {
     <main className="min-h-screen">
       <HeroSection />
       <AboutSection />
-      <FeaturedProjects projects={serializedProjects} />
       <ServicesSection />
+      <FeaturedProjects projects={serializedProjects} />
       <CTASection />
     </main>
   );

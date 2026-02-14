@@ -11,7 +11,7 @@ A refined, high-performance portfolio and management website for an Architecture
 - **Premium Aesthetic**: "Refined Architectural" design with bold typography, asymmetrical layouts, and subtle animations.
 - **Responsive Design**: Fully optimized for mobile, tablet, and desktop devices.
 - **Portfolio Showcase**: Detailed project pages with image galleries, location details, Vastu directions, and categorization.
-- **Service Enquiries**: Interactive contact form with service selection (Architecture, Interior, Construction, Vastu).
+- **Service Enquiries**: Interactive contact form with service selection (Architecture, Construction, Vastu).
 - **Dark/Light Mode**: Seamless theme switching for optimal viewing.
 
 ### ⚙️ Backend & Admin

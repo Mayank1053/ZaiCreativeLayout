@@ -13,22 +13,34 @@ const services = [
   },
   {
     id: '02',
+    icon: FileText,
+    title: 'Municipal Approval',
+    description: 'Ensuring your project is approved by the municipal authorities with all the necessary documentation.',
+  },
+  {
+    id: '03',
     icon: Compass,
     title: 'Vastu Shastra',
     description: 'Harmonizing construction with ancient directional sciences for prosperity.',
   },
   {
-    id: '03',
+    id: '04',
     icon: HardHat,
     title: 'Construction Phase',
     description: 'End-to-end supervision from foundation laying to final structural completion.',
   },
   {
-    id: '04',
+    id: '05',
     icon: DraftingCompass,
     title: 'Structural Design',
     description: 'Engineering resilient frameworks that stand the test of time and nature.',
   },
+  {
+    id: '06',
+    icon: Hammer,
+    title: 'End to End Construction',
+    description: 'From Floor Planning to Finishing touches, we handle every aspect of construction including all raw material',
+  }
 ];
 
 export function ServicesSection() {

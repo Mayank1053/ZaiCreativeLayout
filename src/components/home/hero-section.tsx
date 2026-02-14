@@ -88,6 +88,14 @@ export function HeroSection() {
                transition={{ delay: 0.4 }}
                className="px-3 py-1 border border-blue-500/30 text-blue-300 font-mono text-[10px] sm:text-xs uppercase tracking-widest bg-blue-900/10 backdrop-blur-sm"
              >
+              Municipal Approval
+            </motion.span>
+             <motion.span 
+               initial={{ opacity: 0, x: -20 }}
+               animate={{ opacity: 1, x: 0 }}
+               transition={{ delay: 0.4 }}
+               className="px-3 py-1 border border-blue-500/30 text-blue-300 font-mono text-[10px] sm:text-xs uppercase tracking-widest bg-blue-900/10 backdrop-blur-sm"
+             >
               Construction Phase
             </motion.span>
           </div>

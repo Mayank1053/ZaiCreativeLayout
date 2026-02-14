@@ -85,7 +85,7 @@ export function AboutSection() {
               transition={{ delay: 0.4 }}
               className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10"
             >
-                {["Vastu Shastra Compliant", "Structural Stability", "Cost-Effective Planning", "Site Supervision"].map((item, i) => (
+                {["Vastu Shastra Compliant","Municipal Approved", "Structural Stability", "Cost-Effective Planning", "Site Supervision"].map((item, i) => (
                     <li key={i} className="flex items-center gap-3 text-slate-300 font-mono text-sm">
                         <CheckCircle2 className="w-4 h-4 text-blue-500" />
                         {item}

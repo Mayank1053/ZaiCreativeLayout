@@ -19,7 +19,9 @@ type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 const SERVICES = [
   'Architecture',
   'Engineering',
+  'Municipal Approval',
   'Construction',
+  'End to End Construction',
   'Consultation',
 ];
 

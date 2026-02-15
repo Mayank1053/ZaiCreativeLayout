@@ -21,6 +21,8 @@ import ImageUpload from '@/components/ui/image-upload';
 import { uploadToCloudinary } from '@/lib/cloudinary-upload';
 import { toast } from 'sonner';
 
+import { PhasesManager, Phase } from './phases-manager';
+
 // Project interface
 interface Project {
   id?: string;
@@ -37,6 +39,7 @@ interface Project {
     id: string;
     name: string;
   };
+  phases?: Phase[];
 }
 
 // Category interface
@@ -76,6 +79,7 @@ export function ProjectForm({ project, isEdit = false }: ProjectFormProps) {
     images: project?.images || [],
     featured: project?.featured || false,
     categoryId: project?.categoryId || '',
+    phases: project?.phases || [],
   });
 
   const [pendingImages, setPendingImages] = useState<File[]>([]);
@@ -123,7 +127,7 @@ export function ProjectForm({ project, isEdit = false }: ProjectFormProps) {
       router.push('/admin/projects');
     },
     onError: (error) => {
-      alert(error.message);
+      toast.error(error.message);
     },
   });
 
@@ -318,6 +322,14 @@ export function ProjectForm({ project, isEdit = false }: ProjectFormProps) {
           )}
         </CardContent>
       </Card>
+
+      {/* Construction Phases */}
+      <PhasesManager 
+        phases={formData.phases || []}
+        onChange={(phases) => setFormData(prev => ({ ...prev, phases }))}
+        pendingUploads={() => {}} // Not used with immediate upload
+        onRemovePending={() => {}} // Not used with immediate upload
+      />
 
       {/* Featured */}
       <div className="flex items-center space-x-2">

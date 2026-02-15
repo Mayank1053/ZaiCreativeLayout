@@ -65,6 +65,7 @@ export async function POST(request: Request) {
       images,
       featured,
       categoryId,
+      phases,
     } = body;
     
     // Validate required fields
@@ -87,7 +88,7 @@ export async function POST(request: Request) {
       );
     }
     
-    // Create project
+    // Create project with phases
     const project = await db.project.create({
       data: {
         title,
@@ -99,9 +100,23 @@ export async function POST(request: Request) {
         images: JSON.stringify(images || []),
         featured: featured || false,
         categoryId,
+        phases: {
+          create: phases?.map((phase: any) => ({
+            title: phase.title,
+            date: phase.date ? new Date(phase.date) : null,
+            description: phase.description,
+            images: phase.images || [],
+            order: phase.order,
+          })) || [],
+        },
       },
       include: {
         category: true,
+        phases: {
+          orderBy: {
+            order: 'asc',
+          },
+        },
       },
     });
 

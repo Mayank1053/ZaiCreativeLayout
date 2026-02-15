@@ -1,21 +1,22 @@
 'use client';
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowLeft, MapPin, Compass, ArrowRight } from 'lucide-react';
-import { PageContainer } from '@/components/shared';
+import { ProjectPhases } from '@/components/projects/project-phases';
 import { ProjectGallery } from '@/components/projects/project-gallery';
 import { useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { motion, useScroll, useTransform, Variants } from 'framer-motion';
+import { ArrowLeft, Compass, MapPin } from 'lucide-react';
+import { PageContainer } from '@/components/shared';
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' as any } },
-};
-
-const stagger = {
-  visible: { transition: { staggerChildren: 0.1 } },
-};
+interface ProjectPhase {
+  id: string;
+  title: string;
+  date: Date | null;
+  description: string | null;
+  images: string[];
+  order: number;
+}
 
 interface Project {
   id: string;
@@ -29,11 +30,39 @@ interface Project {
   category: {
     name: string;
   };
+  phases?: ProjectPhase[];
 }
 
 interface ProjectDetailClientProps {
   project: Project;
 }
+
+const stagger: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const fadeInUp: Variants = {
+  hidden: { 
+    y: 30, 
+    opacity: 0,
+    transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] as const }
+  },
+  visible: { 
+    y: 0, 
+    opacity: 1,
+    transition: {
+      duration: 0.6,
+      ease: [0.6, -0.05, 0.01, 0.99] as const
+    }
+  }
+};
 
 export default function ProjectDetailClient({ project }: ProjectDetailClientProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -194,13 +223,18 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
         </PageContainer>
       </section>
 
+      {/* Project Phases Timeline */}
+      {project.phases && project.phases.length > 0 && (
+        <ProjectPhases phases={project.phases} />
+      )}
+
       {/* Project Gallery */}
       <section className="py-20 bg-[#0F172A] border-t border-slate-800 text-white relative">
          <div className="absolute inset-0 bg-linear-to-b from-[#0F172A] to-slate-950 pointer-events-none" />
         <PageContainer>
           <div className="mb-12 relative z-10 flex items-end justify-between">
             <div>
-              <h2 className="font-serif text-4xl mb-4">Visual Journey</h2>
+              <h2 className="font-serif text-4xl mb-4">Project Gallery</h2>
               <p className="text-slate-400 font-light">Explore the detailed aesthetics of {project.title}.</p>
             </div>
           </div>
@@ -208,6 +242,37 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
             <ProjectGallery images={project.images} title={project.title} />
           </div>
         </PageContainer>
+      </section>
+
+
+      {/* Contact CTA */}
+      <section className="py-24 bg-slate-950 border-t border-white/5 relative overflow-hidden">
+         <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-blue-500/50 to-transparent" />
+         
+         <PageContainer>
+            <div className="max-w-3xl mx-auto text-center relative z-10">
+               <h2 className="font-serif text-3xl md:text-5xl text-white mb-6">
+                  Ready to Build Your Vision?
+               </h2>
+               <p className="text-slate-400 text-lg mb-10 font-light leading-relaxed">
+                  Every great structure starts with a conversation. Let's discuss how we can bring your architectural dreams to reality.
+               </p>
+               
+               <Link 
+                  href="/contact"
+                  className="group relative inline-flex items-center gap-3 px-8 py-4 bg-white text-slate-950 rounded-full font-medium tracking-wide overflow-hidden transition-all hover:bg-blue-50 hover:pr-10"
+               >
+                  <span className="relative z-10">Start a Project</span>
+                  <ArrowLeft className="w-4 h-4 rotate-135 transition-transform group-hover:rotate-180 relative z-10" />
+                  
+                  {/* Hover Shine Effect */}
+                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-linear-to-r from-transparent via-white/40 to-transparent z-0" />
+               </Link>
+            </div>
+         </PageContainer>
+         
+         {/* Background Glow */}
+         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-blue-500/10 blur-[120px] rounded-full pointer-events-none" />
       </section>
     </>
   );

@@ -47,6 +47,24 @@ model Project {
   // Category relation
   categoryId  String
   category    Category @relation(fields: [categoryId], references: [id])
+  phases      ProjectPhase[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Project construction phases
+model ProjectPhase {
+  id          String   @id @default(cuid())
+  title       String
+  date        DateTime?
+  description String?
+  // Images stored as native string array
+  images      String[]
+  order       Int      @default(0)
+  
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

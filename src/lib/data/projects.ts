@@ -18,7 +18,14 @@ export const getCategories = cache(async () => {
 export const getProjectBySlug = cache(async (slug: string) => {
   return await db.project.findUnique({
     where: { slug },
-    include: { category: true },
+    include: { 
+      category: true,
+      phases: {
+        orderBy: {
+          order: 'asc'
+        }
+      }
+    },
   });
 });
 

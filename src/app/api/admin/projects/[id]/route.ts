@@ -25,6 +25,11 @@ export async function GET(
       where: { id },
       include: {
         category: true,
+        phases: {
+          orderBy: {
+            order: 'asc',
+          },
+        },
       },
     });
     
@@ -76,6 +81,7 @@ export async function PUT(
       images,
       featured,
       categoryId,
+      phases,
     } = body;
     
     // Check if project exists
@@ -104,24 +110,61 @@ export async function PUT(
       }
     }
     
-    // Update project
-    const project = await db.project.update({
-      where: { id },
-      data: {
-        title,
-        slug,
-        description,
-        location,
-        direction: direction || null,
-        vastuNotes: vastuNotes || null,
-        images: images ? JSON.stringify(images) : undefined,
-        featured,
-        categoryId,
-      },
-      include: {
-        category: true,
-      },
+    // Use transaction to handle project update and phases sync
+    const project = await db.$transaction(async (tx) => {
+      // 1. Update project details
+      const updatedProject = await tx.project.update({
+        where: { id },
+        data: {
+          title,
+          slug,
+          description,
+          location,
+          direction: direction || null,
+          vastuNotes: vastuNotes || null,
+          images: images ? JSON.stringify(images) : undefined,
+          featured,
+          categoryId,
+        },
+      });
+
+      // 2. Handle phases if provided
+      if (phases) {
+        // Delete existing phases
+        await tx.projectPhase.deleteMany({
+          where: { projectId: id },
+        });
+
+        // Create new phases
+        if (phases.length > 0) {
+          await tx.projectPhase.createMany({
+            data: phases.map((phase: any) => ({
+              projectId: id,
+              title: phase.title,
+              date: phase.date ? new Date(phase.date) : null,
+              description: phase.description,
+              images: phase.images || [],
+              order: phase.order,
+            })),
+          });
+        }
+      }
+
+      // Return project with new phases
+      return await tx.project.findUnique({
+        where: { id },
+        include: {
+          category: true,
+          phases: {
+            orderBy: {
+              order: 'asc',
+            },
+          },
+        },
+      });
     });
+
+    if (!project) throw new Error('Failed to retrieve updated project');
 
     // Revalidate projects page and specific project page
     revalidatePath('/projects');

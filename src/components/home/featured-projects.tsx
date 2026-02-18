@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 interface Project {
@@ -99,14 +99,15 @@ function ProjectCard({ project, image, isEven }: { project: Project; image: stri
       
       {/* Image */}
       <div className="w-full lg:w-3/5 relative aspect-4/3 overflow-hidden group">
-        <motion.div style={{ y }} className="relative w-full h-[120%] -top-[10%]">
+        <m.div style={{ y }} className="relative w-full h-[120%] -top-[10%]">
            <Image
             src={image || '/placeholder.jpg'}
             alt={project.title}
             fill
+            sizes="(max-width: 1024px) 100vw, 60vw"
             className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
-        </motion.div>
+        </m.div>
 
         <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors duration-500" />
         <div className="absolute inset-0 border border-white/5 group-hover:border-blue-500/30 transition-colors duration-500 pointer-events-none" />

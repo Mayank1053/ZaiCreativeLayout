@@ -24,11 +24,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   pendingFiles,
   onRemovePending
 }) => {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  /* Removed isMounted to prevent flash. hydration issues should be handled by careful usage of browser APIs */
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     // Filter and validate files
@@ -54,10 +50,6 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     disabled: disabled,
   });
 
-  if (!isMounted) {
-    return null;
-  }
-
   return (
     <div>
       <div className="mb-4 flex items-center gap-4 flex-wrap">
@@ -78,14 +70,14 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                 <Trash className="h-4 w-4" />
               </Button>
             </div>
-            <Image fill className="object-cover" alt="Image" src={url} />
+            <Image fill className="object-cover" alt="Image" src={url} sizes="200px" />
           </div>
         ))}
 
         {/* Pending Images (Files) */}
         {pendingFiles.map((file, index) => (
           <div
-            key={`pending-${index}`}
+            key={file.name || index}
             className="relative w-[200px] h-[200px] rounded-md overflow-hidden border border-border group opacity-80"
           >
              <div className="absolute inset-0 flex items-center justify-center bg-black/10 z-0">
@@ -108,9 +100,13 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                 className="object-cover" 
                 alt="Preview" 
                 src={URL.createObjectURL(file)} 
-                onLoad={() => {
-                    // Optional: revoke object URL to free memory if we were managing state strictly, 
-                    // but safely relying on browser GC for short lived forms is okay-ish (or use a useEffect in a sub-component).
+                sizes="200px"
+                onLoad={(e) => {
+                    const img = e.target as HTMLImageElement;
+                    if (img.src.startsWith('blob:')) {
+                        // We can't easily revoke URL here without risking it disappearing if component re-renders
+                        // Best practice is to use a separate component for Preview that manages the object URL lifecycle
+                    }
                 }}
             />
           </div>

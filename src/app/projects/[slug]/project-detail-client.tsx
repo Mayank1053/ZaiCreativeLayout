@@ -5,7 +5,7 @@ import { ProjectGallery } from '@/components/projects/project-gallery';
 import { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, useScroll, useTransform, Variants } from 'framer-motion';
+import { m, useScroll, useTransform, Variants } from 'framer-motion';
 import { ArrowLeft, Compass, MapPin } from 'lucide-react';
 import { PageContainer } from '@/components/shared';
 
@@ -79,7 +79,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
       {/* Immersive Hero Section */}
       <section ref={containerRef} className="relative h-[80vh] w-full overflow-hidden bg-[#0F172A]">
         <div className="absolute inset-0 bg-blueprint opacity-20 pointer-events-none" />
-        <motion.div 
+        <m.div 
           style={{ y }}
           className="absolute inset-0 z-0"
         >
@@ -87,22 +87,23 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
             src={project.images[0] || '/placeholder.jpg'}
             alt={project.title}
             fill
+            sizes="100vw"
             className="object-cover opacity-60"
             priority
           />
           <div className="absolute inset-0 bg-linear-to-t from-[#0F172A] via-[#0F172A]/40 to-transparent" />
-        </motion.div>
+        </m.div>
 
         <div className="absolute inset-0 z-10 flex flex-col justify-end pb-12 md:pb-20">
           <div className="max-w-[1800px] mx-auto px-6 sm:px-12 lg:px-24 w-full">
-            <motion.div
+            <m.div
               style={{ opacity }}
               initial="hidden"
               animate="visible"
               variants={stagger}
               className="max-w-4xl"
             >
-              <motion.div variants={fadeInUp} className="mb-8 md:mb-10">
+              <m.div variants={fadeInUp} className="mb-8 md:mb-10">
                  <Link
                   href="/projects"
                   className="inline-flex items-center gap-2 text-white hover:text-blue-400 transition-all uppercase tracking-[0.2em] text-[10px] sm:text-xs font-medium bg-white/5 hover:bg-white/10 backdrop-blur-md px-6 py-3 rounded-full border border-white/10 hover:border-blue-500/50"
@@ -110,23 +111,23 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
                   <ArrowLeft size={14} />
                   Back to Projects
                 </Link>
-              </motion.div>
+              </m.div>
               
-              <motion.p
+              <m.p
                 variants={fadeInUp}
                 className="text-blue-400 text-[10px] sm:text-sm tracking-[0.2em] uppercase font-medium mb-4"
               >
                 {project.category.name}
-              </motion.p>
+              </m.p>
               
-              <motion.h1
+              <m.h1
                 variants={fadeInUp}
                 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-white mb-6 leading-[1.1] sm:leading-none"
               >
                 {project.title}
-              </motion.h1>
+              </m.h1>
 
-              <motion.div
+              <m.div
                 variants={fadeInUp}
                 className="flex flex-wrap gap-6 sm:gap-8 text-white/80 font-light text-base sm:text-lg"
               >
@@ -140,8 +141,8 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
                     <span>{project.direction}</span>
                   </div>
                 )}
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
       </section>
@@ -164,7 +165,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 relative z-10">
             
             {/* Main Description - 7 Columns */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -176,15 +177,15 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
               </h2>
               <div className="prose prose-lg max-w-none text-slate-400 font-light leading-relaxed prose-invert">
                 {project.description.split('\n').map((paragraph, index) => (
-                  <p key={index} className="mb-6">
+                  <p key={paragraph.substring(0, 10) + index} className="mb-6">
                     {paragraph}
                   </p>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Sidebar Details - 5 Columns */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -217,7 +218,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
                   )}
                 </dl>
               </div>
-            </motion.div>
+            </m.div>
 
           </div>
         </PageContainer>

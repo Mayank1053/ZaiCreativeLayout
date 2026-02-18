@@ -1,7 +1,19 @@
 "use client"
 
 import * as React from "react"
-import * as RechartsPrimitive from "recharts"
+import dynamic from "next/dynamic"
+
+// Dynamically import Recharts components to avoid SSR issues and reduce initial bundle size
+const ResponsiveContainer = dynamic(
+  () => import("recharts").then((mod) => mod.ResponsiveContainer as any),
+  { ssr: false }
+) as any
+const Tooltip = dynamic(() => import("recharts").then((mod) => mod.Tooltip as any), {
+  ssr: false,
+}) as any
+const Legend = dynamic(() => import("recharts").then((mod) => mod.Legend as any), {
+  ssr: false,
+}) as any
 
 import { cn } from "@/lib/utils"
 
@@ -43,7 +55,7 @@ function ChartContainer({
 }: React.ComponentProps<"div"> & {
   config: ChartConfig
   children: React.ComponentProps<
-    typeof RechartsPrimitive.ResponsiveContainer
+    typeof ResponsiveContainer
   >["children"]
 }) {
   const uniqueId = React.useId()
@@ -61,9 +73,10 @@ function ChartContainer({
         {...props}
       >
         <ChartStyle id={chartId} config={config} />
-        <RechartsPrimitive.ResponsiveContainer>
+        <ChartStyle id={chartId} config={config} />
+        <ResponsiveContainer>
           {children}
-        </RechartsPrimitive.ResponsiveContainer>
+        </ResponsiveContainer>
       </div>
     </ChartContext.Provider>
   )
@@ -102,7 +115,7 @@ ${colorConfig
   )
 }
 
-const ChartTooltip = RechartsPrimitive.Tooltip
+const ChartTooltip = Tooltip
 
 function ChartTooltipContent({
   active,
@@ -118,7 +131,7 @@ function ChartTooltipContent({
   color,
   nameKey,
   labelKey,
-}: React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
+}: React.ComponentProps<typeof Tooltip> &
   React.ComponentProps<"div"> & {
     hideLabel?: boolean
     hideIndicator?: boolean
@@ -173,7 +186,7 @@ function ChartTooltipContent({
   return (
     <div
       className={cn(
-        "border-border/50 bg-background grid min-w-[8rem] items-start gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs shadow-xl",
+        "border-border/50 bg-background grid min-w-32 items-start gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs shadow-xl",
         className
       )}
     >
@@ -202,7 +215,7 @@ function ChartTooltipContent({
                     !hideIndicator && (
                       <div
                         className={cn(
-                          "shrink-0 rounded-[2px] border-(--color-border) bg-(--color-bg)",
+                          "shrink-0 rounded-[2px] border-border bg-(--color-bg)",
                           {
                             "h-2.5 w-2.5": indicator === "dot",
                             "w-1": indicator === "line",
@@ -248,7 +261,7 @@ function ChartTooltipContent({
   )
 }
 
-const ChartLegend = RechartsPrimitive.Legend
+const ChartLegend = Legend
 
 function ChartLegendContent({
   className,
@@ -257,7 +270,7 @@ function ChartLegendContent({
   verticalAlign = "bottom",
   nameKey,
 }: React.ComponentProps<"div"> &
-  Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
+  Pick<React.ComponentProps<typeof Legend>, "payload" | "verticalAlign"> & {
     hideIcon?: boolean
     nameKey?: string
   }) {

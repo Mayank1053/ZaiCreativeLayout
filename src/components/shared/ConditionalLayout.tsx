@@ -23,7 +23,7 @@ export default function ConditionalLayout({
 
   return (
     <>
-      <Header />
+      <Header key={pathname} />
       <div className="flex-1">
         {children}
       </div>

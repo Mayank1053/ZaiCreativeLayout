@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Send, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -100,7 +100,7 @@ export function ContactForm() {
   };
 
   return (
-    <motion.form
+    <m.form
       initial="hidden"
       animate="visible"
       variants={{
@@ -110,7 +110,7 @@ export function ContactForm() {
       className="space-y-6"
     >
       {/* Name Field */}
-      <motion.div variants={fadeInUp} className="space-y-2">
+      <m.div variants={fadeInUp} className="space-y-2">
         <Label htmlFor="name" className="text-sm font-medium text-slate-300">
           Your Name <span className="text-blue-500">*</span>
         </Label>
@@ -125,10 +125,10 @@ export function ContactForm() {
           disabled={status === 'submitting'}
           className="bg-card"
         />
-      </motion.div>
+      </m.div>
 
       {/* Email Field */}
-      <motion.div variants={fadeInUp} className="space-y-2">
+      <m.div variants={fadeInUp} className="space-y-2">
         <Label htmlFor="email" className="text-sm font-medium text-slate-300">
           Email Address <span className="text-blue-500">*</span>
         </Label>
@@ -143,10 +143,10 @@ export function ContactForm() {
           disabled={status === 'submitting'}
           className="bg-card"
         />
-      </motion.div>
+      </m.div>
 
       {/* Phone Field */}
-      <motion.div variants={fadeInUp} className="space-y-2">
+      <m.div variants={fadeInUp} className="space-y-2">
         <Label htmlFor="phone" className="text-sm font-medium text-slate-300">
           Phone Number
         </Label>
@@ -160,10 +160,10 @@ export function ContactForm() {
           disabled={status === 'submitting'}
           className="bg-card"
         />
-      </motion.div>
+      </m.div>
 
       {/* Services Selection */}
-      <motion.div variants={fadeInUp} className="space-y-3">
+      <m.div variants={fadeInUp} className="space-y-3">
         <Label className="text-sm font-medium text-slate-300">
           Interested Services
         </Label>
@@ -184,10 +184,10 @@ export function ContactForm() {
             </button>
           ))}
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Message Field */}
-      <motion.div variants={fadeInUp} className="space-y-2">
+      <m.div variants={fadeInUp} className="space-y-2">
         <Label htmlFor="message" className="text-sm font-medium text-slate-300">
           Your Message <span className="text-blue-500">*</span>
         </Label>
@@ -203,23 +203,23 @@ export function ContactForm() {
 
           className="bg-slate-800/50 border-white/10 text-white placeholder:text-slate-500 focus:border-blue-500 resize-none"
         />
-      </motion.div>
+      </m.div>
 
       {/* Error Message */}
       {status === 'error' && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           className="flex items-center gap-2 p-4 bg-destructive/10 text-destructive rounded-md"
         >
           <AlertCircle size={18} />
           <p className="text-sm">{errorMessage}</p>
-        </motion.div>
+        </m.div>
       )}
 
       {/* Success Message */}
       {status === 'success' && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           className="flex items-center gap-2 p-4 bg-green-500/10 text-green-600 rounded-md"
@@ -228,11 +228,11 @@ export function ContactForm() {
           <p className="text-sm">
             Thank you! Your enquiry has been submitted successfully. We&apos;ll get back to you soon.
           </p>
-        </motion.div>
+        </m.div>
       )}
 
       {/* Submit Button */}
-      <motion.div variants={fadeInUp}>
+      <m.div variants={fadeInUp}>
         <Button
           type="submit"
           disabled={status === 'submitting'}
@@ -250,7 +250,7 @@ export function ContactForm() {
             </>
           )}
         </Button>
-      </motion.div>
-    </motion.form>
+      </m.div>
+    </m.form>
   );
 }

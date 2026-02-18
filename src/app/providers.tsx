@@ -2,25 +2,16 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
+import { LazyMotion, domAnimation } from 'framer-motion';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            // Default staleTime to 1 minute to provide a good balance between
-            // performance (caching) and fresh data for admins.
-            staleTime: 60 * 1000,
-            refetchOnWindowFocus: false,
-          },
-        },
-      })
-  );
+  const [queryClient] = useState(() => new QueryClient());
 
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
+      <LazyMotion features={domAnimation}>
+        {children}
+      </LazyMotion>
     </QueryClientProvider>
   );
 }

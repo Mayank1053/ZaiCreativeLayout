@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 
 interface ProjectCardProps {
@@ -29,7 +29,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const coverImage = images[0] || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800';
 
   return (
-    <motion.div
+    <m.div
       variants={fadeInUp}
       className="group break-inside-avoid mb-12"
     >
@@ -65,6 +65,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </p>
         </div>
       </Link>
-    </motion.div>
+    </m.div>
   );
 }

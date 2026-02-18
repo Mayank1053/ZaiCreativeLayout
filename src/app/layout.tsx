@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { ConditionalLayout } from "@/components/shared";
@@ -88,9 +89,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script
+        <Script
+          id="json-ld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          strategy="beforeInteractive"
         />
       </head>
       <body className={`${inter.variable} ${cormorant.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground min-h-screen flex flex-col`}>

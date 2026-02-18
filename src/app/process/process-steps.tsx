@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, Variants } from 'framer-motion';
+import { m, Variants } from 'framer-motion';
 import { MessageCircle, PenTool, Hammer, Key } from 'lucide-react';
 
 const fadeInUp: Variants = {
@@ -33,7 +33,7 @@ interface ProcessStepsProps {
 export default function ProcessSteps({ steps }: ProcessStepsProps) {
   return (
     <div className="max-w-4xl mx-auto">
-      <motion.div
+      <m.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
@@ -48,7 +48,7 @@ export default function ProcessSteps({ steps }: ProcessStepsProps) {
           const isEven = index % 2 === 0;
           
           return (
-            <motion.div
+            <m.div
               key={step.number}
               variants={fadeInUp}
               className={`relative flex flex-col md:flex-row gap-8 md:gap-0 items-start mb-20 last:mb-0 ${
@@ -82,10 +82,10 @@ export default function ProcessSteps({ steps }: ProcessStepsProps) {
                 </div>
               </div>
 
-            </motion.div>
+            </m.div>
           );
         })}
-      </motion.div>
+      </m.div>
     </div>
   );
 }

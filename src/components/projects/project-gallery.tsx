@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 // Animation variants
@@ -26,11 +26,12 @@ interface ProjectGalleryProps {
 export function ProjectGallery({ images, title }: ProjectGalleryProps) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
   // Lock body scroll when lightbox is open
   useEffect(() => {
@@ -83,7 +84,7 @@ export function ProjectGallery({ images, title }: ProjectGalleryProps) {
   const lightbox = (
     <AnimatePresence>
       {selectedIndex !== null && (
-        <motion.div
+        <m.div
           initial="hidden"
           animate="visible"
           exit="hidden"
@@ -129,7 +130,7 @@ export function ProjectGallery({ images, title }: ProjectGalleryProps) {
           )}
 
           {/* Main image */}
-          <motion.div
+          <m.div
             key={currentIndex}
             variants={slideIn}
             initial="hidden"
@@ -146,13 +147,13 @@ export function ProjectGallery({ images, title }: ProjectGalleryProps) {
               sizes="100vw"
               priority
             />
-          </motion.div>
+          </m.div>
 
           {/* Image counter */}
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 text-sm z-60">
             {currentIndex + 1} / {images.length}
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );
@@ -162,8 +163,8 @@ export function ProjectGallery({ images, title }: ProjectGalleryProps) {
       {/* Image Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {images.map((image, index) => (
-          <motion.div
-            key={index}
+          <m.div
+            key={image}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -182,7 +183,7 @@ export function ProjectGallery({ images, title }: ProjectGalleryProps) {
                 sizes={index === 0 ? '(max-width: 768px) 100vw, 66vw' : '(max-width: 768px) 50vw, 33vw'}
               />
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
 

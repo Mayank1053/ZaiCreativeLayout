@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 import { BRAND_INFO } from '@/lib/config';
 
@@ -38,7 +38,7 @@ const contactItems = [
 
 export default function ContactInfoClient() {
   return (
-    <motion.div
+    <m.div
       initial="hidden"
       animate="visible"
       variants={stagger}
@@ -48,7 +48,7 @@ export default function ContactInfoClient() {
         const IconComponent = item.icon;
         
         return (
-          <motion.div
+          <m.div
             key={item.label}
             variants={fadeInUp}
             className="flex gap-4 group"
@@ -69,12 +69,12 @@ export default function ContactInfoClient() {
                 <p className="text-white font-medium">{item.value}</p>
               )}
             </div>
-          </motion.div>
+          </m.div>
         );
       })}
 
       {/* Business Hours */}
-      <motion.div variants={fadeInUp} className="flex gap-4 group">
+      <m.div variants={fadeInUp} className="flex gap-4 group">
         <div className="w-12 h-12 bg-slate-800/50 border border-white/5 flex items-center justify-center shrink-0 group-hover:border-blue-500/50 transition-colors">
           <Clock className="w-5 h-5 text-blue-500" />
         </div>
@@ -83,17 +83,17 @@ export default function ContactInfoClient() {
           <p className="text-white font-medium">Mon - Sat: 10:00 AM - 7:00 PM</p>
           <p className="text-sm text-slate-500 mt-1">Sunday: Closed</p>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Director Info */}
-      <motion.div
+      <m.div
         variants={fadeInUp}
         className="mt-8 pt-8 border-t border-white/10"
       >
         <p className="text-sm text-slate-500 mb-2 uppercase tracking-widest font-mono">Led by</p>
         <p className="font-serif text-2xl text-white">{BRAND_INFO.director.name}</p>
         <p className="text-blue-400 text-sm tracking-wide">{BRAND_INFO.director.title}</p>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }

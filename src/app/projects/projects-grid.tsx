@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { ProjectCard } from '@/components/projects/project-card';
 
 // Animation variants
@@ -52,7 +52,7 @@ export default function ProjectsGrid({ projects, categories }: ProjectsGridProps
         >
           All
           {selectedCategory === null && (
-            <motion.div
+            <m.div
               layoutId="activeTab"
               className="absolute -bottom-2 left-0 right-0 h-px bg-blue-500"
             />
@@ -70,7 +70,7 @@ export default function ProjectsGrid({ projects, categories }: ProjectsGridProps
           >
             {category.name}
             {selectedCategory === category.name && (
-              <motion.div
+              <m.div
                 layoutId="activeTab"
                 className="absolute -bottom-2 left-0 right-0 h-px bg-blue-500"
               />
@@ -81,7 +81,7 @@ export default function ProjectsGrid({ projects, categories }: ProjectsGridProps
 
       {/* Projects Masonry Grid */}
       <AnimatePresence mode="wait">
-        <motion.div
+        <m.div
           key={selectedCategory || 'all'}
           initial="hidden"
           animate="visible"
@@ -100,7 +100,7 @@ export default function ProjectsGrid({ projects, categories }: ProjectsGridProps
               </p>
             </div>
           )}
-        </motion.div>
+        </m.div>
       </AnimatePresence>
     </div>
   );

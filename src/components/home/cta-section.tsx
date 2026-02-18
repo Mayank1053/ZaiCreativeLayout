@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 export function CTASection() {
@@ -20,7 +20,7 @@ export function CTASection() {
       </div>
 
       <div className="max-w-[1800px] mx-auto px-6 text-center relative z-10">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -49,7 +49,7 @@ export function CTASection() {
           <div className="mt-16 text-slate-500 font-mono text-xs uppercase tracking-[0.5em] opacity-50">
             Available for collaborations
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

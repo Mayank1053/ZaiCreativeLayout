@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Building2, Compass, LayoutTemplate, Hammer, HardHat, FileText, ArrowUpRight, DraftingCompass } from 'lucide-react';
+import { m } from 'framer-motion';
+import { Compass, LayoutTemplate, Hammer, HardHat, FileText, DraftingCompass } from 'lucide-react';
 
 const services = [
   {
@@ -26,7 +26,7 @@ const services = [
   {
     id: '04',
     icon: HardHat,
-    title: 'Construction Phase',
+    title: 'Construction',
     description: 'End-to-end supervision from foundation laying to final structural completion.',
   },
   {
@@ -38,8 +38,8 @@ const services = [
   {
     id: '06',
     icon: Hammer,
-    title: 'End to End Construction',
-    description: 'From Floor Planning to Finishing touches, we handle every aspect of construction including all raw material',
+    title: 'Turnkey Construction',
+    description: 'From Floor Planning to Finishing touches, we handle every aspect of construction including all the raw materials.',
   }
 ];
 
@@ -54,7 +54,7 @@ export function ServicesSection() {
       <div className="max-w-[1800px] mx-auto px-6 sm:px-12 lg:px-24">
         
         <div className="flex flex-col md:flex-row justify-between items-start mb-24 relative z-10">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -70,9 +70,9 @@ export function ServicesSection() {
             <h2 className="font-sans font-light text-4xl md:text-5xl lg:text-6xl text-white">
               Core Services
             </h2>
-          </motion.div>
+          </m.div>
           
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -80,12 +80,12 @@ export function ServicesSection() {
             className="max-w-md text-slate-400 font-mono text-sm leading-relaxed border-l border-slate-700 pl-6"
           >
             We focus on the backbone of your project. From the first sketch to the final brick, our expertise lies in the structural and planning phases.
-          </motion.p>
+          </m.p>
         </div>
 
         <div className="flex flex-col relative z-10">
           {services.map((service, index) => (
-            <motion.div
+            <m.div
               key={service.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -126,7 +126,7 @@ export function ServicesSection() {
                   </div>
                 </div> */}
               </div>
-            </motion.div>
+            </m.div>
           ))}
           {/* Bottom border for last item */}
           <div className="border-t border-slate-800" />

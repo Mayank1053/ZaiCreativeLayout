@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { Logo } from './logo';
 import { NAV_LINKS } from '@/lib/config';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -24,15 +24,11 @@ export function Header() {
       setIsScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on route change
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsMobileMenuOpen(false);
-  }, [pathname]);
+
 
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/';
@@ -87,7 +83,7 @@ export function Header() {
       {/* Mobile Navigation */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -99,7 +95,7 @@ export function Header() {
              
             <nav className="relative z-10 flex flex-col py-6 px-6 space-y-2">
               {NAV_LINKS.map((link, index) => (
-                <motion.div
+                <m.div
                   key={link.href}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -117,10 +113,10 @@ export function Header() {
                      <span className="mr-2 text-blue-500 opacity-70">0{index + 1}.</span>
                     {link.label}
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </nav>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </header>

@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import Link from 'next/link';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Ruler, Compass, PenTool } from 'lucide-react';
 
 export function HeroSection() {
@@ -33,7 +33,7 @@ export function HeroSection() {
           <rect width="100%" height="100%" fill="url(#grid)" />
           
           {/* Animated Paths */}
-          <motion.path
+          <m.path
             d="M 100,500 L 900,500"
             fill="none"
             stroke="#60A5FA"
@@ -43,7 +43,7 @@ export function HeroSection() {
             animate={{ pathLength: 1, opacity: 0.5 }}
             transition={{ duration: 3, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
           />
-          <motion.path
+          <m.path
             d="M 500,100 L 500,900"
             fill="none"
             stroke="#60A5FA"
@@ -58,7 +58,7 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 flex-1 max-w-[1800px] mx-auto px-6 sm:px-12 lg:px-24 flex flex-col justify-center pt-24 pb-32 sm:pb-20">
-        <motion.div 
+        <m.div 
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "circOut" }}
@@ -66,38 +66,38 @@ export function HeroSection() {
         >
           {/* Taglines */}
           <div className="flex flex-wrap items-center gap-2 mb-6 sm:mb-4">
-             <motion.span 
+             <m.span 
                initial={{ opacity: 0, x: -20 }}
                animate={{ opacity: 1, x: 0 }}
                transition={{ delay: 0.2 }}
                className="px-3 py-1 border border-blue-500/30 text-blue-300 font-mono text-[10px] sm:text-xs uppercase tracking-widest bg-blue-900/10 backdrop-blur-sm"
              >
               Vastu Compliant
-            </motion.span>
-             <motion.span 
+            </m.span>
+             <m.span 
                initial={{ opacity: 0, x: -20 }}
                animate={{ opacity: 1, x: 0 }}
                transition={{ delay: 0.3 }}
                className="px-3 py-1 border border-blue-500/30 text-blue-300 font-mono text-[10px] sm:text-xs uppercase tracking-widest bg-blue-900/10 backdrop-blur-sm"
              >
               Structural Layouts
-            </motion.span>
-             <motion.span 
+            </m.span>
+             <m.span 
                initial={{ opacity: 0, x: -20 }}
                animate={{ opacity: 1, x: 0 }}
                transition={{ delay: 0.4 }}
                className="px-3 py-1 border border-blue-500/30 text-blue-300 font-mono text-[10px] sm:text-xs uppercase tracking-widest bg-blue-900/10 backdrop-blur-sm"
              >
               Municipal Approval
-            </motion.span>
-             <motion.span 
+            </m.span>
+             <m.span 
                initial={{ opacity: 0, x: -20 }}
                animate={{ opacity: 1, x: 0 }}
                transition={{ delay: 0.4 }}
                className="px-3 py-1 border border-blue-500/30 text-blue-300 font-mono text-[10px] sm:text-xs uppercase tracking-widest bg-blue-900/10 backdrop-blur-sm"
              >
-              Construction Phase
-            </motion.span>
+              Construction
+            </m.span>
           </div>
 
           {/* Heading */}
@@ -113,9 +113,9 @@ export function HeroSection() {
             We don't just design; we engineer your dream. From Vastu-compliant floor analysis to the final concrete pour, we master the entire construction lifecycle.
           </p>
 
-        </motion.div>
+        </m.div>
 
-        <motion.div 
+        <m.div 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "circOut" }}
@@ -137,7 +137,7 @@ export function HeroSection() {
               <PenTool className="w-4 h-4 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform ml-4 sm:ml-0" />
             </Link>
           </div>
-        </motion.div>
+        </m.div>
       </div>
       
        {/* Technical Stats / Footer of Hero */}

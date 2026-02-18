@@ -91,7 +91,7 @@ export const PROCESS_STEPS = [
   {
     number: '04',
     title: 'Construction',
-    description: 'With meticulous attention to detail, we bring your design to life. Our experienced team ensures quality craftsmanship at every stage of construction.',
+    description: 'With meticulous attention to detail, we bring your design to life. Our experienced team ensures quality craftsmanship with quality material at every stage of construction.',
     icon: 'Hammer',
   },
   {

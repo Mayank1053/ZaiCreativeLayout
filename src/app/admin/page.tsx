@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { FolderKanban, Mail, CheckCircle, Clock, Loader2 } from 'lucide-react';
@@ -45,7 +46,7 @@ export default function AdminDashboard() {
         <h1 className="text-2xl font-serif font-semibold">Dashboard</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[1, 2, 3, 4].map((i) => (
-            <Card key={i} className="animate-pulse">
+            <Card key={`skeleton-${i}`} className="animate-pulse">
               <CardHeader className="pb-2">
                 <div className="h-4 bg-muted rounded w-24" />
               </CardHeader>
@@ -138,20 +139,20 @@ export default function AdminDashboard() {
             <CardTitle className="text-lg">Quick Actions</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <a
+            <Link
               href="/admin/projects/new"
               className="block p-3 bg-muted rounded-lg hover:bg-muted/80 transition-colors"
             >
               <FolderKanban className="h-5 w-5 inline-block mr-2 text-accent" />
               <span>Add New Project</span>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/admin/enquiries"
               className="block p-3 bg-muted rounded-lg hover:bg-muted/80 transition-colors"
             >
               <Mail className="h-5 w-5 inline-block mr-2 text-accent" />
               <span>View Enquiries</span>
-            </a>
+            </Link>
           </CardContent>
         </Card>
       </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
@@ -41,7 +41,7 @@ export function ProjectPhases({ phases, className }: ProjectPhasesProps) {
 
         <div className="space-y-24">
           {phases.map((phase, index) => (
-            <motion.div 
+            <m.div 
               key={phase.id}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -87,23 +87,25 @@ export function ProjectPhases({ phases, className }: ProjectPhasesProps) {
                   {phase.images && phase.images.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {/* Main Large Image */}
-                      <div className="md:col-span-2 relative aspect-video overflow-hidden rounded-lg border border-white/10 group">
+                        <div className="md:col-span-2 relative aspect-video overflow-hidden rounded-lg border border-white/10 group">
                         <Image
                           src={phase.images[0]}
                           alt={phase.title}
                           fill
+                          sizes="(max-width: 768px) 100vw, 66vw"
                           className="object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
                       </div>
 
                       {/* Secondary Images (up to 2) */}
-                      {phase.images.slice(1, 3).map((img, i) => (
-                         <div key={i} className="relative aspect-4/3 overflow-hidden rounded-lg border border-white/10 group">
+                      {phase.images.slice(1, 3).map((img) => (
+                         <div key={img} className="relative aspect-4/3 overflow-hidden rounded-lg border border-white/10 group">
                           <Image
                             src={img}
-                            alt={`${phase.title} detail ${i + 1}`}
+                            alt={`${phase.title} detail`}
                             fill
+                            sizes="(max-width: 768px) 50vw, 33vw"
                             className="object-cover transition-transform duration-700 group-hover:scale-105"
                           />
                         </div>
@@ -117,7 +119,7 @@ export function ProjectPhases({ phases, className }: ProjectPhasesProps) {
                 </div>
 
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

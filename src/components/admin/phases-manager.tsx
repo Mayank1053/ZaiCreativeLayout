@@ -172,7 +172,18 @@ export function PhasesManager({
           return (
             <Card key={phase.id || phase.tempId || index} className="overflow-hidden">
               <div className="bg-muted/30 p-3 flex items-center justify-between border-b">
-                <div className="flex items-center gap-3 flex-1 cursor-pointer" onClick={toggleExpand}>
+                <div 
+                  className="flex items-center gap-3 flex-1 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm" 
+                  onClick={toggleExpand}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      toggleExpand();
+                    }
+                  }}
+                >
                   <div className="bg-background p-1 rounded-md border shadow-sm cursor-grab active:cursor-grabbing">
                     <GripVertical className="h-4 w-4 text-muted-foreground" />
                   </div>

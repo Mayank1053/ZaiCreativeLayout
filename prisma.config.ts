@@ -1,7 +1,7 @@
+import { defineConfig } from '@prisma/config';
 
-export default {
-  earlyAccess: true,
-  seed: {
-    command: 'bun prisma/seed.ts',
+export default defineConfig({
+  migrations: {
+    seed: 'bun prisma/seed-phases.ts',
   },
-}
+});

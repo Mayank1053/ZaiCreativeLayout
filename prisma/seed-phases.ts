@@ -44,8 +44,8 @@ async function main() {
       direction: "North-East",
       vastuNotes: "Entrance positioned North-East for maximum prosperity. Water features in the North zone.",
       images: JSON.stringify([
-        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop", // Building exterior
-        "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop", // Interior
+        "https://i.ibb.co/PZzLgBNb/Whats-App-Image-2026-02-14-at-22-22-05.jpg", // Building exterior
+        "https://i.ibb.co/PZzLgBNb/Whats-App-Image-2026-02-14-at-22-22-05.jpg", // Interior
       ]),
       featured: true,
       categoryId: commercial.id,
@@ -56,8 +56,8 @@ async function main() {
             date: new Date("2024-01-15"),
             description: "Initial site survey and soil bearing capacity tests conducted. Results confirmed suitability for high-rise structure.",
             images: [
-              "https://images.unsplash.com/photo-1581094794329-cd56b50932da?q=80&w=2070&auto=format&fit=crop", // Surveying
-              "https://images.unsplash.com/photo-1535732759880-bbd5c7265e3f?q=80&w=2064&auto=format&fit=crop" // Soil
+              "https://i.ibb.co/PZzLgBNb/Whats-App-Image-2026-02-14-at-22-22-05.jpg", // Surveying
+              "https://i.ibb.co/PZzLgBNb/Whats-App-Image-2026-02-14-at-22-22-05.jpg" // Soil
             ],
             order: 0
           },
@@ -66,8 +66,8 @@ async function main() {
             date: new Date("2024-03-10"),
             description: "Deep excavation for triple-basement parking. Raft foundation pouring completed with high-grade concrete.",
             images: [
-              "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop", // Excavation
-              "https://images.unsplash.com/photo-1590059390047-6058a0650e8b?q=80&w=2000&auto=format&fit=crop"  // Rebar
+              "https://i.ibb.co/PZzLgBNb/Whats-App-Image-2026-02-14-at-22-22-05.jpg", // Excavation
+              "https://i.ibb.co/PZzLgBNb/Whats-App-Image-2026-02-14-at-22-22-05.jpg"  // Rebar
             ],
             order: 1
           },
@@ -76,8 +76,8 @@ async function main() {
             date: new Date("2024-06-20"),
             description: "Completion of basement levels and casting of the ground floor podium slab. Column reinforcement in progress.",
             images: [
-              "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=2144&auto=format&fit=crop", // Structure
-              "https://images.unsplash.com/photo-1595846519845-68e298c2edd8?q=80&w=2070&auto=format&fit=crop" // Concrete
+              "https://i.ibb.co/PZzLgBNb/Whats-App-Image-2026-02-14-at-22-22-05.jpg", // Structure
+              "https://i.ibb.co/PZzLgBNb/Whats-App-Image-2026-02-14-at-22-22-05.jpg" // Concrete
             ],
             order: 2
           },
@@ -86,7 +86,7 @@ async function main() {
             date: new Date("2024-09-05"),
             description: "Rapid rise of the tower floors. Currently casting the 6th-floor slab. Brickwork initiated on lower floors.",
             images: [
-              "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=2070&auto=format&fit=crop", // Crane/High rise
+              "https://i.ibb.co/PZzLgBNb/Whats-App-Image-2026-02-14-at-22-22-05.jpg", // Crane/High rise
             ],
             order: 3
           },
@@ -95,7 +95,7 @@ async function main() {
             date: new Date("2025-01-12"),
             description: "Installation of the glass curtain wall system. Energy-efficient double-glazed units being mounted.",
             images: [
-              "https://images.unsplash.com/photo-1464938050520-ef2270bb8ce8?q=80&w=2074&auto=format&fit=crop", // Glass facade
+              "https://i.ibb.co/PZzLgBNb/Whats-App-Image-2026-02-14-at-22-22-05.jpg", // Glass facade
             ],
             order: 4
           },
@@ -104,7 +104,7 @@ async function main() {
             date: null, // Ongoing/Future
             description: "Interior fit-outs have begun for the lobby and common areas. HVAC ducting and electrical wiring in final stages.",
             images: [
-              "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop", // Construction interior
+              "https://i.ibb.co/PZzLgBNb/Whats-App-Image-2026-02-14-at-22-22-05.jpg", // Construction interior
             ],
             order: 5
           }

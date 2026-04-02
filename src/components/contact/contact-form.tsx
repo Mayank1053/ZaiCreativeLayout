@@ -111,8 +111,8 @@ export function ContactForm() {
     >
       {/* Name Field */}
       <m.div variants={fadeInUp} className="space-y-2">
-        <Label htmlFor="name" className="text-sm font-medium text-slate-300">
-          Your Name <span className="text-blue-500">*</span>
+        <Label htmlFor="name" className="text-sm font-medium text-text-secondary">
+          Your Name <span className="text-accent-blue">*</span>
         </Label>
         <Input
           id="name"
@@ -129,8 +129,8 @@ export function ContactForm() {
 
       {/* Email Field */}
       <m.div variants={fadeInUp} className="space-y-2">
-        <Label htmlFor="email" className="text-sm font-medium text-slate-300">
-          Email Address <span className="text-blue-500">*</span>
+        <Label htmlFor="email" className="text-sm font-medium text-text-secondary">
+          Email Address <span className="text-accent-blue">*</span>
         </Label>
         <Input
           id="email"
@@ -147,7 +147,7 @@ export function ContactForm() {
 
       {/* Phone Field */}
       <m.div variants={fadeInUp} className="space-y-2">
-        <Label htmlFor="phone" className="text-sm font-medium text-slate-300">
+        <Label htmlFor="phone" className="text-sm font-medium text-text-secondary">
           Phone Number
         </Label>
         <Input
@@ -164,7 +164,7 @@ export function ContactForm() {
 
       {/* Services Selection */}
       <m.div variants={fadeInUp} className="space-y-3">
-        <Label className="text-sm font-medium text-slate-300">
+        <Label className="text-sm font-medium text-text-secondary">
           Interested Services
         </Label>
         <div className="flex flex-wrap gap-2">
@@ -176,9 +176,10 @@ export function ContactForm() {
               disabled={status === 'submitting'}
               className={`px-4 py-2 text-sm rounded-full border transition-all duration-200 ${
                 formData.services.includes(service)
-                  ? 'bg-blue-600 text-white border-blue-600'
-                  : 'bg-slate-800/50 text-slate-400 border-white/10 hover:border-blue-500/50 hover:text-white'
+                  ? 'border-accent-blue text-white'
+                  : 'border-border-line text-text-secondary hover:border-border-accent hover:text-heading'
               }`}
+              style={formData.services.includes(service) ? { backgroundColor: 'var(--btn-primary-bg)' } : { backgroundColor: 'var(--surface-elevated)' }}
             >
               {service}
             </button>
@@ -188,8 +189,8 @@ export function ContactForm() {
 
       {/* Message Field */}
       <m.div variants={fadeInUp} className="space-y-2">
-        <Label htmlFor="message" className="text-sm font-medium text-slate-300">
-          Your Message <span className="text-blue-500">*</span>
+        <Label htmlFor="message" className="text-sm font-medium text-text-secondary">
+          Your Message <span className="text-accent-blue">*</span>
         </Label>
         <Textarea
           id="message"
@@ -200,8 +201,8 @@ export function ContactForm() {
           required
           disabled={status === 'submitting'}
           rows={5}
-
-          className="bg-slate-800/50 border-white/10 text-white placeholder:text-slate-500 focus:border-blue-500 resize-none"
+          className="border-border-line text-foreground placeholder:text-text-muted focus:border-accent-blue resize-none"
+          style={{ backgroundColor: 'var(--surface-elevated)' }}
         />
       </m.div>
 

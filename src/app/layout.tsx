@@ -3,7 +3,7 @@ import Script from "next/script";
 import { Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { ConditionalLayout } from "@/components/shared";
-import { SEO_CONFIG, BRAND_INFO } from "@/lib/config";
+import { SEO_CONFIG, BRAND_INFO, LOGO_CONFIG } from "@/lib/config";
 import Providers from "./providers";
 
 const inter = Inter({
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   keywords: SEO_CONFIG.keywords,
   authors: [{ name: BRAND_INFO.director.name }],
   icons: {
-    icon: "https://i.ibb.co/v63LMdvK/New-Logo200.png",
+    icon: LOGO_CONFIG.darkImageUrl,
   },
   openGraph: {
     title: SEO_CONFIG.title,
@@ -87,7 +87,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head>
         <Script
           id="json-ld"

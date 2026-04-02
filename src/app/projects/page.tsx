@@ -36,7 +36,7 @@ export default async function ProjectsPage() {
   }));
 
   return (
-    <main className="min-h-screen bg-[#0F172A] pt-32 pb-20 relative">
+    <main className="min-h-screen bg-surface-primary pt-32 pb-20 relative">
       <div className="absolute inset-0 bg-blueprint opacity-20 pointer-events-none" />
       
       {/* Blueprint Grid Background Pattern */}
@@ -44,7 +44,7 @@ export default async function ProjectsPage() {
         <svg className="w-full h-full">
           <defs>
             <pattern id="grid-projects" width="100" height="100" patternUnits="userSpaceOnUse">
-              <path d="M 100 0 L 0 0 0 100" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-blue-500/30" />
+              <path d="M 100 0 L 0 0 0 100" fill="none" stroke="currentColor" strokeWidth="0.5" style={{ color: 'var(--border-accent)' }} />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#grid-projects)" />
@@ -53,13 +53,13 @@ export default async function ProjectsPage() {
       <PageContainer>
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-24 relative z-10">
-          <p className="text-blue-400 text-xs tracking-[0.2em] uppercase font-medium mb-6">
+          <p className="text-accent-blue text-xs tracking-[0.2em] uppercase font-medium mb-6">
             Our Portfolio
           </p>
-          <h1 className="font-serif text-5xl md:text-7xl mb-8 text-white">
+          <h1 className="font-serif text-5xl md:text-7xl mb-8 text-heading">
             Selected Works
           </h1>
-          <p className="text-slate-400 font-light text-lg max-w-2xl leading-relaxed">
+          <p className="text-text-secondary font-light text-lg max-w-2xl leading-relaxed">
             A curation of our finest architectural projects, 
             where vision meets precision.
           </p>

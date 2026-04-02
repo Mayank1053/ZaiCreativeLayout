@@ -23,18 +23,18 @@ export function ProjectPhases({ phases, className }: ProjectPhasesProps) {
   if (!phases || phases.length === 0) return null;
 
   return (
-    <section className={cn("py-24 relative overflow-hidden bg-[#0F172A] border-t border-white/5", className)}>
+    <section className={cn("py-24 relative overflow-hidden bg-surface-primary border-t border-border-subtle", className)}>
       {/* Subtle Grid Background */}
       <div className="absolute inset-0 bg-blueprint opacity-[0.03] pointer-events-none" />
       
       <div className="container mx-auto px-4 relative z-10">
          <div className="mb-20 text-center">
-            <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 flex items-center justify-center gap-4 text-white">
+            <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 flex items-center justify-center gap-4 text-heading">
               <span className="w-8 md:w-16 h-px bg-accent/50 inline-block"></span>
               The Journey
               <span className="w-8 md:w-16 h-px bg-accent/50 inline-block"></span>
             </h2>
-            <p className="text-slate-400 max-w-2xl mx-auto font-light leading-relaxed text-lg">
+            <p className="text-text-secondary max-w-2xl mx-auto font-light leading-relaxed text-lg">
               Witness the evolution of the project from concept to reality.
             </p>
         </div>
@@ -63,15 +63,15 @@ export function ProjectPhases({ phases, className }: ProjectPhasesProps) {
                      <span className="font-mono text-accent text-sm tracking-widest uppercase">
                         Stage {String(index + 1).padStart(2, '0')}
                      </span>
-                     <div className="h-px flex-1 bg-white/10" />
+                     <div className="h-px flex-1 bg-border-line" />
                   </div>
                   
-                  <h3 className="text-2xl md:text-3xl font-serif text-white mb-4">
+                  <h3 className="text-2xl md:text-3xl font-serif text-heading mb-4">
                     {phase.title}
                   </h3>
                   
                   {phase.description && (
-                    <p className="text-slate-400 leading-relaxed font-light mb-6 border-l-2 border-accent/20 pl-4">
+                    <p className="text-text-secondary leading-relaxed font-light mb-6 border-l-2 border-accent/20 pl-4">
                       {phase.description}
                     </p>
                   )}
@@ -87,7 +87,7 @@ export function ProjectPhases({ phases, className }: ProjectPhasesProps) {
                   {phase.images && phase.images.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {/* Main Large Image */}
-                        <div className="md:col-span-2 relative aspect-video overflow-hidden rounded-lg border border-white/10 group">
+                        <div className="md:col-span-2 relative aspect-video overflow-hidden rounded-lg border border-border-line group">
                         <Image
                           src={phase.images[0]}
                           alt={phase.title}
@@ -100,7 +100,7 @@ export function ProjectPhases({ phases, className }: ProjectPhasesProps) {
 
                       {/* Secondary Images (up to 2) */}
                       {phase.images.slice(1, 3).map((img, idx) => (
-                         <div key={`${img}-${idx}`} className="relative aspect-4/3 overflow-hidden rounded-lg border border-white/10 group">
+                         <div key={`${img}-${idx}`} className="relative aspect-4/3 overflow-hidden rounded-lg border border-border-line group">
                           <Image
                             src={img}
                             alt={`${phase.title} detail`}
@@ -112,8 +112,8 @@ export function ProjectPhases({ phases, className }: ProjectPhasesProps) {
                       ))}
                     </div>
                   ) : (
-                    <div className="aspect-video bg-white/5 rounded-lg border border-white/10 flex items-center justify-center">
-                       <p className="text-slate-600 font-mono text-sm">Visuals pending...</p>
+                    <div className="aspect-video rounded-lg border border-border-line flex items-center justify-center" style={{ backgroundColor: 'var(--surface-elevated)' }}>
+                       <p className="text-text-muted font-mono text-sm">Visuals pending...</p>
                     </div>
                   )}
                 </div>

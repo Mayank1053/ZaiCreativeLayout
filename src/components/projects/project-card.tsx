@@ -34,7 +34,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       className="group break-inside-avoid mb-12"
     >
       <Link href={`/projects/${project.slug}`} className="block">
-        <div className="relative overflow-hidden mb-4 bg-slate-800 border border-white/5 group-hover:border-blue-500/30 transition-colors duration-500">
+        <div className="relative overflow-hidden mb-4 border border-border-subtle group-hover:border-border-accent transition-colors duration-500" style={{ backgroundColor: 'var(--surface-elevated)' }}>
           <Image
             src={coverImage}
             alt={project.title}
@@ -45,22 +45,22 @@ export function ProjectCard({ project }: ProjectCardProps) {
           />
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
           
-          <div className="absolute top-4 right-4 bg-blue-500/90 backdrop-blur-sm p-3 rounded-full opacity-0 transform translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-lg shadow-blue-900/20">
+          <div className="absolute top-4 right-4 p-3 rounded-full opacity-0 transform translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300" style={{ backgroundColor: 'var(--btn-primary-bg)' }}>
             <ArrowUpRight className="w-5 h-5 text-white" />
           </div>
         </div>
         
         <div>
           <div className="flex items-baseline justify-between mb-1">
-            <h3 className="font-serif text-2xl text-white group-hover:text-blue-400 transition-colors duration-300">
+            <h3 className="font-serif text-2xl text-heading group-hover:text-accent-blue transition-colors duration-300">
               {project.title}
             </h3>
-            <span className="text-xs uppercase tracking-widest text-slate-500 group-hover:text-slate-400 transition-colors">
+            <span className="text-xs uppercase tracking-widest text-text-muted group-hover:text-text-secondary transition-colors">
               {project.category.name}
             </span>
           </div>
-          <p className="text-sm text-slate-400 font-light flex items-center gap-2">
-            <span className="w-1 h-1 rounded-full bg-blue-500/50"></span>
+          <p className="text-sm text-text-secondary font-light flex items-center gap-2">
+            <span className="w-1 h-1 rounded-full bg-accent-blue/50"></span>
             {project.location}
           </p>
         </div>

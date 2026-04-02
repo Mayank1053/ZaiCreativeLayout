@@ -46,15 +46,15 @@ export default function ProjectsGrid({ projects, categories }: ProjectsGridProps
           onClick={() => setSelectedCategory(null)}
           className={`relative text-sm tracking-[0.2em] uppercase transition-colors duration-300 ${
             selectedCategory === null
-              ? 'text-white font-medium'
-              : 'text-slate-500 hover:text-white'
+              ? 'text-heading font-medium'
+              : 'text-text-muted hover:text-heading'
           }`}
         >
           All
           {selectedCategory === null && (
             <m.div
               layoutId="activeTab"
-              className="absolute -bottom-2 left-0 right-0 h-px bg-blue-500"
+              className="absolute -bottom-2 left-0 right-0 h-px bg-accent-blue"
             />
           )}
         </button>
@@ -64,15 +64,15 @@ export default function ProjectsGrid({ projects, categories }: ProjectsGridProps
             onClick={() => setSelectedCategory(category.name)}
             className={`relative text-sm tracking-[0.2em] uppercase transition-colors duration-300 ${
               selectedCategory === category.name
-                ? 'text-white font-medium'
-                : 'text-slate-500 hover:text-white'
+                ? 'text-heading font-medium'
+                : 'text-text-muted hover:text-heading'
             }`}
           >
             {category.name}
             {selectedCategory === category.name && (
               <m.div
                 layoutId="activeTab"
-                className="absolute -bottom-2 left-0 right-0 h-px bg-blue-500"
+                className="absolute -bottom-2 left-0 right-0 h-px bg-accent-blue"
               />
             )}
           </button>
@@ -95,7 +95,7 @@ export default function ProjectsGrid({ projects, categories }: ProjectsGridProps
             ))
           ) : (
             <div className="col-span-full text-center py-20">
-              <p className="text-muted-foreground font-light text-lg">
+              <p className="text-text-muted font-light text-lg">
                 No projects found in this category.
               </p>
             </div>

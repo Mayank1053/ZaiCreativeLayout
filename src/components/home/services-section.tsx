@@ -47,7 +47,7 @@ export function ServicesSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-32 bg-[#0B1221] text-white relative overflow-hidden">
+    <section className="py-32 text-heading relative overflow-hidden" style={{ backgroundColor: 'var(--surface-elevated)' }}>
        {/* Blueprint Grid Background */}
        <div className="absolute inset-0 bg-blueprint opacity-10 pointer-events-none" />
 
@@ -61,13 +61,13 @@ export function ServicesSection() {
             className="mb-8 md:mb-0"
           >
             <div className="flex items-center gap-4 mb-4">
-               <span className="w-8 h-px bg-blue-500"></span>
-               <p className="text-blue-400 text-xs tracking-[0.2em] uppercase font-mono font-medium">
+               <span className="w-8 h-px bg-accent-blue"></span>
+               <p className="text-accent-blue text-xs tracking-[0.2em] uppercase font-mono font-medium">
                 Our Expertise
               </p>
             </div>
            
-            <h2 className="font-sans font-light text-4xl md:text-5xl lg:text-6xl text-white">
+            <h2 className="font-sans font-light text-4xl md:text-5xl lg:text-6xl text-heading">
               Core Services
             </h2>
           </m.div>
@@ -77,7 +77,7 @@ export function ServicesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="max-w-md text-slate-400 font-mono text-sm leading-relaxed border-l border-slate-700 pl-6"
+            className="max-w-md text-text-secondary font-mono text-sm leading-relaxed border-l border-border-line pl-6"
           >
             We focus on the backbone of your project. From the first sketch to the final brick, our expertise lies in the structural and planning phases.
           </m.p>
@@ -93,43 +93,36 @@ export function ServicesSection() {
               transition={{ delay: index * 0.1 }}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
-              className="group relative border-t border-slate-800 py-12 cursor-pointer transition-all duration-500 hover:bg-white/2"
+              className="group relative border-t border-border-line py-12 cursor-pointer transition-all duration-500 hover:bg-accent-blue-soft"
             >
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative z-10">
                 
                 {/* ID */}
                 <div className="col-span-1 md:col-span-2 flex items-center gap-4">
-                  <span className="text-sm font-light text-slate-600 font-mono group-hover:text-blue-500 transition-colors">
+                  <span className="text-sm font-light text-text-muted font-mono group-hover:text-accent-blue transition-colors">
                     /{service.id}
                   </span>
-                  <service.icon className="w-6 h-6 text-slate-500 group-hover:text-blue-400 transition-colors opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 duration-300" />
+                  <service.icon className="w-6 h-6 text-text-muted group-hover:text-accent-blue transition-colors opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 duration-300" />
                 </div>
 
                 {/* Title */}
                 <div className="col-span-1 md:col-span-5">
-                  <h3 className="text-2xl md:text-3xl font-sans font-light text-slate-200 group-hover:text-white transition-colors duration-300">
+                  <h3 className="text-2xl md:text-3xl font-sans font-light text-text-primary group-hover:text-heading transition-colors duration-300">
                     {service.title}
                   </h3>
                 </div>
 
                 {/* Description */}
                 <div className="col-span-1 md:col-span-4">
-                  <p className="text-slate-500 font-light font-mono text-sm group-hover:text-slate-300 transition-colors duration-300">
+                  <p className="text-text-muted font-light font-mono text-sm group-hover:text-text-secondary transition-colors duration-300">
                     {service.description}
                   </p>
                 </div>
-
-                {/* Arrow */}
-                {/* <div className="col-span-1 flex justify-end">
-                  <div className="w-10 h-10 rounded-none border border-slate-700 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-600 transition-all duration-300">
-                    <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-white transform group-hover:rotate-45 transition-transform duration-300" />
-                  </div>
-                </div> */}
               </div>
             </m.div>
           ))}
           {/* Bottom border for last item */}
-          <div className="border-t border-slate-800" />
+          <div className="border-t border-border-line" />
         </div>
 
       </div>

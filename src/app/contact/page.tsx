@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 // Contact page - Server Component
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-[#0F172A] pt-32 pb-20 relative">
+    <main className="min-h-screen bg-surface-primary pt-32 pb-20 relative">
       <div className="absolute inset-0 bg-blueprint opacity-20 pointer-events-none" />
       
       {/* Blueprint Grid Background Pattern */}
@@ -28,7 +28,7 @@ export default function ContactPage() {
         <svg className="w-full h-full">
           <defs>
             <pattern id="grid-contact" width="100" height="100" patternUnits="userSpaceOnUse">
-              <path d="M 100 0 L 0 0 0 100" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-blue-500/30" />
+              <path d="M 100 0 L 0 0 0 100" fill="none" stroke="currentColor" strokeWidth="0.5" style={{ color: 'var(--border-accent)' }} />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#grid-contact)" />
@@ -40,26 +40,26 @@ export default function ContactPage() {
           {/* Left Column: Info */}
           <div className="lg:col-span-5 space-y-12">
             <div>
-              <p className="text-blue-400 text-xs tracking-[0.2em] uppercase font-medium mb-6">
+              <p className="text-accent-blue text-xs tracking-[0.2em] uppercase font-medium mb-6">
                 Get in Touch
               </p>
-              <h1 className="font-serif text-5xl md:text-6xl mb-6 leading-tight text-white">
+              <h1 className="font-serif text-5xl md:text-6xl mb-6 leading-tight text-heading">
                 Let&apos;s build your <br />
-                <span className="italic text-slate-400">vision.</span>
+                <span className="italic text-text-secondary">vision.</span>
               </h1>
-              <p className="text-slate-400 font-light text-lg leading-relaxed">
+              <p className="text-text-secondary font-light text-lg leading-relaxed">
                 Whether you have a specific project in mind or just want to explore possibilities, 
                 we&apos;re here to listen and guide you.
               </p>
             </div>
 
-            <div className="py-8 border-t border-b border-white/10">
+            <div className="py-8 border-t border-b border-border-line">
               <ContactInfoClient />
             </div>
 
             <div>
-              <p className="font-serif text-xl mb-4 text-white">Visit Our Studio</p>
-              <div className="aspect-video w-full bg-slate-900 border border-white/5 transition-all duration-700 relative overflow-hidden group">
+              <p className="font-serif text-xl mb-4 text-heading">Visit Our Studio</p>
+              <div className="aspect-video w-full border border-border-subtle transition-all duration-700 relative overflow-hidden group" style={{ backgroundColor: 'var(--surface-elevated)' }}>
 
                 <iframe
                   src={BRAND_INFO.contact.mapsEmbed}
@@ -78,9 +78,9 @@ export default function ContactPage() {
 
           {/* Right Column: Form */}
           <div className="lg:col-span-7 lg:mt-12">
-            <div className="bg-slate-900/50 backdrop-blur-sm p-8 md:p-12 border border-white/5 shadow-2xl shadow-black/20">
-              <h2 className="font-serif text-2xl mb-2 text-white">Send us a message</h2>
-              <p className="text-slate-400 text-sm mb-8">
+            <div className="backdrop-blur-sm p-8 md:p-12 border border-border-line" style={{ backgroundColor: 'var(--surface-overlay)', boxShadow: 'var(--shadow-elevated)' }}>
+              <h2 className="font-serif text-2xl mb-2 text-heading">Send us a message</h2>
+              <p className="text-text-secondary text-sm mb-8">
                 Fill out the form below and we&apos;ll get back to you within 24 hours.
               </p>
               <ContactForm />

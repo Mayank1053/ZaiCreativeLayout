@@ -4,15 +4,29 @@ import { LOGO_CONFIG } from '@/lib/config';
 import Image from 'next/image';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 interface LogoProps {
   className?: string;
   size?: 'sm' | 'md' | 'lg';
-  color?: 'default' | 'white' | 'black';
-  showText?: boolean; // Kept for backward compatibility but always true for this design
+  color?: 'default' | 'white' | 'black' | 'auto';
+  showText?: boolean;
 }
 
 export function Logo({ className = '', size = 'md', color = 'default' }: LogoProps) {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // When 'auto': dark theme → white, light theme → black
+  const resolvedColor = color === 'auto'
+    ? (mounted && resolvedTheme === 'light' ? 'black' : 'white')
+    : color;
+
   const sizeClasses = {
     sm: 'h-10',
     md: 'h-12',
@@ -31,16 +45,18 @@ export function Logo({ className = '', size = 'md', color = 'default' }: LogoPro
     lg: 'text-[0.65rem]',
   };
 
-  const textColor = {
+  const textColor: Record<string, string> = {
     default: 'text-foreground',
     white: 'text-white',
-    black: 'text-black',
+    black: 'text-slate-900',
+    auto: mounted && resolvedTheme === 'light' ? 'text-slate-900' : 'text-white',
   };
 
-  const subTextColor = {
+  const subTextColor: Record<string, string> = {
     default: 'text-muted-foreground',
     white: 'text-white/80',
-    black: 'text-black/80',
+    black: 'text-slate-900/70',
+    auto: mounted && resolvedTheme === 'light' ? 'text-slate-700' : 'text-white/80',
   };
 
   return (
@@ -48,8 +64,8 @@ export function Logo({ className = '', size = 'md', color = 'default' }: LogoPro
       {/* Icon/Image Part */}
       <div className={cn("relative w-auto aspect-square shrink-0", sizeClasses[size])}>
         <Image
-          src={LOGO_CONFIG.imageUrl}
-          alt="Creative Layout Logo"
+          src={mounted && resolvedTheme === 'light' ? LOGO_CONFIG.lightImageUrl : LOGO_CONFIG.darkImageUrl}
+          alt="Creative Layout"
           fill
           className="object-contain"
           sizes="(max-width: 768px) 40px, (max-width: 1200px) 48px, 64px"
@@ -61,14 +77,14 @@ export function Logo({ className = '', size = 'md', color = 'default' }: LogoPro
       <div className="flex flex-col justify-center">
         <span className={cn(
           "font-serif font-bold leading-none tracking-tight whitespace-nowrap",
-          textColor[color],
+          textColor[resolvedColor] || textColor[color],
           textSizeClasses[size]
         )}>
           {LOGO_CONFIG.text.primary}
         </span>
         <span className={cn(
-          "font-sans uppercase tracking-[0.15em] leading-tight mt-0.5 hidden sm:block",
-          subTextColor[color],
+          "font-sans uppercase tracking-[0.15em] leading-tight mt-0.5",
+          subTextColor[resolvedColor] || subTextColor[color],
           subTextSizeClasses[size]
         )}>
           {LOGO_CONFIG.text.secondary}

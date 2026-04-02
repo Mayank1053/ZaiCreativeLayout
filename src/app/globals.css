@@ -4,9 +4,17 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ============================================================
+   SEMANTIC THEME TOKENS
+   These tokens drive the entire site's color system.
+   Components use `bg-surface-primary`, `text-heading`, etc.
+   ============================================================ */
+
 /* Light Theme */
 :root {
   --radius: 0.25rem;
+
+  /* --- shadcn/ui compat tokens --- */
   --background: 40 30% 98%;
   --foreground: 210 50% 16%;
   --card: 0 0% 100%;
@@ -25,10 +33,58 @@
   --border: 210 20% 90%;
   --input: 210 20% 90%;
   --ring: 42 70% 46%;
+
+  /* --- Blueprint / Architectural Semantic Tokens --- */
+  --surface-primary: #F8F6F3;
+  --surface-elevated: #FFFFFF;
+  --surface-sunken: #F1F5F9;
+  --surface-overlay: rgba(255, 255, 255, 0.92);
+  --surface-overlay-heavy: rgba(248, 246, 243, 0.95);
+
+  --heading: #0F172A;
+  --text-primary: #1E293B;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+  --text-inverse: #FFFFFF;
+
+  --accent-blue: #2563EB;
+  --accent-blue-hover: #1D4ED8;
+  --accent-blue-soft: #DBEAFE;
+  --accent-blue-muted: rgba(37, 99, 235, 0.12);
+
+  --border-line: #E2E8F0;
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-accent: rgba(37, 99, 235, 0.25);
+
+  --grid-line-color: rgba(37, 99, 235, 0.05);
+  --grid-line-color-strong: rgba(37, 99, 235, 0.08);
+  --blueprint-bg: #F1F5F9;
+
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-elevated: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  --hero-gradient-from: rgba(248, 246, 243, 1);
+  --hero-gradient-via: rgba(248, 246, 243, 0.5);
+  --hero-gradient-to: transparent;
+
+  --btn-primary-bg: #2563EB;
+  --btn-primary-text: #FFFFFF;
+  --btn-primary-hover: #1D4ED8;
+  --btn-outline-border: #CBD5E1;
+  --btn-outline-text: #334155;
+  --btn-outline-hover-border: #2563EB;
+  --btn-outline-hover-text: #1E293B;
+
+  --skeleton-bg: rgba(0, 0, 0, 0.06);
+
+  --tag-bg: rgba(37, 99, 235, 0.08);
+  --tag-border: rgba(37, 99, 235, 0.2);
+  --tag-text: #2563EB;
 }
 
 /* Dark Theme */
 .dark {
+  /* --- shadcn/ui compat tokens --- */
   --background: 210 60% 10%;
   --foreground: 210 40% 96%;
   --card: 210 50% 16%;
@@ -47,6 +103,53 @@
   --border: 210 45% 23%;
   --input: 210 40% 30%;
   --ring: 42 70% 46%;
+
+  /* --- Blueprint / Architectural Semantic Tokens --- */
+  --surface-primary: #0F172A;
+  --surface-elevated: #0B1221;
+  --surface-sunken: #070D19;
+  --surface-overlay: rgba(15, 23, 42, 0.92);
+  --surface-overlay-heavy: rgba(15, 23, 42, 0.95);
+
+  --heading: #FFFFFF;
+  --text-primary: #E2E8F0;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --text-inverse: #0F172A;
+
+  --accent-blue: #60A5FA;
+  --accent-blue-hover: #93C5FD;
+  --accent-blue-soft: rgba(96, 165, 250, 0.1);
+  --accent-blue-muted: rgba(96, 165, 250, 0.1);
+
+  --border-line: rgba(255, 255, 255, 0.1);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-accent: rgba(96, 165, 250, 0.2);
+
+  --grid-line-color: rgba(255, 255, 255, 0.05);
+  --grid-line-color-strong: rgba(255, 255, 255, 0.03);
+  --blueprint-bg: #0f172a;
+
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-elevated: 0 4px 12px rgba(0, 0, 0, 0.4);
+
+  --hero-gradient-from: rgba(15, 23, 42, 1);
+  --hero-gradient-via: rgba(15, 23, 42, 0.4);
+  --hero-gradient-to: transparent;
+
+  --btn-primary-bg: #2563EB;
+  --btn-primary-text: #FFFFFF;
+  --btn-primary-hover: #3B82F6;
+  --btn-outline-border: #334155;
+  --btn-outline-text: #CBD5E1;
+  --btn-outline-hover-border: #60A5FA;
+  --btn-outline-hover-text: #FFFFFF;
+
+  --skeleton-bg: rgba(255, 255, 255, 0.05);
+
+  --tag-bg: rgba(96, 165, 250, 0.1);
+  --tag-border: rgba(96, 165, 250, 0.3);
+  --tag-text: #93C5FD;
 }
 
 @theme {
@@ -75,7 +178,37 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  /* Brand Colors from config (manually mapping for v4 if needed, though @config should handle it) */
+  /* Semantic surface colors */
+  --color-surface-primary: var(--surface-primary);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-surface-sunken: var(--surface-sunken);
+
+  /* Semantic text colors */
+  --color-heading: var(--heading);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-inverse: var(--text-inverse);
+
+  /* Accent */
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-blue-hover: var(--accent-blue-hover);
+  --color-accent-blue-soft: var(--accent-blue-soft);
+
+  /* Borders */
+  --color-border-line: var(--border-line);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-accent: var(--border-accent);
+
+  /* Tag */
+  --color-tag-bg: var(--tag-bg);
+  --color-tag-border: var(--tag-border);
+  --color-tag-text: var(--tag-text);
+
+  /* Skeleton */
+  --color-skeleton: var(--skeleton-bg);
+
+  /* Brand Colors from config */
   --color-navy-50: hsl(var(--navy-50));
   --color-navy-100: hsl(var(--navy-100));
   --color-navy-200: hsl(var(--navy-200));
@@ -110,9 +243,10 @@
   }
 
   body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
+    background-color: var(--surface-primary);
+    color: var(--text-primary);
     font-family: var(--font-sans);
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   h1,
@@ -124,6 +258,7 @@
     font-family: var(--font-serif);
     font-weight: 500;
     line-height: 1.2;
+    color: var(--heading);
   }
 }
 
@@ -143,7 +278,7 @@
   left: 0;
   width: 0;
   height: 1px;
-  background: hsl(var(--accent));
+  background: var(--accent-blue);
   transition: width 0.4s ease-out;
 }
 
@@ -160,15 +295,15 @@
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  border: 1px solid hsl(var(--accent));
+  border: 1px solid var(--accent-blue);
   background: transparent;
-  color: hsl(var(--accent));
+  color: var(--accent-blue);
   transition: all 0.5s ease-out;
 }
 
 .btn-luxury:hover {
-  background-color: hsl(var(--accent));
-  color: hsl(var(--primary));
+  background-color: var(--accent-blue);
+  color: var(--text-inverse);
 }
 
 /* Animations */
@@ -183,24 +318,24 @@
   }
 }
 
-/* Blueprint / Technical Theme Utilities */
+/* Blueprint / Technical Theme Utilities — THEME-AWARE */
 .bg-blueprint {
-  background-color: #0f172a; /* Slate 900 */
+  background-color: var(--surface-primary);
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(var(--grid-line-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line-color) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
 .bg-blueprint-grid-sm {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(var(--grid-line-color-strong) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line-color-strong) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
 .text-stroke {
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+  -webkit-text-stroke: 1px var(--border-line);
   color: transparent;
 }
 

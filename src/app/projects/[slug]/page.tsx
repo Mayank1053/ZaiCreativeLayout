@@ -74,13 +74,11 @@ export default async function ProjectDetailPage({
     category: {
       name: project.category.name,
     },
-    // Assuming project.phases might exist on the project object from getProjectBySlug
-    // If not, you'll need to adjust getProjectBySlug to fetch phases.
     phases: (project as any).phases || [], 
   };
 
   return (
-    <main className="min-h-screen bg-[#0F172A] pb-20">
+    <main className="min-h-screen bg-surface-primary pb-20">
       <ProjectDetailClient project={serializedProject} />
     </main>
   );

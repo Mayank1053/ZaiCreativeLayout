@@ -8,8 +8,9 @@ export const LOGO_CONFIG = {
   // Can be 'image' or 'text' or 'composite'
   type: 'composite' as const,
   
-  // Image logo URL
-  imageUrl: 'https://i.ibb.co/v63LMdvK/New-Logo200.png',
+  // Image logo URLs
+  darkImageUrl: 'https://i.ibb.co/B2ZqTBbG/Light-Logo1.png',
+  lightImageUrl: 'https://i.ibb.co/v63LMdvK/New-Logo200.png',
   
   // Text details
   text: {

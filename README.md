@@ -2,7 +2,7 @@
 
 A refined, high-performance portfolio and management website for an Architecture & Construction studio. Built with modern web technologies to showcase projects, manage enquiries, and provide a premium user experience.
 
-![Project Banner](https://i.ibb.co/NdB4Rg9S/Removal-144.png) _<!-- Replace with actual banner if available -->_
+![Project Banner](https://i.ibb.co/WNx5W3P1/Creative-Logo.png) _<!-- Replace with actual banner if available -->_
 
 ## ✨ Features
 
@@ -41,7 +41,7 @@ A refined, high-performance portfolio and management website for an Architecture
 
 - [Node.js](https://nodejs.org/) (v18+)
 - [Bun](https://bun.sh/)
-- [PostgreSQL](https://www.postgresql.org/) (Local or hosted like Neon/Supabase)
+- [PostgreSQL](https://www.postgresql.org/) (Local or hosted like Neon/Supabase/Prisma)
 
 ### 1. Clone the repository
 

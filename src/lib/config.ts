@@ -9,7 +9,7 @@ export const LOGO_CONFIG = {
   type: 'composite' as const,
   
   // Image logo URL
-  imageUrl: 'https://i.ibb.co/Q71BrsXq/Creative-Logo1.png',
+  imageUrl: 'https://i.ibb.co/v63LMdvK/New-Logo200.png',
   
   // Text details
   text: {

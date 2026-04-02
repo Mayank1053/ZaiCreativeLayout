@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   keywords: SEO_CONFIG.keywords,
   authors: [{ name: BRAND_INFO.director.name }],
   icons: {
-    icon: "https://i.ibb.co/gFcwGMMS/Logo-Favicon.png",
+    icon: "https://i.ibb.co/v63LMdvK/New-Logo200.png",
   },
   openGraph: {
     title: SEO_CONFIG.title,

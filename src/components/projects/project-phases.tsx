@@ -99,8 +99,8 @@ export function ProjectPhases({ phases, className }: ProjectPhasesProps) {
                       </div>
 
                       {/* Secondary Images (up to 2) */}
-                      {phase.images.slice(1, 3).map((img) => (
-                         <div key={img} className="relative aspect-4/3 overflow-hidden rounded-lg border border-white/10 group">
+                      {phase.images.slice(1, 3).map((img, idx) => (
+                         <div key={`${img}-${idx}`} className="relative aspect-4/3 overflow-hidden rounded-lg border border-white/10 group">
                           <Image
                             src={img}
                             alt={`${phase.title} detail`}

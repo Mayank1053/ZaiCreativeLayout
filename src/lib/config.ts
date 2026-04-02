@@ -14,7 +14,7 @@ export const LOGO_CONFIG = {
   // Text details
   text: {
     primary: 'Creative Layout',
-    secondary: 'Planning, Designing And Construction',
+    secondary: 'Architecture & Construction',
   },
 };
 
@@ -23,7 +23,7 @@ export const LOGO_CONFIG = {
 // ========================================
 export const BRAND_INFO = {
   name: 'Creative Layout',
-  tagline: 'Architecture & Construction Studio',
+  tagline: 'Architecture & Construction',
   description: 'Premium architecture and construction services in Chhattisgarh, India.',
   
   // Director/Head Architect
@@ -129,7 +129,6 @@ export const SEO_CONFIG = {
     'Prashant Ambilkar',
   ],
   url: 'https://creativelayout.in',
-  ogImage: '/og-image.jpg',
 };
 
 // ========================================

@@ -60,7 +60,7 @@ export function Logo({ className = '', size = 'md', color = 'default' }: LogoPro
   };
 
   return (
-    <Link href="/" className={cn("flex items-center gap-2.5 sm:gap-3 group select-none", className)}>
+    <Link href="/" className={cn("flex items-center gap-2 sm:gap-3 group select-none", className)}>
       {/* Icon/Image Part */}
       <div className={cn("relative w-auto aspect-square shrink-0", sizeClasses[size])}>
         <Image

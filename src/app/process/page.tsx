@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 // Process page - Server Component
 export default function ProcessPage() {
   return (
-    <main className="min-h-screen bg-surface-primary pt-32 pb-20 relative">
+    <main className="min-h-screen bg-surface-primary pt-20 md:pt-28 pb-12 relative">
       <div className="absolute inset-0 bg-blueprint opacity-20 pointer-events-none" />
       
       {/* Blueprint Grid Background Pattern */}
@@ -30,14 +30,14 @@ export default function ProcessPage() {
       </div>
       <PageContainer>
         {/* Header */}
-        <div className="flex flex-col items-center text-center mb-24 relative z-10">
-          <p className="text-accent-blue text-xs tracking-[0.2em] uppercase font-medium mb-6">
+        <div className="flex flex-col items-center text-center mb-12 md:mb-16 relative z-10">
+          <p className="text-accent-blue text-[10px] md:text-xs tracking-[0.2em] uppercase font-medium mb-3 md:mb-4">
             How We Work
           </p>
-          <h1 className="font-serif text-5xl md:text-7xl mb-8 text-heading">
+          <h1 className="font-serif text-3xl md:text-6xl mb-4 md:mb-6 text-heading">
             The Methodology
           </h1>
-          <p className="text-text-secondary font-light text-lg max-w-2xl leading-relaxed">
+          <p className="text-text-secondary font-light text-base md:text-lg max-w-2xl leading-relaxed">
             From the first sketch to the final stone, our process is built on 
             transparency, precision, and unwavering dedication to your vision.
           </p>

@@ -3,7 +3,8 @@ import { Metadata } from 'next';
 import ProjectsGrid from './projects-grid';
 import { getProjects, getCategories } from '@/lib/data/projects';
 
-export const dynamic = 'force-dynamic';
+// Revalidate cached page every 60 seconds (ISR)
+export const revalidate = 60;
 
 // Metadata for SEO
 export const metadata: Metadata = {
@@ -18,25 +19,8 @@ export default async function ProjectsPage() {
     getCategories(),
   ]);
 
-  const serializedProjects = projects.map((project) => ({
-    id: project.id,
-    title: project.title,
-    slug: project.slug,
-    location: project.location,
-    images: project.images,
-    category: {
-      name: project.category.name,
-    },
-  }));
-
-  const serializedCategories = categories.map((cat) => ({
-    id: cat.id,
-    name: cat.name,
-    slug: cat.slug,
-  }));
-
   return (
-    <main className="min-h-screen bg-surface-primary pt-32 pb-20 relative">
+    <main className="min-h-screen bg-surface-primary pt-20 md:pt-28 pb-12 relative">
       <div className="absolute inset-0 bg-blueprint opacity-20 pointer-events-none" />
       
       {/* Blueprint Grid Background Pattern */}
@@ -52,14 +36,14 @@ export default async function ProjectsPage() {
       </div>
       <PageContainer>
         {/* Header */}
-        <div className="flex flex-col items-center text-center mb-24 relative z-10">
-          <p className="text-accent-blue text-xs tracking-[0.2em] uppercase font-medium mb-6">
+        <div className="flex flex-col items-center text-center mb-8 relative z-10">
+          <p className="text-accent-blue text-[10px] md:text-xs tracking-[0.2em] uppercase font-medium mb-2 md:mb-4">
             Our Portfolio
           </p>
-          <h1 className="font-serif text-5xl md:text-7xl mb-8 text-heading">
+          <h1 className="font-serif text-3xl md:text-6xl mb-3 md:mb-6 text-heading">
             Selected Works
           </h1>
-          <p className="text-text-secondary font-light text-lg max-w-2xl leading-relaxed">
+          <p className="text-text-secondary font-light text-sm md:text-lg max-w-2xl leading-relaxed">
             A curation of our finest architectural projects, 
             where vision meets precision.
           </p>
@@ -67,8 +51,8 @@ export default async function ProjectsPage() {
 
         {/* Grid */}
         <ProjectsGrid 
-          projects={serializedProjects} 
-          categories={serializedCategories} 
+          projects={projects} 
+          categories={categories} 
         />
       </PageContainer>
     </main>

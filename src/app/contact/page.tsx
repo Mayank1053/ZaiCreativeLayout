@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 // Contact page - Server Component
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-surface-primary pt-32 pb-20 relative">
+    <main className="min-h-screen bg-surface-primary pt-20 md:pt-28 pb-12 relative">
       <div className="absolute inset-0 bg-blueprint opacity-20 pointer-events-none" />
       
       {/* Blueprint Grid Background Pattern */}
@@ -35,24 +35,35 @@ export default function ContactPage() {
         </svg>
       </div>
       <PageContainer>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
-          
-          {/* Left Column: Info */}
-          <div className="lg:col-span-5 space-y-12">
-            <div>
-              <p className="text-accent-blue text-xs tracking-[0.2em] uppercase font-medium mb-6">
-                Get in Touch
-              </p>
-              <h1 className="font-serif text-5xl md:text-6xl mb-6 leading-tight text-heading">
-                Let&apos;s build your <br />
-                <span className="italic text-text-secondary">vision.</span>
-              </h1>
-              <p className="text-text-secondary font-light text-lg leading-relaxed">
-                Whether you have a specific project in mind or just want to explore possibilities, 
-                we&apos;re here to listen and guide you.
-              </p>
-            </div>
+        {/* Header Section */}
+        <div className="mb-8 relative z-10">
+          <p className="text-accent-blue text-[10px] md:text-xs tracking-[0.2em] uppercase font-medium mb-3 md:mb-4">
+            Get in Touch
+          </p>
+          <h1 className="font-serif text-4xl md:text-6xl mb-4 md:mb-6 leading-tight text-heading max-w-4xl">
+            Let&apos;s build your <br />
+            <span className="italic text-text-secondary">vision.</span>
+          </h1>
+          <p className="text-text-secondary font-light text-base md:text-lg max-w-2xl leading-relaxed">
+            Whether you have a specific project in mind or just want to explore possibilities, 
+            we&apos;re here to listen and help shape your architectural future.
+          </p>
+        </div>
 
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start">
+          {/* Form Column - Now comes first on mobile or stays prominent */}
+          <div className="lg:col-span-7 lg:order-2">
+            <div className="backdrop-blur-sm p-8 md:p-8 border border-border-line" style={{ backgroundColor: 'var(--surface-overlay)', boxShadow: 'var(--shadow-elevated)' }}>
+              <h2 className="font-serif text-2xl mb-2 text-heading">Send us a message</h2>
+              <p className="text-text-secondary text-sm mb-8">
+                Fill out the form below and we&apos;ll get back to you within 24 hours.
+              </p>
+              <ContactForm />
+            </div>
+          </div>
+          
+          {/* Info Column */}
+          <div className="lg:col-span-5 space-y-12 lg:order-1">
             <div className="py-8 border-t border-b border-border-line">
               <ContactInfoClient />
             </div>
@@ -60,7 +71,6 @@ export default function ContactPage() {
             <div>
               <p className="font-serif text-xl mb-4 text-heading">Visit Our Studio</p>
               <div className="aspect-video w-full border border-border-subtle transition-all duration-700 relative overflow-hidden group" style={{ backgroundColor: 'var(--surface-elevated)' }}>
-
                 <iframe
                   src={BRAND_INFO.contact.mapsEmbed}
                   width="100%"
@@ -75,18 +85,6 @@ export default function ContactPage() {
               </div>
             </div>
           </div>
-
-          {/* Right Column: Form */}
-          <div className="lg:col-span-7 lg:mt-12">
-            <div className="backdrop-blur-sm p-8 md:p-12 border border-border-line" style={{ backgroundColor: 'var(--surface-overlay)', boxShadow: 'var(--shadow-elevated)' }}>
-              <h2 className="font-serif text-2xl mb-2 text-heading">Send us a message</h2>
-              <p className="text-text-secondary text-sm mb-8">
-                Fill out the form below and we&apos;ll get back to you within 24 hours.
-              </p>
-              <ContactForm />
-            </div>
-          </div>
-
         </div>
       </PageContainer>
     </main>

@@ -32,7 +32,7 @@ export function ThemeToggle() {
       title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
     >
       <AnimatePresence mode="wait" initial={false}>
-        {isDark ? (
+        {!isDark ? (
           <m.div
             key="moon"
             initial={{ y: -20, opacity: 0, rotate: -90 }}

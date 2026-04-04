@@ -12,7 +12,7 @@ export function Footer() {
       <div className="absolute inset-0 bg-blueprint opacity-10 pointer-events-none" />
 
       {/* Main Footer */}
-      <div className="max-w-[1800px] mx-auto px-6 sm:px-12 lg:px-24 py-12 md:py-16 relative z-10">
+      <div className="max-w-[1800px] mx-auto px-6 sm:px-12 lg:px-12 py-4 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5 lg:gap-24">
           
           {/* Brand Column */}

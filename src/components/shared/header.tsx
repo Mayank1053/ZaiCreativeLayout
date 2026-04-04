@@ -65,7 +65,7 @@ export function Header() {
         backgroundColor: !isTransparent ? 'var(--surface-overlay-heavy)' : 'transparent',
       }}
     >
-      <div className="max-w-[1800px] mx-auto px-6 sm:px-12 lg:px-24">
+      <div className="max-w-[1800px] mx-auto px-4 sm:px-12 lg:px-24">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Logo color={logoColor} />
@@ -85,7 +85,7 @@ export function Header() {
           </nav>
 
           {/* Mobile: Toggle + Menu Button */}
-          <div className="flex md:hidden items-center gap-3">
+          <div className="flex md:hidden items-center gap-2">
             <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

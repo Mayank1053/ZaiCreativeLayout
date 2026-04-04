@@ -41,7 +41,7 @@ export default function ProjectsGrid({ projects, categories }: ProjectsGridProps
   return (
     <div>
       {/* Category Filters */}
-      <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-20">
+      <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-10">
         <button
           onClick={() => setSelectedCategory(null)}
           className={`relative text-sm tracking-[0.2em] uppercase transition-colors duration-300 ${

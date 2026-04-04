@@ -1,6 +1,28 @@
 # Creative Layout - Architecture Portfolio Website - Worklog
 
 ---
+
+## Task ID: 2 - Logo and Theme Customization
+### Work Task
+Implement dynamic logo switching between light and dark modes, and set light mode as the default theme.
+
+### Work Summary
+
+1. **Logo Customization**
+   - Updated `src/lib/config.ts` to include `darkImageUrl` and `lightImageUrl` in `LOGO_CONFIG`.
+   - Modified `src/components/shared/logo.tsx` to dynamically switch between logos based on the active theme (`next-themes`).
+   - Light Mode Logo: `https://i.ibb.co/v63LMdvK/New-Logo200.png`
+   - Dark Mode Logo: `https://i.ibb.co/B2ZqTBbG/Light-Logo1.png`
+
+2. **Default Theme**
+   - Changed `defaultTheme` in `src/app/providers.tsx` from "dark" to "light".
+   - Updated the default class on `<html>` in `src/app/layout.tsx` to "light" for better consistency during initial page load.
+
+3. **Metadata Alignment**
+   - Updated `src/app/layout.tsx` to use the configured dark logo for the site icon/favicon metadata.
+
+---
+
 ## Task ID: 1 - Main Development
 ### Work Task
 Build the remaining public pages for a Creative Layout architecture portfolio website including Projects, Process, and Contact pages.

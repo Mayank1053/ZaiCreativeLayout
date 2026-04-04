@@ -31,7 +31,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <m.div
       variants={fadeInUp}
-      className="group break-inside-avoid mb-12"
+      className="group break-inside-avoid mb-10 md:mb-12"
     >
       <Link href={`/projects/${project.slug}`} className="block">
         <div className="relative overflow-hidden mb-4 border border-border-subtle group-hover:border-border-accent transition-colors duration-500" style={{ backgroundColor: 'var(--surface-elevated)' }}>
@@ -52,10 +52,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
         
         <div>
           <div className="flex items-baseline justify-between mb-1">
-            <h3 className="font-serif text-2xl text-heading group-hover:text-accent-blue transition-colors duration-300">
+            <h3 className="font-serif text-lg md:text-2xl text-heading group-hover:text-accent-blue transition-colors duration-300">
               {project.title}
             </h3>
-            <span className="text-xs uppercase tracking-widest text-text-muted group-hover:text-text-secondary transition-colors">
+            <span className="text-[10px] md:text-xs uppercase tracking-widest text-text-muted group-hover:text-text-secondary transition-colors">
               {project.category.name}
             </span>
           </div>

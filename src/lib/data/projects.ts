@@ -4,7 +4,14 @@ import { db } from '@/lib/db';
 
 export const getProjects = cache(async () => {
   return await db.project.findMany({
-    include: { category: true },
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      location: true,
+      images: true,
+      category: { select: { name: true } },
+    },
     orderBy: { createdAt: 'desc' },
   });
 });

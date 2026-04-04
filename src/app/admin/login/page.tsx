@@ -39,8 +39,9 @@ function AdminLoginForm() {
       const data = await response.json();
 
       if (response.ok) {
-        // Store token in localStorage for client-side API calls
-        // The HTTP-only cookie is already set by the server
+        // Refresh the server components to pick up the new auth cookie,
+        // then navigate to the admin dashboard
+        router.refresh();
         router.push(redirect);
       } else {
         setError(data.error || 'Login failed');

@@ -54,15 +54,15 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     <div>
       <div className="mb-4 flex items-center gap-4 flex-wrap">
         {/* Existing Images (URLs) */}
-        {value.map((url) => (
+        {value.map((url, index) => (
           <div
-            key={url}
+            key={`${url}-${index}`}
             className="relative w-[200px] h-[200px] rounded-md overflow-hidden border border-border group"
           >
             <div className="z-10 absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
               <Button
                 type="button"
-                onClick={() => onChange(value.filter((val) => val !== url))}
+                onClick={() => onChange(value.filter((_, i) => i !== index))}
                 variant="destructive"
                 size="icon"
                 className="h-8 w-8"
@@ -77,7 +77,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
         {/* Pending Images (Files) */}
         {pendingFiles.map((file, index) => (
           <div
-            key={file.name || index}
+            key={`${file.name}-${index}`}
             className="relative w-[200px] h-[200px] rounded-md overflow-hidden border border-border group opacity-80"
           >
              <div className="absolute inset-0 flex items-center justify-center bg-black/10 z-0">

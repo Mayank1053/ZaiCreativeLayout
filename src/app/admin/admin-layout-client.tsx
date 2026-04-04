@@ -17,24 +17,23 @@ export default function AdminLayoutClient({
   const router = useRouter();
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isChecking, setIsChecking] = useState(true);
+  const [isChecking, setIsChecking] = useState(!isAuthenticated && pathname !== '/admin/login');
 
   useEffect(() => {
-    // If on login page, we don't need to redirect
+    // If on login page, no auth check needed
     if (pathname === '/admin/login') {
-      setIsChecking(false);
       return;
     }
 
-    // If not authenticated and not on login page, redirect
+    // If not authenticated and not on login page, redirect to login
     if (!isAuthenticated) {
-      router.push('/admin/login');
+      router.replace(`/admin/login?redirect=${encodeURIComponent(pathname)}`);
     } else {
       setIsChecking(false);
     }
   }, [isAuthenticated, pathname, router]);
 
-  // Show loading state while checking redirection
+  // Show loading state only while checking auth (not on login page)
   if (isChecking && pathname !== '/admin/login') {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -48,8 +47,8 @@ export default function AdminLayoutClient({
     return <>{children}</>;
   }
 
-  // Authenticated pages have sidebar
-  if (!isAuthenticated && pathname !== '/admin/login') {
+  // If not authenticated, don't render anything (redirect is happening)
+  if (!isAuthenticated) {
     return null;
   }
 

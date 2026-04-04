@@ -18,18 +18,52 @@ import ImageUpload from '@/components/ui/image-upload';
 import { uploadToCloudinary } from '@/lib/cloudinary-upload';
 import { toast } from 'sonner';
 
-// Pre-defined phases
+// Pre-defined phases with default descriptions
 const PREDEFINED_PHASES = [
-  'Soil/Land Inspection',
-  'Floor Planning',
-  'Layouting & Foundation Marking',
-  'Excavating',
-  'Base',
-  'Construction',
-  'Centering',
-  'Roof Concreting',
-  'Finishing',
-  'Handover'
+  {
+    title: 'Site Inspection & Soil Testing',
+    description: 'Initial site survey and soil bearing capacity tests conducted. Results confirmed suitability for the structure.'
+  },
+  {
+    title: 'Floor Planning & Design',
+    description: 'Detailed architectural floor plans and spatial organization designed for optimal utility with vastu compliance.'
+  },
+  {
+    title: 'Layouting & Foundation Marking',
+    description: 'Precise marking of the building footprint on site according to the approved architectural drawings.'
+  },
+  {
+    title: 'Excavation & Foundation',
+    description: 'Deep excavation for foundation. Raft foundation pouring completed with high-grade concrete.'
+  },
+  {
+    title: 'Structural Work',
+    description: 'Completion of basement levels and casting of the ground floor slab. Column reinforcement in progress.'
+  },
+  {
+    title: 'Superstructure Construction',
+    description: 'Rapid rise of the building floors. Currently casting the upper floor slabs. Brickwork initiated on lower floors.'
+  },
+  {
+    title: 'Centering & Shuttering',
+    description: 'Installation of temporary molds and supports to hold wet concrete in place until it sets.'
+  },
+  {
+    title: 'Roof Concreting',
+    description: 'Finalizing the structural slab of the roof with high-strength concrete pouring.'
+  },
+  {
+    title: 'Facade & Glazing',
+    description: 'Installation of the glass curtain wall system or external windows. Energy-efficient units being mounted.'
+  },
+  {
+    title: 'Interiors & Finishing',
+    description: 'Interior fit-outs have begun. HVAC ducting, electrical wiring, and plumbing in final stages.'
+  },
+  {
+    title: 'Handover',
+    description: 'Final inspection completed, all systems tested, and project officially handed over to the client.'
+  }
 ];
 
 export interface Phase {
@@ -231,10 +265,22 @@ export function PhasesManager({
                     <div className="space-y-2">
                       <Label>Stage Title</Label>
                       <Select 
-                        value={PREDEFINED_PHASES.includes(phase.title) ? phase.title : (phase.title ? 'custom' : '')} 
+                        value={PREDEFINED_PHASES.some(p => p.title === phase.title) ? phase.title : (phase.title ? 'custom' : '')} 
                         onValueChange={(val) => {
-                          if (val !== 'custom') updatePhase(index, 'title', val);
-                          else if (!phase.title) updatePhase(index, 'title', ''); 
+                          if (val !== 'custom') {
+                            const selectedPhase = PREDEFINED_PHASES.find(p => p.title === val);
+                            if (selectedPhase) {
+                              const newPhases = [...phases];
+                              newPhases[index] = { 
+                                ...newPhases[index], 
+                                title: selectedPhase.title,
+                                description: selectedPhase.description 
+                              };
+                              onChange(newPhases);
+                            }
+                          } else if (!phase.title) {
+                            updatePhase(index, 'title', ''); 
+                          }
                         }}
                       >
                         <SelectTrigger>
@@ -242,13 +288,13 @@ export function PhasesManager({
                         </SelectTrigger>
                         <SelectContent>
                           {PREDEFINED_PHASES.map(p => (
-                            <SelectItem key={p} value={p}>{p}</SelectItem>
+                            <SelectItem key={p.title} value={p.title}>{p.title}</SelectItem>
                           ))}
                           <SelectItem value="custom">Custom Stage...</SelectItem>
                         </SelectContent>
                       </Select>
                       
-                      {(!PREDEFINED_PHASES.includes(phase.title) || phase.title === '') && (
+                      {(!PREDEFINED_PHASES.some(p => p.title === phase.title) || phase.title === '') && (
                         <Input 
                           placeholder="e.g. Interior Design" 
                           value={phase.title} 

@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { Header, Footer } from '@/components/shared';
+import { Header, Footer, FloatingContact, ScrollToTop } from '@/components/shared';
 import { Toaster } from "@/components/ui/toaster";
 
 export default function ConditionalLayout({
@@ -28,6 +28,8 @@ export default function ConditionalLayout({
         {children}
       </div>
       <Footer />
+      <FloatingContact />
+      <ScrollToTop />
       <Toaster />
     </>
   );

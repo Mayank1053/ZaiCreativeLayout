@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react';
 
 export function CTASection() {
   return (
-    <section className="py-40 bg-surface-primary text-heading flex items-center justify-center min-h-[60vh] relative overflow-hidden">
+    <section className="py-20 bg-surface-primary text-heading flex items-center justify-center min-h-[60vh] relative overflow-hidden">
       {/* Blueprint Grid Background Pattern */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden opacity-10">
         <svg className="w-full h-full">

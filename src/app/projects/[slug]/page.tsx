@@ -78,7 +78,7 @@ export default async function ProjectDetailPage({
   };
 
   return (
-    <main className="min-h-screen bg-surface-primary pb-20">
+    <main className="min-h-screen bg-surface-primary">
       <ProjectDetailClient project={serializedProject} />
     </main>
   );

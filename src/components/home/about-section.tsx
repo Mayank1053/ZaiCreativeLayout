@@ -17,7 +17,7 @@ export function AboutSection() {
   const y2 = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   return (
-    <section ref={containerRef} className="py-32 bg-surface-primary relative overflow-hidden">
+    <section ref={containerRef} className="py-16 bg-surface-primary relative overflow-hidden">
         {/* Subtle Grid Background */}
         <div className="absolute inset-0 bg-blueprint opacity-[0.03] pointer-events-none" />
         

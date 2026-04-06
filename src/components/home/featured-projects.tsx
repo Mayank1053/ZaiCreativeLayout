@@ -25,7 +25,7 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
   if (projects.length === 0) return null;
 
   return (
-    <section className="py-32 bg-surface-primary relative">
+    <section className="py-16 bg-surface-primary relative">
       {/* Blueprint Grid Background Pattern */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden opacity-10">
         <svg className="w-full h-full">

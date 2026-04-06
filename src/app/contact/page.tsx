@@ -35,7 +35,7 @@ export default function ContactPage() {
         </svg>
       </div>
       <PageContainer>
-        {/* Header Section */}
+        {/* Header Section
         <div className="mb-8 relative z-10">
           <p className="text-accent-blue text-[10px] md:text-xs tracking-[0.2em] uppercase font-medium mb-3 md:mb-4">
             Get in Touch
@@ -48,7 +48,7 @@ export default function ContactPage() {
             Whether you have a specific project in mind or just want to explore possibilities, 
             we&apos;re here to listen and help shape your architectural future.
           </p>
-        </div>
+        </div> */}
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start">
           {/* Form Column - Now comes first on mobile or stays prominent */}

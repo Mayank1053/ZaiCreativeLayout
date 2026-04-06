@@ -149,7 +149,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
       </section>
 
       {/* Project Details Content */}
-      <section className="relative py-20 bg-surface-primary text-text-secondary">
+      <section className="relative pt-10 bg-surface-primary text-text-secondary">
          {/* Blueprint Grid Background Pattern */}
          <div className="absolute inset-0 pointer-events-none select-none overflow-hidden opacity-10">
           <svg className="w-full h-full">
@@ -231,7 +231,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
       )}
 
       {/* Project Gallery */}
-      <section className="py-20 bg-surface-primary border-t border-border-line text-heading relative">
+      <section className="py-10 bg-surface-primary border-t border-border-line text-heading relative">
          <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to bottom, var(--surface-primary), var(--surface-elevated))' }} />
         <PageContainer>
           <div className="mb-12 relative z-10 flex items-end justify-between">
@@ -248,7 +248,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
 
 
       {/* Contact CTA */}
-      <section className="py-24 border-t border-border-subtle relative overflow-hidden" style={{ backgroundColor: 'var(--surface-elevated)' }}>
+      <section className="py-12 border-t border-border-subtle relative overflow-hidden" style={{ backgroundColor: 'var(--surface-elevated)' }}>
          <div className="absolute inset-x-0 top-0 h-px" style={{ background: 'linear-gradient(to right, transparent, var(--accent-blue-muted), transparent)' }} />
          
          <PageContainer>
@@ -267,7 +267,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--btn-primary-hover)'}
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--btn-primary-bg)'}
                >
-                  <span className="relative z-10">Start a Project</span>
+                  <span className="relative z-10">Let's Talk</span>
                   <ArrowLeft className="w-4 h-4 rotate-135 transition-transform group-hover:rotate-180 relative z-10" />
                   
                   {/* Hover Shine Effect */}

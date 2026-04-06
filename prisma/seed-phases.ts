@@ -42,7 +42,8 @@ async function main() {
       description: "A state-of-the-art commercial complex designed to redefine the city skyline. This 12-story structure features premium office spaces, a retail podium, and sustainable architecture. The design emphasizes natural light, energy efficiency, and modern aesthetics.",
       location: "Financial District, Raipur",
       direction: "North-East",
-      vastuNotes: "Entrance positioned North-East for maximum prosperity. Water features in the North zone.",
+      floors: "G + 12",
+      area: "120,000 sq ft",
       images: JSON.stringify([
         "https://i.ibb.co/PZzLgBNb/Whats-App-Image-2026-02-14-at-22-22-05.jpg", // Building exterior
         "https://i.ibb.co/PZzLgBNb/Whats-App-Image-2026-02-14-at-22-22-05.jpg", // Interior

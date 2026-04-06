@@ -4,15 +4,15 @@ import { Phone } from 'lucide-react';
 
 export function FloatingContact() {
   return (
-    <div className="fixed right-4 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-50">
+    <div className="fixed right-4 top-1/2 -translate-y-1/2 flex flex-col items-center gap-3 z-50">
       <a 
         href="https://wa.me/919479131777" 
-        target="_blank" 
+        target="_self" 
         rel="noopener noreferrer"
         title="WhatsApp Us"
         className="opacity-80 hover:opacity-100 hover:scale-105 transition-all duration-300 drop-shadow-sm hover:drop-shadow-md"
       >
-        <svg className="w-10 h-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 175.216 175.552">
+        <svg className="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 175.216 175.552">
             <defs>
                 <linearGradient id="b" x1="85.915" x2="86.535" y1="32.567" y2="137.092" gradientUnits="userSpaceOnUse">
                     <stop offset="0" stopColor="#57d163"/>
@@ -32,7 +32,8 @@ export function FloatingContact() {
 
       <a 
         href="tel:+919479131777" 
-        className="w-10 h-10 bg-(--accent-blue) opacity-80 hover:opacity-100 flex items-center justify-center text-white hover:scale-105 transition-all duration-300 drop-shadow-sm hover:drop-shadow-md"
+        title="Call Us"
+        className="w-8 h-8 bg-(--accent-blue) opacity-80 hover:opacity-100 flex items-center justify-center text-white hover:scale-105 transition-all duration-300 drop-shadow-sm hover:drop-shadow-md"
         style={{
             borderRadius: "28%"
         }}

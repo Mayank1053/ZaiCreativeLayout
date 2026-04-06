@@ -25,7 +25,8 @@ interface Project {
   description: string;
   location: string;
   direction: string | null;
-  vastuNotes: string | null;
+  floors: string | null;
+  area: string | null;
   images: string[];
   category: {
     name: string;
@@ -211,11 +212,17 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
                       <dd className="font-medium text-text-primary">{project.direction}</dd>
                     </div>
                   )}
-                  {project.vastuNotes && (
-                      <div className="py-3 border-b border-border-line">
-                        <dt className="text-text-muted uppercase tracking-widest mb-2">Vastu Notes</dt>
-                        <dd className="text-text-secondary leading-relaxed font-light italic opacity-80">{project.vastuNotes}</dd>
-                      </div>
+                  {project.floors && (
+                    <div className="flex justify-between py-3 border-b border-border-line">
+                      <dt className="text-text-muted uppercase tracking-widest">Floors</dt>
+                      <dd className="font-medium text-text-primary">{project.floors}</dd>
+                    </div>
+                  )}
+                  {project.area && (
+                    <div className="flex justify-between py-3 border-b border-border-line">
+                      <dt className="text-text-muted uppercase tracking-widest">Construction Area</dt>
+                      <dd className="font-medium text-text-primary">{project.area}</dd>
+                    </div>
                   )}
                 </dl>
               </div>

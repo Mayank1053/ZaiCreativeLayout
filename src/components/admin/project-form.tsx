@@ -31,7 +31,8 @@ interface Project {
   description: string;
   location: string;
   direction?: string | null;
-  vastuNotes?: string | null;
+  floors?: string | null;
+  area?: string | null;
   images: string[];
   featured: boolean;
   categoryId: string;
@@ -75,7 +76,8 @@ export function ProjectForm({ project, isEdit = false }: ProjectFormProps) {
     description: project?.description || '',
     location: project?.location || '',
     direction: project?.direction || '',
-    vastuNotes: project?.vastuNotes || '',
+    floors: project?.floors || '',
+    area: project?.area || '',
     images: project?.images || [],
     featured: project?.featured || false,
     categoryId: project?.categoryId || '',
@@ -263,10 +265,10 @@ export function ProjectForm({ project, isEdit = false }: ProjectFormProps) {
         </CardContent>
       </Card>
 
-      {/* Vastu Information */}
+      {/* Project Specifications */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Vastu Information</CardTitle>
+          <CardTitle className="text-lg">Project Specifications</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -289,12 +291,21 @@ export function ProjectForm({ project, isEdit = false }: ProjectFormProps) {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="vastuNotes">Vastu Notes</Label>
+              <Label htmlFor="floors">Floors</Label>
               <Input
-                id="vastuNotes"
-                value={formData.vastuNotes || ''}
-                onChange={(e) => setFormData(prev => ({ ...prev, vastuNotes: e.target.value }))}
-                placeholder="Additional vastu details"
+                id="floors"
+                value={formData.floors || ''}
+                onChange={(e) => setFormData(prev => ({ ...prev, floors: e.target.value }))}
+                placeholder="e.g. G + 1"
+              />
+            </div>
+            <div className="space-y-2 lg:col-span-2">
+              <Label htmlFor="area">Construction Area</Label>
+              <Input
+                id="area"
+                value={formData.area || ''}
+                onChange={(e) => setFormData(prev => ({ ...prev, area: e.target.value }))}
+                placeholder="e.g. 2000 sq ft or 1.5 Acres"
               />
             </div>
           </div>

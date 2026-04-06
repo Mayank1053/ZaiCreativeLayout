@@ -37,9 +37,10 @@ model Project {
   slug        String   @unique
   description String
   location    String
-  // Vastu/direction information
+  // Project specifications
   direction   String?  // North, South, East, West, etc.
-  vastuNotes  String?  // Additional vastu details
+  floors      String?  // e.g. G + 1
+  area        String?  // e.g. 10,000 sq ft
   // Images stored as JSON array of URLs
   images      String   // JSON array of image URLs
   // Featured on homepage

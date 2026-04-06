@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
 import { m } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
+import { ImageLightbox, useLightbox } from '@/components/shared/image-lightbox';
 
 interface Phase {
   id: string;
@@ -20,10 +20,12 @@ interface ProjectPhasesProps {
 }
 
 export function ProjectPhases({ phases, className }: ProjectPhasesProps) {
+  const { lightbox, open, close, navigate } = useLightbox();
+
   if (!phases || phases.length === 0) return null;
 
   return (
-    <section className={cn("py-24 relative overflow-hidden bg-surface-primary border-t border-border-subtle", className)}>
+    <section className={cn("py-12 relative overflow-hidden bg-surface-primary border-t border-border-subtle", className)}>
       {/* Subtle Grid Background */}
       <div className="absolute inset-0 bg-blueprint opacity-[0.03] pointer-events-none" />
       
@@ -75,8 +77,6 @@ export function ProjectPhases({ phases, className }: ProjectPhasesProps) {
                       {phase.description}
                     </p>
                   )}
-
-
                 </div>
 
                 {/* Visual Side */}
@@ -87,7 +87,10 @@ export function ProjectPhases({ phases, className }: ProjectPhasesProps) {
                   {phase.images && phase.images.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {/* Main Large Image */}
-                        <div className="md:col-span-2 relative aspect-video overflow-hidden rounded-lg border border-border-line group">
+                      <div
+                        className="md:col-span-2 relative aspect-video overflow-hidden rounded-lg border border-border-line group cursor-pointer"
+                        onClick={() => open(phase.images, 0, phase.title)}
+                      >
                         <Image
                           src={phase.images[0]}
                           alt={phase.title}
@@ -95,12 +98,20 @@ export function ProjectPhases({ phases, className }: ProjectPhasesProps) {
                           sizes="(max-width: 768px) 100vw, 66vw"
                           className="object-cover transition-transform duration-700 group-hover:scale-105"
                         />
-                        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500 flex items-center justify-center">
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/60 text-white px-6 py-2 rounded-full text-sm font-medium backdrop-blur-md">
+                            View full image
+                          </div>
+                        </div>
                       </div>
 
                       {/* Secondary Images (up to 2) */}
                       {phase.images.slice(1, 3).map((img, idx) => (
-                         <div key={`${img}-${idx}`} className="relative aspect-4/3 overflow-hidden rounded-lg border border-border-line group">
+                        <div
+                          key={`${img}-${idx}`}
+                          className="relative aspect-4/3 overflow-hidden rounded-lg border border-border-line group cursor-pointer"
+                          onClick={() => open(phase.images, idx + 1, phase.title)}
+                        >
                           <Image
                             src={img}
                             alt={`${phase.title} detail`}
@@ -108,6 +119,11 @@ export function ProjectPhases({ phases, className }: ProjectPhasesProps) {
                             sizes="(max-width: 768px) 50vw, 33vw"
                             className="object-cover transition-transform duration-700 group-hover:scale-105"
                           />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 flex items-center justify-center">
+                            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/60 text-white px-4 py-1.5 rounded-full text-xs font-medium backdrop-blur-md">
+                              View
+                            </div>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -123,6 +139,9 @@ export function ProjectPhases({ phases, className }: ProjectPhasesProps) {
           ))}
         </div>
       </div>
+
+      {/* Shared Lightbox */}
+      <ImageLightbox state={lightbox} onClose={close} onNavigate={navigate} />
     </section>
   );
 }

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import nodemailer from 'nodemailer';
+import { verifyAuth } from '@/lib/auth';
 
 // POST /api/enquiries - Submit a new enquiry
 export async function POST(request: NextRequest) {
@@ -112,8 +113,17 @@ export async function POST(request: NextRequest) {
 
 
 // GET /api/enquiries - Get all enquiries (for admin use)
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    // Verify admin authentication
+    const admin = verifyAuth(request);
+    if (!admin) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     const enquiries = await db.enquiry.findMany({
       orderBy: {
         createdAt: 'desc',

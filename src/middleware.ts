@@ -6,12 +6,9 @@ import { verifyToken } from '@/lib/auth';
 // Routes that don't require authentication
 const publicRoutes = ['/admin/login'];
 
-// Routes that require authentication
-const protectedRoutes = ['/admin'];
-
-export function proxy(request: NextRequest) {
-
+export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  
   // Check if this is an admin route
   const isAdminRoute = pathname.startsWith('/admin');
   
@@ -25,11 +22,9 @@ export function proxy(request: NextRequest) {
   // Get token from cookie
   const token = request.cookies.get('auth_token')?.value;
 
-  
   // Verify token
   const isValidToken = token ? verifyToken(token) : null;
 
-  
   // If trying to access protected route without valid token
   if (!isPublicRoute && !isValidToken) {
     const loginUrl = new URL('/admin/login', request.url);

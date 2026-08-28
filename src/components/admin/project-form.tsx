@@ -30,6 +30,7 @@ interface Project {
   slug: string;
   description: string;
   location: string;
+  projectType?: string | null;
   direction?: string | null;
   floors?: string | null;
   area?: string | null;
@@ -54,6 +55,16 @@ interface ProjectFormProps {
   isEdit?: boolean;
 }
 
+// Common Project / Service Types
+const PROJECT_TYPES = [
+  'Exterior Design',
+  'Interior Design',
+  'Construction',
+  'Turnkey Construction',
+  'Architectural Planning',
+  'Architecture & Interior',
+];
+
 // Direction options
 const DIRECTIONS = [
   'North',
@@ -75,6 +86,7 @@ export function ProjectForm({ project, isEdit = false }: ProjectFormProps) {
     slug: project?.slug || '',
     description: project?.description || '',
     location: project?.location || '',
+    projectType: project?.projectType || '',
     direction: project?.direction || '',
     floors: project?.floors || '',
     area: project?.area || '',
@@ -244,7 +256,7 @@ export function ProjectForm({ project, isEdit = false }: ProjectFormProps) {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="category">Category *</Label>
+              <Label htmlFor="category">Category (Typology) *</Label>
               <Select
                 value={formData.categoryId}
                 onValueChange={(value) => setFormData(prev => ({ ...prev, categoryId: value }))}
@@ -260,6 +272,32 @@ export function ProjectForm({ project, isEdit = false }: ProjectFormProps) {
                   ))}
                 </SelectContent>
               </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="projectType">Service / Project Discipline</Label>
+              <Input
+                id="projectType"
+                value={formData.projectType || ''}
+                onChange={(e) => setFormData(prev => ({ ...prev, projectType: e.target.value }))}
+                placeholder="e.g. Exterior Design, Construction, Interior Design"
+              />
+              <div className="flex flex-wrap gap-1.5 pt-1">
+                {PROJECT_TYPES.map((type) => (
+                  <button
+                    key={type}
+                    type="button"
+                    onClick={() => setFormData(prev => ({ ...prev, projectType: type }))}
+                    className={`text-[11px] font-mono px-2 py-0.5 rounded-md border transition-colors ${
+                      formData.projectType === type
+                        ? 'bg-accent text-accent-foreground border-accent font-medium'
+                        : 'bg-muted/50 hover:bg-muted text-muted-foreground border-border'
+                    }`}
+                  >
+                    {type}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </CardContent>

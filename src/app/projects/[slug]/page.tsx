@@ -68,6 +68,7 @@ export default async function ProjectDetailPage({
     slug: project.slug,
     description: project.description,
     location: project.location,
+    projectType: project.projectType,
     direction: project.direction,
     floors: project.floors,
     area: project.area,

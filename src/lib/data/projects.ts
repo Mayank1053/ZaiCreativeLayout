@@ -10,6 +10,7 @@ export const getProjects = cache(async () => {
       slug: true,
       location: true,
       images: true,
+      projectType: true,
       category: { select: { name: true } },
     },
     orderBy: { createdAt: 'desc' },

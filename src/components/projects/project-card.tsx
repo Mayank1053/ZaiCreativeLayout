@@ -3,19 +3,22 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { m } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Sparkles, Palette, HardHat, DraftingCompass, Building } from 'lucide-react';
+
+export interface ProjectCardData {
+  id: string;
+  title: string;
+  slug: string;
+  location: string;
+  images: string;
+  projectType?: string | null;
+  category: {
+    name: string;
+  };
+}
 
 interface ProjectCardProps {
-  project: {
-    id: string;
-    title: string;
-    slug: string;
-    location: string;
-    images: string;
-    category: {
-      name: string;
-    };
-  };
+  project: ProjectCardData;
 }
 
 const fadeInUp = {
@@ -23,10 +26,42 @@ const fadeInUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' as any } },
 };
 
+function getServiceTypeMeta(type?: string | null) {
+  if (!type) return null;
+  const lower = type.toLowerCase();
+  if (lower.includes('exterior')) {
+    return {
+      label: type,
+      icon: Sparkles,
+      tagBg: 'bg-blue-600/90 text-white border-blue-400/40 backdrop-blur-md shadow-sm',
+    };
+  }
+  if (lower.includes('interior')) {
+    return {
+      label: type,
+      icon: Palette,
+      tagBg: 'bg-amber-600/90 text-white border-amber-400/40 backdrop-blur-md shadow-sm',
+    };
+  }
+  if (lower.includes('construction') || lower.includes('turnkey')) {
+    return {
+      label: type,
+      icon: HardHat,
+      tagBg: 'bg-emerald-600/90 text-white border-emerald-400/40 backdrop-blur-md shadow-sm',
+    };
+  }
+  return {
+    label: type,
+    icon: DraftingCompass,
+    tagBg: 'bg-slate-800/90 text-white border-slate-600/40 backdrop-blur-md shadow-sm',
+  };
+}
+
 export function ProjectCard({ project }: ProjectCardProps) {
-  const images = JSON.parse(project.images) as string[];
+  const images = JSON.parse(project.images || '[]') as string[];
   // Use first image, fallbacks handled by Next.js Image if src is valid, or custom placeholder
   const coverImage = images[0] || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800';
+  const serviceMeta = getServiceTypeMeta(project.projectType);
 
   return (
     <m.div
@@ -34,7 +69,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       className="group break-inside-avoid mb-10 md:mb-12"
     >
       <Link href={`/projects/${project.slug}`} className="block">
-        <div className="relative overflow-hidden mb-4 border border-border-subtle group-hover:border-border-accent transition-colors duration-500" style={{ backgroundColor: 'var(--surface-elevated)' }}>
+        <div className="relative overflow-hidden mb-4 border border-border-subtle group-hover:border-border-accent transition-colors duration-500 rounded-sm" style={{ backgroundColor: 'var(--surface-elevated)' }}>
           <Image
             src={coverImage}
             alt={project.title}
@@ -45,24 +80,43 @@ export function ProjectCard({ project }: ProjectCardProps) {
           />
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
           
-          <div className="absolute top-4 right-4 p-3 rounded-full opacity-0 transform translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300" style={{ backgroundColor: 'var(--btn-primary-bg)' }}>
+          {/* Service / Discipline Badge Pill */}
+          {serviceMeta && (
+            <div className="absolute top-4 left-4 z-10">
+              <span className={`inline-flex items-center gap-1.5 px-3 py-1 text-[10px] md:text-xs uppercase tracking-widest font-mono font-medium rounded-full border ${serviceMeta.tagBg}`}>
+                <serviceMeta.icon className="w-3 h-3" />
+                {serviceMeta.label}
+              </span>
+            </div>
+          )}
+
+          {/* Action Arrow Button */}
+          <div className="absolute top-4 right-4 p-3 rounded-full opacity-0 transform translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-10" style={{ backgroundColor: 'var(--btn-primary-bg)' }}>
             <ArrowUpRight className="w-5 h-5 text-white" />
           </div>
         </div>
         
         <div>
-          <div className="flex items-baseline justify-between mb-1">
+          <div className="flex items-baseline justify-between mb-1.5 gap-2">
             <h3 className="font-serif text-lg md:text-2xl text-heading group-hover:text-accent-blue transition-colors duration-300">
               {project.title}
             </h3>
-            <span className="text-[10px] md:text-xs uppercase tracking-widest text-text-muted group-hover:text-text-secondary transition-colors">
+            <span className="shrink-0 text-[10px] md:text-xs uppercase tracking-widest text-text-muted font-mono group-hover:text-text-secondary transition-colors">
               {project.category.name}
             </span>
           </div>
-          <p className="text-sm text-text-secondary font-light flex items-center gap-2">
-            <span className="w-1 h-1 rounded-full bg-accent-blue/50"></span>
-            {project.location}
-          </p>
+
+          <div className="flex items-center justify-between text-xs text-text-secondary font-light">
+            <p className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-blue/60"></span>
+              {project.location}
+            </p>
+            {project.projectType && (
+              <span className="text-[11px] font-mono text-text-muted uppercase tracking-wider hidden sm:inline-block">
+                {project.projectType}
+              </span>
+            )}
+          </div>
         </div>
       </Link>
     </m.div>

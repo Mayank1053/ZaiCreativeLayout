@@ -6,7 +6,7 @@ import { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { m, useScroll, useTransform, Variants } from 'framer-motion';
-import { ArrowLeft, Compass, MapPin } from 'lucide-react';
+import { ArrowLeft, Compass, MapPin, Sparkles, Palette, HardHat, DraftingCompass, Layers } from 'lucide-react';
 import { PageContainer } from '@/components/shared';
 
 interface ProjectPhase {
@@ -24,6 +24,7 @@ interface Project {
   slug: string;
   description: string;
   location: string;
+  projectType?: string | null;
   direction: string | null;
   floors: string | null;
   area: string | null;
@@ -65,6 +66,41 @@ const fadeInUp: Variants = {
   }
 };
 
+function getServiceMeta(type?: string | null) {
+  if (!type) return null;
+  const lower = type.toLowerCase();
+  if (lower.includes('exterior')) {
+    return {
+      label: type,
+      icon: Sparkles,
+      tagBg: 'bg-blue-600/90 text-white border-blue-400/40',
+      badgeClass: 'text-blue-500 bg-blue-500/10 border-blue-500/20',
+    };
+  }
+  if (lower.includes('interior')) {
+    return {
+      label: type,
+      icon: Palette,
+      tagBg: 'bg-amber-600/90 text-white border-amber-400/40',
+      badgeClass: 'text-amber-500 bg-amber-500/10 border-amber-500/20',
+    };
+  }
+  if (lower.includes('construction') || lower.includes('turnkey')) {
+    return {
+      label: type,
+      icon: HardHat,
+      tagBg: 'bg-emerald-600/90 text-white border-emerald-400/40',
+      badgeClass: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20',
+    };
+  }
+  return {
+    label: type,
+    icon: DraftingCompass,
+    tagBg: 'bg-slate-800/90 text-white border-slate-600/40',
+    badgeClass: 'text-accent-blue bg-accent-blue-soft border-border-accent',
+  };
+}
+
 export default function ProjectDetailClient({ project }: ProjectDetailClientProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -74,6 +110,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
 
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const serviceMeta = getServiceMeta(project.projectType);
 
   return (
     <>
@@ -115,12 +152,18 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
                 </Link>
               </m.div>
               
-              <m.p
-                variants={fadeInUp}
-                className="text-accent-blue text-[10px] sm:text-sm tracking-[0.2em] uppercase font-medium mb-4"
-              >
-                {project.category.name}
-              </m.p>
+              {/* Badges for Service / Discipline and Category */}
+              <m.div variants={fadeInUp} className="flex flex-wrap items-center gap-3 mb-4">
+                {serviceMeta && (
+                  <span className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium uppercase tracking-widest border backdrop-blur-md ${serviceMeta.tagBg}`}>
+                    <serviceMeta.icon className="w-3.5 h-3.5" />
+                    {serviceMeta.label}
+                  </span>
+                )}
+                <span className="text-accent-blue text-[10px] sm:text-xs tracking-[0.2em] uppercase font-mono font-medium px-3 py-1 rounded-full border border-border-line backdrop-blur-md bg-surface-overlay">
+                  {project.category.name}
+                </span>
+              </m.div>
               
               <m.h1
                 variants={fadeInUp}
@@ -198,29 +241,40 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
                <div>
                 <h3 className="font-serif text-xl mb-6 text-heading">Specifications</h3>
                 <dl className="space-y-4 text-sm">
-                   <div className="flex justify-between py-3 border-b border-border-line">
-                    <dt className="text-text-muted uppercase tracking-widest">Type</dt>
+                   {project.projectType && (
+                    <div className="flex items-center justify-between py-3 border-b border-border-line">
+                      <dt className="text-text-muted uppercase tracking-widest font-mono text-xs">Service / Scope</dt>
+                      <dd className="font-mono text-xs font-semibold">
+                        <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border ${serviceMeta?.badgeClass || 'text-heading bg-surface-elevated'}`}>
+                          {serviceMeta && <serviceMeta.icon className="w-3 h-3" />}
+                          {project.projectType}
+                        </span>
+                      </dd>
+                    </div>
+                  )}
+                  <div className="flex justify-between py-3 border-b border-border-line">
+                    <dt className="text-text-muted uppercase tracking-widest font-mono text-xs">Typology</dt>
                     <dd className="font-medium text-text-primary">{project.category.name}</dd>
                   </div>
                   <div className="flex justify-between py-3 border-b border-border-line">
-                    <dt className="text-text-muted uppercase tracking-widest">Location</dt>
+                    <dt className="text-text-muted uppercase tracking-widest font-mono text-xs">Location</dt>
                     <dd className="font-medium text-text-primary">{project.location}</dd>
                   </div>
                    {project.direction && (
                     <div className="flex justify-between py-3 border-b border-border-line">
-                      <dt className="text-text-muted uppercase tracking-widest">Orientation</dt>
+                      <dt className="text-text-muted uppercase tracking-widest font-mono text-xs">Orientation</dt>
                       <dd className="font-medium text-text-primary">{project.direction}</dd>
                     </div>
                   )}
                   {project.floors && (
                     <div className="flex justify-between py-3 border-b border-border-line">
-                      <dt className="text-text-muted uppercase tracking-widest">Floors</dt>
+                      <dt className="text-text-muted uppercase tracking-widest font-mono text-xs">Floors</dt>
                       <dd className="font-medium text-text-primary">{project.floors}</dd>
                     </div>
                   )}
                   {project.area && (
                     <div className="flex justify-between py-3 border-b border-border-line">
-                      <dt className="text-text-muted uppercase tracking-widest">Construction Area</dt>
+                      <dt className="text-text-muted uppercase tracking-widest font-mono text-xs">Construction Area</dt>
                       <dd className="font-medium text-text-primary">{project.area}</dd>
                     </div>
                   )}

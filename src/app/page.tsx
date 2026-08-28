@@ -23,6 +23,7 @@ export default async function HomePage() {
     slug: project.slug,
     location: project.location,
     images: project.images,
+    projectType: project.projectType,
     category: {
       name: project.category.name,
     },

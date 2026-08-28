@@ -11,6 +11,7 @@ interface Project {
   slug: string;
   description: string;
   location: string;
+  projectType?: string | null;
   direction?: string | null;
   vastuNotes?: string | null;
   images: string[];

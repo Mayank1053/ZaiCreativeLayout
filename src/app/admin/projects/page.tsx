@@ -32,6 +32,7 @@ interface Project {
   title: string;
   slug: string;
   location: string;
+  projectType?: string | null;
   featured: boolean;
   createdAt: string;
   category: {
@@ -117,6 +118,7 @@ export default function ProjectsListPage() {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Title</TableHead>
+                      <TableHead>Service / Discipline</TableHead>
                       <TableHead>Category</TableHead>
                       <TableHead>Location</TableHead>
                       <TableHead>Status</TableHead>
@@ -132,6 +134,15 @@ export default function ProjectsListPage() {
                             <p className="font-medium">{project.title}</p>
                             <p className="text-xs text-muted-foreground">{project.slug}</p>
                           </div>
+                        </TableCell>
+                        <TableCell>
+                          {project.projectType ? (
+                            <Badge variant="secondary" className="font-mono text-xs">
+                              {project.projectType}
+                            </Badge>
+                          ) : (
+                            <span className="text-xs text-muted-foreground">—</span>
+                          )}
                         </TableCell>
                         <TableCell>
                           <Badge variant="outline">{project.category?.name || 'Uncategorized'}</Badge>
@@ -219,10 +230,14 @@ export default function ProjectsListPage() {
                     
                     <div className="grid grid-cols-2 gap-2 text-sm">
                       <div>
+                        <span className="text-muted-foreground">Service:</span>
+                        <p className="font-mono text-xs">{project.projectType || '—'}</p>
+                      </div>
+                      <div>
                         <span className="text-muted-foreground">Category:</span>
                         <p>{project.category?.name || 'Uncategorized'}</p>
                       </div>
-                      <div>
+                      <div className="col-span-2">
                         <span className="text-muted-foreground">Location:</span>
                         <p>{project.location}</p>
                       </div>

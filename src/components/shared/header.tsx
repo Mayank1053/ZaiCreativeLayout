@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sparkles } from 'lucide-react';
 import { Logo } from './logo';
 import { ThemeToggle } from './theme-toggle';
 import { NAV_LINKS } from '@/lib/config';
@@ -14,6 +14,10 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [updateStatus, setUpdateStatus] = useState<{ hasUpdates: boolean; isCelebratory: boolean }>({
+    hasUpdates: true,
+    isCelebratory: false,
+  });
   const pathname = usePathname();
   const { resolvedTheme } = useTheme();
   const isHome = pathname === '/';
@@ -27,6 +31,18 @@ export function Header() {
 
   useEffect(() => {
     setMounted(true);
+
+    fetch('/api/updates?limit=1')
+      .then((res) => (res.ok ? res.json() : []))
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setUpdateStatus({
+            hasUpdates: true,
+            isCelebratory: data[0].category === 'Celebrations & Greetings',
+          });
+        }
+      })
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -72,15 +88,31 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`relative text-xs tracking-[0.15em] uppercase transition-colors duration-300 font-medium ${getNavLinkColor(isActive(link.href))}`}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const isUpdates = link.href === '/updates';
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`relative inline-flex items-center text-xs tracking-[0.15em] uppercase transition-colors duration-300 font-medium ${getNavLinkColor(isActive(link.href))}`}
+                >
+                  <span>{link.label}</span>
+                  {isUpdates && updateStatus.hasUpdates && (
+                    updateStatus.isCelebratory ? (
+                      <span className="relative flex h-2 w-2 ml-1.5" title="Festive Update">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-400 shadow-[0_0_8px_#f59e0b]" />
+                      </span>
+                    ) : (
+                      <span className="relative flex h-2 w-2 ml-1.5" title="New Updates">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-500 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500 shadow-[0_0_8px_#f43f5e]" />
+                      </span>
+                    )
+                  )}
+                </Link>
+              );
+            })}
             <ThemeToggle />
           </nav>
 
@@ -130,14 +162,25 @@ export function Header() {
                   <Link
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`block py-3 px-4 text-sm tracking-widest uppercase font-medium border-l-2 transition-all duration-300 ${
+                    className={`flex items-center py-3 px-4 text-sm tracking-widest uppercase font-medium border-l-2 transition-all duration-300 ${
                       isActive(link.href)
                         ? 'text-heading border-accent-blue bg-accent-blue-soft'
                         : 'text-text-secondary border-transparent hover:text-heading hover:border-border-line hover:bg-border-subtle'
                     }`}
                   >
-                     <span className="mr-2 text-accent-blue opacity-70">0{index + 1}.</span>
-                    {link.label}
+                    <span className="mr-2 text-accent-blue opacity-70">0{index + 1}.</span>
+                    <span>{link.label}</span>
+                    {link.href === '/updates' && updateStatus.hasUpdates && (
+                      updateStatus.isCelebratory ? (
+                        <span className="ml-auto inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                          <Sparkles className="w-2.5 h-2.5" /> FESTIVE
+                        </span>
+                      ) : (
+                        <span className="ml-auto inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500 text-white">
+                          NEW
+                        </span>
+                      )
+                    )}
                   </Link>
                 </m.div>
               ))}

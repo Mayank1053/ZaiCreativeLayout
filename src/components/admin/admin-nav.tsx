@@ -7,7 +7,8 @@ import {
   FolderKanban, 
   Mail, 
   LogOut,
-  Building2
+  Building2,
+  Sparkles
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -22,6 +23,11 @@ const navItems = [
     label: 'Projects',
     href: '/admin/projects',
     icon: FolderKanban,
+  },
+  {
+    label: 'Updates',
+    href: '/admin/updates',
+    icon: Sparkles,
   },
   {
     label: 'Enquiries',

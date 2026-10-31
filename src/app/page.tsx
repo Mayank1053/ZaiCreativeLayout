@@ -4,17 +4,29 @@ import {
   AboutSection,
   FeaturedProjects,
   ServicesSection,
+  LatestUpdates,
+  NotificationPopup,
   CTASection,
 } from '@/components/home';
 
 // Main Page Component
 export default async function HomePage() {
-  // Fetch featured projects on the server
-  const projects = await db.project.findMany({
-    where: { featured: true },
-    include: { category: true },
-    take: 3,
-  });
+  // Fetch featured projects & latest updates in parallel
+  const [projects, updates] = await Promise.all([
+    db.project.findMany({
+      where: { featured: true },
+      include: { category: true },
+      take: 4,
+    }),
+    db.update.findMany({
+      where: { published: true },
+      orderBy: [
+        { featured: 'desc' },
+        { publishedAt: 'desc' },
+      ],
+      take: 4,
+    }),
+  ]);
 
   // Serialize projects for client component
   const serializedProjects = projects.map((project) => ({
@@ -35,7 +47,10 @@ export default async function HomePage() {
       <AboutSection />
       <ServicesSection />
       <FeaturedProjects projects={serializedProjects} />
+      <LatestUpdates updates={updates as any} />
       <CTASection />
+      {/* Interactive notification popup panel */}
+      <NotificationPopup updates={updates as any} projects={serializedProjects} />
     </main>
   );
 }

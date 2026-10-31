@@ -64,6 +64,7 @@ export const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Our Projects', href: '/projects' },
   { label: 'Our Process', href: '/process' },
+  { label: 'Updates', href: '/updates' },
   { label: 'Contact', href: '/contact' },
 ];
 

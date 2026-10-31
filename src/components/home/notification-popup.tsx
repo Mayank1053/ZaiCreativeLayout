@@ -153,8 +153,8 @@ export function NotificationPopup({ updates = [], projects = [] }: NotificationP
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-60" />
                   <Sparkles className="w-4 h-4 fill-amber-500 stroke-amber-700 dark:stroke-amber-200" />
                 </span>
-                <span className="text-xs font-bold tracking-wide text-amber-950 dark:text-amber-200">
-                  ✨ Festive Greetings &amp; Updates
+                <span className="text-xs font-bold tracking-wide text-amber-950 dark:text-amber-200 truncate max-w-[240px]">
+                  ✨ {latestUpdate?.title || 'Festive Greetings & Updates'}
                 </span>
               </>
             ) : (
@@ -187,21 +187,21 @@ export function NotificationPopup({ updates = [], projects = [] }: NotificationP
             {/* Top Header Banner */}
             {isCelebratory ? (
               <div className="bg-amber-100 dark:bg-amber-950/70 px-4 py-2.5 border-b border-amber-300 dark:border-amber-700 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="text-base">🪔</span>
-                  <div className="flex flex-col">
-                    <span className="text-xs font-bold uppercase tracking-wider text-amber-950 dark:text-amber-200">
-                      Festive Wishes from Studio
+                <div className="flex items-center gap-2 min-w-0 pr-2">
+                  <span className="text-base shrink-0">✨</span>
+                  <div className="flex flex-col min-w-0">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-amber-900/80 dark:text-amber-300/80">
+                      Studio Celebration
                     </span>
-                    <span className="text-[11px] text-amber-900 dark:text-amber-300 font-medium">
-                      Happy Diwali &amp; Warm Blessings
+                    <span className="text-xs font-bold text-amber-950 dark:text-amber-100 truncate">
+                      {latestUpdate?.title || 'Festive Wishes from Studio'}
                     </span>
                   </div>
                 </div>
 
                 <button
                   onClick={handleClose}
-                  className="p-1.5 rounded-full text-amber-900 hover:text-amber-950 hover:bg-amber-200/80 dark:text-amber-300 dark:hover:text-white dark:hover:bg-amber-800 transition-colors cursor-pointer"
+                  className="p-1.5 rounded-full text-amber-900 hover:text-amber-950 hover:bg-amber-200/80 dark:text-amber-300 dark:hover:text-white dark:hover:bg-amber-800 transition-colors cursor-pointer shrink-0"
                   title="Close"
                   aria-label="Close notification panel"
                 >
